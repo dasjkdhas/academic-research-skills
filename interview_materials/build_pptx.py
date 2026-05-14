@@ -1,6 +1,8 @@
 """
-HIRAKU-Global Round 7 Interview Presentation Builder
-Style: Academic high-end minimalist | 16:9 widescreen | 1920x1080+ export
+HIRAKU-Global Round 7 Interview Presentation — v2 (Architectural redesign)
+LIU Haiqiang  ·  Yamaguchi University
+Style: Architectural drafting + Academic + Yamaguchi U brand
+Format: 16:9 widescreen (13.333 x 7.5 in)
 """
 from pptx import Presentation
 from pptx.util import Inches, Pt, Emu
@@ -8,31 +10,38 @@ from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.oxml.ns import qn
-from copy import deepcopy
-from lxml import etree
 
 # ============== DESIGN SYSTEM ==============
-PRIMARY      = RGBColor(0x0A, 0x25, 0x40)   # Deep navy
-SECONDARY    = RGBColor(0x2A, 0x5F, 0x8F)   # Mid blue
-ACCENT       = RGBColor(0xC9, 0xA9, 0x61)   # Warm gold
-ACCENT_DEEP  = RGBColor(0xA8, 0x86, 0x3F)   # Deep gold
+# Yamaguchi University inspired deep indigo + academic palette
+YU_INDIGO    = RGBColor(0x14, 0x2E, 0x55)
+YU_INDIGO_LT = RGBColor(0x2A, 0x4D, 0x82)
+YU_INDIGO_DK = RGBColor(0x0A, 0x1E, 0x3D)
+ACCENT       = RGBColor(0xC9, 0xA9, 0x61)      # warm gold
+ACCENT_DEEP  = RGBColor(0x8C, 0x6F, 0x33)
+ACCENT_LT    = RGBColor(0xE4, 0xD2, 0x9D)
+ARCH_LINE    = RGBColor(0xB8, 0xC2, 0xCC)
+GRID         = RGBColor(0xEC, 0xEF, 0xF3)
 DARK         = RGBColor(0x1A, 0x1A, 0x1A)
 BODY         = RGBColor(0x4A, 0x55, 0x68)
-MUTED        = RGBColor(0x9A, 0xA5, 0xB1)
-LIGHT_BG     = RGBColor(0xF7, 0xFA, 0xFC)
-LINE_GRAY    = RGBColor(0xE5, 0xE7, 0xEB)
+MUTED        = RGBColor(0x88, 0x95, 0xA8)
+LIGHT_BG     = RGBColor(0xF6, 0xF8, 0xFA)
+LIGHTER      = RGBColor(0xFA, 0xFB, 0xFC)
 WHITE        = RGBColor(0xFF, 0xFF, 0xFF)
+HEAT_HOT     = RGBColor(0xD9, 0x53, 0x4F)
+HEAT_WARM    = RGBColor(0xE8, 0x9F, 0x5C)
+HEAT_MILD    = RGBColor(0xE6, 0xCB, 0x7B)
+HEAT_COOL    = RGBColor(0x6F, 0xA8, 0xC6)
+GREEN_PARK   = RGBColor(0x6A, 0x8E, 0x5E)
 
-FONT_EN = "Calibri"
-FONT_HEAD = "Calibri"  # use a clean sans-serif
+FONT = "Calibri"
 
-# ============== PRESENTATION ==============
 prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 SLIDE_W = prs.slide_width
 SLIDE_H = prs.slide_height
-blank_layout = prs.slide_layouts[6]
+blank = prs.slide_layouts[6]
+TOTAL = 11
 
 
 # ============== HELPERS ==============
@@ -53,25 +62,60 @@ def add_rect(slide, x, y, w, h, fill=None, line=None, line_w=None):
     return shp
 
 
-def add_line(slide, x1, y1, x2, y2, color=PRIMARY, weight=1.5):
+def add_oval(slide, x, y, w, h, fill=None, line=None, line_w=None):
+    shp = slide.shapes.add_shape(MSO_SHAPE.OVAL, x, y, w, h)
+    shp.shadow.inherit = False
+    if fill is None:
+        shp.fill.background()
+    else:
+        shp.fill.solid()
+        shp.fill.fore_color.rgb = fill
+    if line is None:
+        shp.line.fill.background()
+    else:
+        shp.line.color.rgb = line
+        if line_w is not None:
+            shp.line.width = line_w
+    return shp
+
+
+def add_tri(slide, x, y, w, h, fill=None, line=None, line_w=None):
+    shp = slide.shapes.add_shape(MSO_SHAPE.ISOSCELES_TRIANGLE, x, y, w, h)
+    shp.shadow.inherit = False
+    if fill:
+        shp.fill.solid()
+        shp.fill.fore_color.rgb = fill
+    else:
+        shp.fill.background()
+    if line is None:
+        shp.line.fill.background()
+    else:
+        shp.line.color.rgb = line
+        if line_w is not None:
+            shp.line.width = line_w
+    return shp
+
+
+def add_line(slide, x1, y1, x2, y2, color=YU_INDIGO, weight=1.0, dash=None):
     line = slide.shapes.add_connector(1, x1, y1, x2, y2)
     line.line.color.rgb = color
     line.line.width = Pt(weight)
+    if dash:
+        sppr = line.line._get_or_add_ln()
+        prst = sppr.makeelement(qn('a:prstDash'), {'val': dash})
+        sppr.append(prst)
     return line
 
 
-def add_text(slide, x, y, w, h, text, size=18, bold=False, color=DARK,
-             align=PP_ALIGN.LEFT, anchor=MSO_ANCHOR.TOP, font=FONT_EN,
-             italic=False, line_spacing=1.15):
+def add_text(slide, x, y, w, h, text, size=14, bold=False, color=DARK,
+             align=PP_ALIGN.LEFT, anchor=MSO_ANCHOR.TOP, italic=False,
+             line_spacing=1.15, font=FONT):
     tb = slide.shapes.add_textbox(x, y, w, h)
     tf = tb.text_frame
     tf.word_wrap = True
-    tf.margin_left = 0
-    tf.margin_right = 0
-    tf.margin_top = 0
-    tf.margin_bottom = 0
+    for m in ['margin_left', 'margin_right', 'margin_top', 'margin_bottom']:
+        setattr(tf, m, 0)
     tf.vertical_anchor = anchor
-    # Handle multi-line text
     lines = text.split("\n") if isinstance(text, str) else text
     for i, line in enumerate(lines):
         p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
@@ -87,688 +131,1496 @@ def add_text(slide, x, y, w, h, text, size=18, bold=False, color=DARK,
     return tb
 
 
-def add_rich_text(slide, x, y, w, h, segments, align=PP_ALIGN.LEFT,
-                  anchor=MSO_ANCHOR.TOP, line_spacing=1.2):
-    """segments: list of (text, size, bold, color) or 'NEWLINE'"""
-    tb = slide.shapes.add_textbox(x, y, w, h)
-    tf = tb.text_frame
-    tf.word_wrap = True
-    for m in ['margin_left', 'margin_right', 'margin_top', 'margin_bottom']:
-        setattr(tf, m, 0)
-    tf.vertical_anchor = anchor
-    p = tf.paragraphs[0]
-    p.alignment = align
-    p.line_spacing = line_spacing
-    for seg in segments:
-        if seg == 'NEWLINE':
-            p = tf.add_paragraph()
-            p.alignment = align
-            p.line_spacing = line_spacing
-            continue
-        text, size, bold, color = seg
-        run = p.add_run()
-        run.text = text
-        run.font.name = FONT_EN
-        run.font.size = Pt(size)
-        run.font.bold = bold
-        run.font.color.rgb = color
-    return tb
+def corner_marks(slide):
+    m = Inches(0.10)
+    for cx, cy in [
+        (Inches(0.30), Inches(0.45)),
+        (SLIDE_W - Inches(0.30), Inches(0.45)),
+        (Inches(0.30), SLIDE_H - Inches(0.30)),
+        (SLIDE_W - Inches(0.30), SLIDE_H - Inches(0.30)),
+    ]:
+        add_line(slide, cx - m, cy, cx + m, cy, color=ARCH_LINE, weight=0.5)
+        add_line(slide, cx, cy - m, cx, cy + m, color=ARCH_LINE, weight=0.5)
 
 
-def slide_frame(slide, page_num, total, section_tag, slide_title=None):
-    """Standard page chrome: top accent line, page number, section tag"""
-    # Background
-    add_rect(slide, 0, 0, SLIDE_W, SLIDE_H, fill=WHITE)
-    # Top accent thin bar
-    add_rect(slide, 0, 0, SLIDE_W, Inches(0.08), fill=PRIMARY)
-    # Top secondary thin gold line
-    add_rect(slide, 0, Inches(0.08), Inches(2.2), Inches(0.04), fill=ACCENT)
-    # Bottom footer line
-    add_rect(slide, Inches(0.6), Inches(7.15), Inches(12.13), Emu(9525),
-             fill=LINE_GRAY)
-    # Page number
-    add_text(slide, Inches(11.8), Inches(7.22), Inches(1.2), Inches(0.3),
-             f"{page_num:02d} / {total:02d}", size=10, color=MUTED,
-             align=PP_ALIGN.RIGHT)
-    # Section tag (bottom-left)
-    add_text(slide, Inches(0.6), Inches(7.22), Inches(8), Inches(0.3),
-             f"HIRAKU-Global  ·  7th Cohort Interview  ·  LIU Haiqiang",
-             size=10, color=MUTED)
-    # Slide title strip
-    if slide_title:
-        add_text(slide, Inches(0.6), Inches(0.35), Inches(11), Inches(0.5),
-                 slide_title, size=12, bold=True, color=ACCENT_DEEP,
-                 font=FONT_HEAD)
+def page_chrome(slide, num, section, title_text=None, dark=False):
+    """Architectural-style page chrome with title block"""
+    bg = YU_INDIGO_DK if dark else WHITE
+    text_main = WHITE if dark else YU_INDIGO
+    add_rect(slide, 0, 0, SLIDE_W, SLIDE_H, fill=bg)
+
+    # Top brand bar
+    add_rect(slide, 0, 0, SLIDE_W, Inches(0.18), fill=YU_INDIGO_DK if not dark else YU_INDIGO)
+    add_rect(slide, 0, Inches(0.18), Inches(2.0), Emu(38100), fill=ACCENT)
+
+    add_text(slide, Inches(0.45), Inches(0.02), Inches(8), Inches(0.16),
+             "YAMAGUCHI UNIVERSITY  ·  HIRAKU-GLOBAL  ·  7TH COHORT INTERVIEW",
+             size=8, bold=True, color=WHITE, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(slide, Inches(10.5), Inches(0.02), Inches(2.7), Inches(0.16),
+             f"SHEET  {num:02d}  /  {TOTAL:02d}",
+             size=8, bold=True, color=ACCENT,
+             align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+
+    if section:
+        add_text(slide, Inches(0.45), Inches(0.40), Inches(8), Inches(0.30),
+                 section, size=10, bold=True, color=ACCENT_DEEP)
+
+    if title_text:
+        add_text(slide, Inches(0.45), Inches(0.70), Inches(12.5), Inches(0.95),
+                 title_text, size=28, bold=True, color=text_main,
+                 line_spacing=1.05)
+
+    # Bottom title block (architectural drawing style)
+    bx, by, bw, bh = Inches(9.45), Inches(7.10), Inches(3.45), Inches(0.30)
+    add_rect(slide, bx, by, bw, bh, fill=None, line=ARCH_LINE, line_w=Pt(0.6))
+    add_line(slide, bx + Inches(1.0), by, bx + Inches(1.0), by + bh,
+             color=ARCH_LINE, weight=0.6)
+    add_line(slide, bx + Inches(2.25), by, bx + Inches(2.25), by + bh,
+             color=ARCH_LINE, weight=0.6)
+    c_minor = WHITE if dark else MUTED
+    add_text(slide, bx, by, Inches(1.0), bh, f"  {num:02d}/{TOTAL:02d}",
+             size=8, color=c_minor, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(slide, bx + Inches(1.05), by, Inches(1.2), bh, "  LIU HAIQIANG",
+             size=8, color=c_minor, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(slide, bx + Inches(2.3), by, Inches(1.1), bh, "  2026.06",
+             size=8, color=c_minor, anchor=MSO_ANCHOR.MIDDLE)
+
+    add_text(slide, Inches(0.45), Inches(7.18), Inches(8), Inches(0.2),
+             "INTERVIEW PRESENTATION  ·  URBAN THERMAL ENVIRONMENT RESEARCH",
+             size=8, color=c_minor)
+
+    # Left axis line
+    if not dark:
+        add_line(slide, Inches(0.45), Inches(0.85), Inches(0.45),
+                 Inches(7.00), color=ARCH_LINE, weight=0.5)
+
+    corner_marks(slide)
 
 
-# ============== SLIDE 1 — TITLE ==============
+def add_notes(slide, text):
+    notes_tf = slide.notes_slide.notes_text_frame
+    notes_tf.text = text
+
+
+# Custom shape icons (architectural plan/elevation style)
+def icon_building(slide, x, y, size, color=YU_INDIGO):
+    """Small building icon - elevation view"""
+    s = size
+    add_rect(slide, x, y + s * 0.2, s, s * 0.8, fill=None,
+             line=color, line_w=Pt(1.2))
+    add_tri(slide, x, y, s, s * 0.25, fill=None, line=color, line_w=Pt(1.2))
+    # Windows
+    win_w = s * 0.18
+    win_h = s * 0.15
+    for r in range(2):
+        for c in range(3):
+            wx = x + s * 0.12 + c * (win_w + s * 0.07)
+            wy = y + s * 0.35 + r * (win_h + s * 0.08)
+            add_rect(slide, wx, wy, win_w, win_h, fill=color)
+
+
+def icon_person(slide, x, y, size, color=YU_INDIGO):
+    """Person icon - simplified"""
+    s = size
+    head = s * 0.28
+    add_oval(slide, x + (s - head) / 2, y, head, head, fill=color)
+    # Body trapezoid (use triangle approximation)
+    body_w = s * 0.6
+    add_rect(slide, x + (s - body_w) / 2, y + head + s * 0.05,
+             body_w, s * 0.5, fill=color)
+    # Legs
+    leg_w = s * 0.12
+    add_rect(slide, x + (s - body_w) / 2 + body_w * 0.18,
+             y + head + s * 0.55, leg_w, s * 0.18, fill=color)
+    add_rect(slide, x + (s - body_w) / 2 + body_w * 0.62,
+             y + head + s * 0.55, leg_w, s * 0.18, fill=color)
+
+
+def icon_city(slide, x, y, size, color=YU_INDIGO):
+    """City skyline icon"""
+    s = size
+    heights = [0.55, 0.85, 0.40, 0.70, 0.50, 0.95, 0.60]
+    n = len(heights)
+    bw = s * 0.95 / n
+    for i, h in enumerate(heights):
+        bh = s * h
+        bx = x + s * 0.025 + i * bw
+        by = y + s - bh
+        add_rect(slide, bx, by, bw * 0.85, bh, fill=color)
+
+
+def icon_satellite(slide, x, y, size, color=YU_INDIGO):
+    """Satellite icon"""
+    s = size
+    # Body
+    body_w = s * 0.4
+    body_h = s * 0.45
+    add_rect(slide, x + (s - body_w) / 2, y + (s - body_h) / 2,
+             body_w, body_h, fill=color)
+    # Solar panels (left + right rectangles)
+    panel_w = s * 0.25
+    panel_h = s * 0.3
+    add_rect(slide, x, y + (s - panel_h) / 2, panel_w, panel_h,
+             fill=None, line=color, line_w=Pt(1.0))
+    add_rect(slide, x + s - panel_w, y + (s - panel_h) / 2,
+             panel_w, panel_h, fill=None, line=color, line_w=Pt(1.0))
+    # Panel ribs
+    for px in [x + panel_w * 0.5, x + panel_w * 0.0]:
+        pass
+    # Antenna
+    add_line(slide, x + s / 2, y + (s - body_h) / 2,
+             x + s / 2, y, color=color, weight=1.2)
+    add_oval(slide, x + s / 2 - s * 0.04, y - s * 0.05,
+             s * 0.08, s * 0.08, fill=color)
+
+
+def icon_tree(slide, x, y, size, color=GREEN_PARK):
+    """Tree icon"""
+    s = size
+    add_tri(slide, x, y, s, s * 0.7, fill=color)
+    add_rect(slide, x + s * 0.4, y + s * 0.7, s * 0.2, s * 0.3, fill=color)
+
+
+def icon_sun(slide, x, y, size, color=HEAT_HOT):
+    """Sun icon with rays"""
+    s = size
+    cx = x + s / 2
+    cy = y + s / 2
+    r = s * 0.25
+    add_oval(slide, cx - r, cy - r, r * 2, r * 2, fill=color)
+    # Rays
+    import math
+    for i in range(8):
+        ang = i * math.pi / 4
+        rx1 = cx + math.cos(ang) * r * 1.3
+        ry1 = cy + math.sin(ang) * r * 1.3
+        rx2 = cx + math.cos(ang) * r * 1.9
+        ry2 = cy + math.sin(ang) * r * 1.9
+        add_line(slide, rx1, ry1, rx2, ry2, color=color, weight=1.5)
+
+
+def number_chip(slide, x, y, size, num, fill=YU_INDIGO, text_color=ACCENT):
+    """Small numbered chip for callouts"""
+    add_rect(slide, x, y, size, size, fill=fill)
+    add_text(slide, x, y, size, size, f"{num:02d}", size=11,
+             bold=True, color=text_color, align=PP_ALIGN.CENTER,
+             anchor=MSO_ANCHOR.MIDDLE)
+
+
+def section_label(slide, x, y, w, text):
+    """Architectural section label with leading line"""
+    add_line(slide, x, y + Inches(0.18), x + Inches(0.2),
+             y + Inches(0.18), color=ACCENT, weight=1.5)
+    add_text(slide, x + Inches(0.25), y, w - Inches(0.25), Inches(0.35),
+             text, size=10, bold=True, color=ACCENT_DEEP)
+
+
+# ============================================================
+# SLIDE 01 — TITLE
+# ============================================================
 def slide_01():
-    s = prs.slides.add_slide(blank_layout)
-    # Full bleed dark background
-    add_rect(s, 0, 0, SLIDE_W, SLIDE_H, fill=PRIMARY)
-    # Decorative gold lines
-    add_rect(s, Inches(0.8), Inches(2.4), Inches(0.6), Inches(0.04), fill=ACCENT)
-    # Main title
-    add_text(s, Inches(0.8), Inches(2.55), Inches(11), Inches(1.2),
+    s = prs.slides.add_slide(blank)
+    add_rect(s, 0, 0, SLIDE_W, SLIDE_H, fill=YU_INDIGO_DK)
+
+    # Subtle grid lines in background (architectural)
+    for i in range(1, 8):
+        y = Inches(0.75 * i)
+        add_line(s, Inches(0.45), y, SLIDE_W - Inches(0.45), y,
+                 color=RGBColor(0x1C, 0x35, 0x60), weight=0.4)
+    for i in range(1, 13):
+        x = Inches(1.0 * i)
+        add_line(s, x, Inches(0.45), x, SLIDE_H - Inches(0.45),
+                 color=RGBColor(0x1C, 0x35, 0x60), weight=0.4)
+
+    # Top accent
+    add_rect(s, 0, 0, Inches(3.0), Inches(0.10), fill=ACCENT)
+    add_text(s, Inches(0.75), Inches(0.30), Inches(8), Inches(0.3),
+             "YAMAGUCHI UNIVERSITY  ·  HIRAKU-GLOBAL  ·  7TH COHORT  ·  2026",
+             size=10, bold=True, color=ACCENT)
+
+    # Main title (large)
+    add_text(s, Inches(0.75), Inches(1.55), Inches(11.8), Inches(1.2),
              "Bridging Cities, Climate, and People",
-             size=44, bold=True, color=WHITE, line_spacing=1.0)
-    add_text(s, Inches(0.8), Inches(3.5), Inches(11), Inches(0.8),
-             "Urban Thermal Environment Research from Local Japan to Global Asia",
-             size=22, color=RGBColor(0xCB, 0xD5, 0xE0))
-    # Divider
-    add_rect(s, Inches(0.8), Inches(4.55), Inches(2.2), Emu(9525), fill=ACCENT)
-    # Name + position
-    add_text(s, Inches(0.8), Inches(4.75), Inches(11), Inches(0.5),
+             size=48, bold=True, color=WHITE, line_spacing=1.0)
+
+    # Long thin gold underline
+    add_rect(s, Inches(0.75), Inches(2.75), Inches(3.0), Emu(38100),
+             fill=ACCENT)
+
+    # Subtitle
+    add_text(s, Inches(0.75), Inches(2.95), Inches(12), Inches(0.7),
+             "Urban Thermal Environment Research",
+             size=22, color=WHITE)
+    add_text(s, Inches(0.75), Inches(3.45), Inches(12), Inches(0.6),
+             "from Japanese Regional Cities to International Asia",
+             size=18, color=RGBColor(0xB8, 0xC8, 0xDC), italic=True)
+
+    # Name block (architectural style)
+    nx = Inches(0.75)
+    ny = Inches(4.50)
+    add_rect(s, nx, ny, Inches(0.06), Inches(1.4), fill=ACCENT)
+    add_text(s, nx + Inches(0.25), ny, Inches(11), Inches(0.5),
              "LIU  HAIQIANG, Ph.D.",
-             size=20, bold=True, color=WHITE, font=FONT_HEAD)
-    add_text(s, Inches(0.8), Inches(5.20), Inches(11), Inches(0.4),
-             "Lecturer (Tenure-track)  ·  Graduate School of Sciences and Technology for Innovation",
-             size=14, color=RGBColor(0xCB, 0xD5, 0xE0))
-    add_text(s, Inches(0.8), Inches(5.50), Inches(11), Inches(0.4),
+             size=24, bold=True, color=WHITE)
+    add_text(s, nx + Inches(0.25), ny + Inches(0.5), Inches(11), Inches(0.4),
+             "Lecturer (Tenure-track)",
+             size=14, color=ACCENT)
+    add_text(s, nx + Inches(0.25), ny + Inches(0.83), Inches(11), Inches(0.4),
+             "Graduate School of Sciences and Technology for Innovation",
+             size=12, color=RGBColor(0xB8, 0xC8, 0xDC))
+    add_text(s, nx + Inches(0.25), ny + Inches(1.10), Inches(11), Inches(0.4),
              "Yamaguchi University",
-             size=14, color=RGBColor(0xCB, 0xD5, 0xE0))
-    # Keyword chips at bottom
-    chips = ["Urban Thermal Environment", "International Collaboration",
-             "Regional Policy", "Social Implementation"]
-    x0 = Inches(0.8)
-    y_chip = Inches(6.35)
+             size=12, color=RGBColor(0xB8, 0xC8, 0xDC))
+
+    # Keyword chips (bottom)
+    chips = ["URBAN THERMAL ENVIRONMENT", "INTERNATIONAL COLLABORATION",
+             "REGIONAL POLICY", "SOCIAL IMPLEMENTATION"]
+    x0 = Inches(0.75)
+    y_chip = Inches(6.55)
+    cw = Inches(2.95)
     for chip in chips:
-        w = Inches(2.7)
-        add_rect(s, x0, y_chip, w, Inches(0.42),
+        add_rect(s, x0, y_chip, cw, Inches(0.40),
                  fill=None, line=ACCENT, line_w=Pt(0.75))
-        add_text(s, x0, y_chip, w, Inches(0.42), chip,
-                 size=11, bold=True, color=ACCENT, align=PP_ALIGN.CENTER,
-                 anchor=MSO_ANCHOR.MIDDLE)
-        x0 += w + Inches(0.15)
-    # Bottom corner: HIRAKU mark
-    add_text(s, Inches(0.8), Inches(7.0), Inches(11.8), Inches(0.3),
-             "HIRAKU-Global  ·  7th Cohort Interview  ·  2026",
-             size=9, color=RGBColor(0x88, 0x95, 0xA8))
+        add_text(s, x0, y_chip, cw, Inches(0.40), chip,
+                 size=9, bold=True, color=ACCENT,
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        x0 += cw + Inches(0.13)
+
+    # Bottom-right architectural title block
+    bx, by, bw, bh = Inches(9.5), Inches(7.05), Inches(3.4), Inches(0.32)
+    add_rect(s, bx, by, bw, bh, fill=None, line=ACCENT, line_w=Pt(0.6))
+    add_line(s, bx + Inches(1.0), by, bx + Inches(1.0), by + bh,
+             color=ACCENT, weight=0.6)
+    add_line(s, bx + Inches(2.25), by, bx + Inches(2.25), by + bh,
+             color=ACCENT, weight=0.6)
+    add_text(s, bx, by, Inches(1.0), bh, "  01 / 11",
+             size=8, color=ACCENT_LT, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(s, bx + Inches(1.05), by, Inches(1.2), bh, "  TITLE",
+             size=8, color=ACCENT_LT, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(s, bx + Inches(2.3), by, Inches(1.1), bh, "  2026.06",
+             size=8, color=ACCENT_LT, anchor=MSO_ANCHOR.MIDDLE)
+
+    # Speaker notes
+    add_notes(s, """[SLIDE 1 — TITLE — ~25 seconds]
+
+Good morning, and thank you for this opportunity.
+
+My name is Liu Haiqiang. I am a tenure-track Lecturer at the Graduate School of Sciences and Technology for Innovation at Yamaguchi University.
+
+The title of my talk today is "Bridging Cities, Climate, and People."
+
+In one sentence: I connect urban thermal environment research with international collaboration, regional policy, and social implementation.
+
+In the next ten minutes, I would like to share why my background fits HIRAKU-Global, and how HIRAKU-Global can help me grow into an international research leader anchored at Yamaguchi University.
+""")
 
 
-# ============== SLIDE 2 — Why my research matters ==============
+# ============================================================
+# SLIDE 02 — ABOUT ME (CV)
+# ============================================================
 def slide_02():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 2, 10, "02", "WHY MY RESEARCH MATTERS")
-    # Big claim
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "Global climate change becomes local — on every street.",
-             size=32, bold=True, color=PRIMARY, line_spacing=1.05)
-    add_text(s, Inches(0.6), Inches(1.85), Inches(12), Inches(0.5),
-             "Heat ↘  walkability ↘  urban vitality.  Regional aging cities face this triple challenge most strongly.",
-             size=15, color=BODY)
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 2, "PROFILE", "Who I am — a researcher trained between Japan and China.")
 
-    # Three tiers
-    tiers = [
-        ("GLOBAL", "Climate change + urban warming",
-         "A worldwide challenge\nwith very local impact"),
-        ("CITY", "Walkability & vitality",
-         "Heat empties streets;\nempty streets weaken cities"),
-        ("PEOPLE", "Elderly, students, commuters",
-         "Different streets carry\nvery different heat risks"),
+    # Three pillars of identity
+    pillars = [
+        ("01", "JAPAN-TRAINED",
+         "Ph.D. (Architectural Environmental Engineering)\nSaga University, Japan  ·  2017"),
+        ("02", "CHINA-EXPERIENCED",
+         "Associate Professor\nZhejiang Sci-Tech University  ·  2018–2023"),
+        ("03", "JAPAN-RETURNED",
+         "Lecturer (Tenure-track)\nYamaguchi University  ·  since Jan 2026"),
     ]
-    x0 = Inches(0.6)
-    y0 = Inches(2.95)
-    box_w = Inches(4.05)
-    box_h = Inches(2.4)
-    for i, (tag, head, body_t) in enumerate(tiers):
-        x = x0 + i * (box_w + Inches(0.13))
-        add_rect(s, x, y0, box_w, box_h, fill=LIGHT_BG)
-        add_rect(s, x, y0, Inches(0.08), box_h, fill=ACCENT)
-        add_text(s, x + Inches(0.3), y0 + Inches(0.25), box_w - Inches(0.5),
-                 Inches(0.35), tag, size=11, bold=True, color=ACCENT_DEEP)
-        add_text(s, x + Inches(0.3), y0 + Inches(0.65), box_w - Inches(0.5),
-                 Inches(0.7), head, size=18, bold=True, color=PRIMARY,
-                 line_spacing=1.1)
-        add_text(s, x + Inches(0.3), y0 + Inches(1.45), box_w - Inches(0.5),
-                 Inches(0.9), body_t, size=13, color=BODY, line_spacing=1.3)
+    px = Inches(0.75)
+    py = Inches(1.85)
+    pw = Inches(4.05)
+    ph = Inches(1.4)
+    gap = Inches(0.10)
+    for i, (n, h, b) in enumerate(pillars):
+        x = px + i * (pw + gap)
+        add_rect(s, x, py, pw, ph, fill=LIGHT_BG)
+        add_rect(s, x, py, Inches(0.08), ph, fill=ACCENT)
+        add_text(s, x + Inches(0.25), py + Inches(0.15), Inches(0.6), Inches(0.3),
+                 n, size=10, bold=True, color=ACCENT_DEEP)
+        add_text(s, x + Inches(0.95), py + Inches(0.13), Inches(3), Inches(0.35),
+                 h, size=14, bold=True, color=YU_INDIGO)
+        add_text(s, x + Inches(0.25), py + Inches(0.55), pw - Inches(0.4),
+                 Inches(0.85), b, size=11, color=BODY, line_spacing=1.4)
 
-    # Three questions footer
-    add_text(s, Inches(0.6), Inches(5.65), Inches(12), Inches(0.4),
-             "MY THREE QUESTIONS", size=11, bold=True, color=ACCENT_DEEP)
-    y_q = Inches(6.0)
-    qs = [("WHERE", "is it hot?"), ("WHY", "is it hot?"),
-          ("HOW", "to cool & re-vitalize the city?")]
-    qx = Inches(0.6)
-    qw = Inches(4.05)
-    for i, (k, v) in enumerate(qs):
-        x = qx + i * (qw + Inches(0.13))
-        add_text(s, x, y_q, qw, Inches(0.5), k, size=22, bold=True,
-                 color=PRIMARY)
-        add_text(s, x + Inches(1.4), y_q + Inches(0.08), qw - Inches(1.4),
-                 Inches(0.5), v, size=15, color=BODY)
+    # Career timeline (horizontal)
+    section_label(s, Inches(0.75), Inches(3.50), Inches(8),
+                  "CAREER TIMELINE  ·  10 YEARS ACROSS BUILDING → PERSON → CITY")
+    tx = Inches(0.75)
+    ty = Inches(4.15)
+    tw = Inches(11.83)
+    line_y = ty + Inches(0.7)
+    # Base line
+    add_line(s, tx, line_y, tx + tw, line_y, color=YU_INDIGO, weight=1.5)
 
-
-# ============== SLIDE 3 — Originality ==============
-def slide_03():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 3, 10, "03", "ORIGINALITY OF MY RESEARCH")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "I do not only measure heat — I diagnose it, and the diagnosis is already used.",
-             size=28, bold=True, color=PRIMARY, line_spacing=1.05)
-
-    # Four originality cards
-    cards = [
-        ("01", "MULTI-SOURCE DATA",
-         "Satellite remote sensing\n(Landsat-8/9, Sentinel-2)\n+ on-site measurement + CFD"),
-        ("02", "CUMULATIVE HEAT EXPOSURE",
-         "Beyond instantaneous T:\nevaluate pedestrian\nheat retention zones"),
-        ("03", "POLICY-APPLIED",
-         "Applied to Kumamoto City's\ngreen-infrastructure policy\n(LST × land-cover map)"),
-        ("04", "NATIONAL RECOGNITION",
-         "Referenced by MLIT\nas an EBPM\nevaluation case"),
+    events = [
+        (0.00, "2009–2011", "Master's\nSaga U.", "BLDG"),
+        (0.15, "2014–2017", "Ph.D.\nSaga U.", "BLDG"),
+        (0.32, "2017–2018", "Researcher\nSaga U.", "BLDG"),
+        (0.46, "2018–2023", "Associate Prof.\nZSTU", "PERSON"),
+        (0.66, "2023–2025", "Researcher\nKumamoto City\nPolicy Institute", "CITY"),
+        (0.86, "2026—", "Lecturer\nYamaguchi U.", "CITY"),
     ]
-    x0 = Inches(0.6)
-    y0 = Inches(2.25)
-    cw = Inches(3.02)
-    ch = Inches(3.05)
-    gap = Inches(0.07)
-    for i, (num, head, body_t) in enumerate(cards):
-        x = x0 + i * (cw + gap)
-        # Card body
-        add_rect(s, x, y0, cw, ch, fill=WHITE, line=LINE_GRAY, line_w=Pt(0.5))
-        # Top accent strip
-        add_rect(s, x, y0, cw, Inches(0.45), fill=PRIMARY)
-        add_text(s, x + Inches(0.25), y0, Inches(0.8), Inches(0.45),
-                 num, size=13, bold=True, color=ACCENT,
+    for frac, yr, lbl, stage in events:
+        ex = tx + tw * frac
+        # Stage color
+        col = {"BLDG": YU_INDIGO_LT, "PERSON": ACCENT, "CITY": HEAT_HOT}[stage]
+        # Marker (above line)
+        add_oval(s, ex - Inches(0.10), line_y - Inches(0.10),
+                 Inches(0.20), Inches(0.20), fill=col)
+        # Date below marker
+        add_text(s, ex - Inches(0.7), line_y - Inches(0.55), Inches(1.4),
+                 Inches(0.30), yr, size=9, bold=True, color=YU_INDIGO,
+                 align=PP_ALIGN.CENTER)
+        # Label below line
+        add_text(s, ex - Inches(0.9), line_y + Inches(0.15), Inches(1.8),
+                 Inches(0.85), lbl, size=9.5, color=BODY,
+                 align=PP_ALIGN.CENTER, line_spacing=1.25)
+
+    # Stage legend
+    leg_y = Inches(5.85)
+    legends = [("STAGE 1  ·  BUILDING", YU_INDIGO_LT),
+               ("STAGE 2  ·  PERSON", ACCENT),
+               ("STAGE 3  ·  CITY", HEAT_HOT)]
+    lx = Inches(0.75)
+    for txt, col in legends:
+        add_oval(s, lx, leg_y + Inches(0.05), Inches(0.18),
+                 Inches(0.18), fill=col)
+        add_text(s, lx + Inches(0.25), leg_y, Inches(3), Inches(0.3),
+                 txt, size=9.5, bold=True, color=BODY,
                  anchor=MSO_ANCHOR.MIDDLE)
-        # Headline
-        add_text(s, x + Inches(0.25), y0 + Inches(0.75), cw - Inches(0.5),
-                 Inches(0.75), head, size=14, bold=True, color=PRIMARY,
-                 line_spacing=1.15)
-        # Body
-        add_text(s, x + Inches(0.25), y0 + Inches(1.55), cw - Inches(0.5),
-                 Inches(1.4), body_t, size=12, color=BODY, line_spacing=1.4)
+        lx += Inches(3.0)
 
-    # Bottom strong claim band
-    band_y = Inches(5.70)
-    add_rect(s, Inches(0.6), band_y, Inches(12.13), Inches(1.0),
-             fill=PRIMARY)
-    add_text(s, Inches(0.85), band_y + Inches(0.18), Inches(11.5), Inches(0.4),
-             "RESEARCH  →  POLICY  →  NATIONAL RECOGNITION",
-             size=12, bold=True, color=ACCENT)
-    add_text(s, Inches(0.85), band_y + Inches(0.50), Inches(11.5), Inches(0.5),
-             "Few researchers combine satellite, measurement, CFD, and national-level policy adoption in one workflow.",
-             size=15, bold=True, color=WHITE)
+    # Key claim band
+    band_y = Inches(6.30)
+    add_rect(s, Inches(0.75), band_y, Inches(12.0), Inches(0.65),
+             fill=YU_INDIGO)
+    add_text(s, Inches(0.95), band_y + Inches(0.13), Inches(11.6), Inches(0.4),
+             "ONE OF THE FEW RESEARCHERS WHO WORKS NATIVELY ACROSS JAPANESE REGIONAL CITIES",
+             size=10, bold=True, color=ACCENT)
+    add_text(s, Inches(0.95), band_y + Inches(0.35), Inches(11.6), Inches(0.3),
+             "and Chinese high-density urbanism — through one continuous research agenda on urban heat.",
+             size=12, color=WHITE, italic=True)
+
+    add_notes(s, """[SLIDE 2 — PROFILE — ~50 seconds]
+
+Before I talk about research, let me briefly say who I am — because the bridge between Japan and China runs through my entire career.
+
+I was trained in Japan. I earned my master's degree and doctorate from Saga University, in Architectural Environmental Engineering, in 2011 and 2017.
+
+Then I moved to China. From 2018 to early 2023, I was an Associate Professor at Zhejiang Sci-Tech University, teaching and supervising students in building environment and urban design.
+
+After that, I returned to Japan. From 2023 to 2025, I was a researcher at the Institute of Policy Research, Kumamoto City — a municipal policy research institute. There I worked directly with city government on urban environment and heat policy.
+
+In January 2026, I joined Yamaguchi University as a tenure-track Lecturer. This is my current position.
+
+So across ten years, my research moved through three stages — building, person, and city. And throughout, I have been one of the few researchers who works natively in both Japanese regional cities and Chinese high-density urbanism. That bridge is at the center of everything I will show you today.
+""")
 
 
-# ============== SLIDE 4 — Research outputs ==============
+# ============================================================
+# SLIDE 03 — WHY MY RESEARCH MATTERS
+# ============================================================
+def slide_03():
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 3, "PROBLEM SETTING",
+                "Climate change becomes a local problem — on every street.")
+
+    # Left: street section schematic (architectural)
+    sx = Inches(0.75)
+    sy = Inches(1.85)
+    sw = Inches(6.4)
+    sh = Inches(3.30)
+    add_rect(s, sx, sy, sw, sh, fill=LIGHTER, line=ARCH_LINE, line_w=Pt(0.5))
+    section_label(s, sx + Inches(0.15), sy + Inches(0.10), Inches(5),
+                  "STREET SECTION  ·  WHAT AN ELDERLY RESIDENT FACES")
+
+    # Sky
+    sky_top = sy + Inches(0.55)
+    # Sun
+    icon_sun(s, sx + Inches(5.0), sky_top + Inches(0.05), Inches(0.7),
+             color=HEAT_HOT)
+
+    # Ground
+    ground_y = sy + sh - Inches(0.45)
+    add_rect(s, sx + Inches(0.3), ground_y, sw - Inches(0.6),
+             Inches(0.10), fill=YU_INDIGO)
+
+    # Buildings (varying heights, hot side)
+    base_y = ground_y
+    icon_building(s, sx + Inches(0.5), base_y - Inches(1.4),
+                  Inches(0.9), color=YU_INDIGO_LT)
+    icon_building(s, sx + Inches(1.5), base_y - Inches(1.8),
+                  Inches(0.9), color=YU_INDIGO_LT)
+    # Hot zone shading
+    add_rect(s, sx + Inches(0.4), base_y - Inches(0.05),
+             Inches(2.4), Inches(0.05), fill=HEAT_HOT)
+    add_text(s, sx + Inches(0.45), ground_y + Inches(0.18),
+             Inches(2.5), Inches(0.3),
+             "HOT  ·  built-up", size=9, bold=True, color=HEAT_HOT)
+
+    # Person walking
+    icon_person(s, sx + Inches(2.85), base_y - Inches(0.85),
+                Inches(0.55), color=DARK)
+
+    # Trees (cool zone)
+    icon_tree(s, sx + Inches(4.0), base_y - Inches(1.1),
+              Inches(0.8), color=GREEN_PARK)
+    icon_tree(s, sx + Inches(4.95), base_y - Inches(0.95),
+              Inches(0.7), color=GREEN_PARK)
+    add_rect(s, sx + Inches(3.9), base_y - Inches(0.05),
+             Inches(2.0), Inches(0.05), fill=HEAT_COOL)
+    add_text(s, sx + Inches(3.95), ground_y + Inches(0.18),
+             Inches(2.5), Inches(0.3),
+             "COOL  ·  green & wind", size=9, bold=True, color=HEAT_COOL)
+
+    # 500-1000m corridor annotation
+    add_line(s, sx + Inches(0.4), sy + sh - Inches(0.05),
+             sx + Inches(5.9), sy + sh - Inches(0.05),
+             color=ACCENT, weight=2.0)
+    add_text(s, sx + Inches(0.4), sy + sh + Inches(0.0),
+             Inches(5.5), Inches(0.3),
+             "← 500–1000 m daily-activity corridor →",
+             size=9, bold=True, color=ACCENT_DEEP, italic=True,
+             align=PP_ALIGN.CENTER)
+
+    # Right side: data + 3 questions
+    rx = Inches(7.45)
+    section_label(s, rx, Inches(1.85), Inches(5.5),
+                  "THE NUMBERS  ·  FDMA 2024")
+
+    # Big number 1
+    add_text(s, rx, Inches(2.30), Inches(5.6), Inches(1.0),
+             "91,000+", size=46, bold=True, color=HEAT_HOT, line_spacing=1.0)
+    add_text(s, rx, Inches(3.25), Inches(5.6), Inches(0.35),
+             "heatstroke emergency transports — Japan, 2023",
+             size=11, color=BODY)
+
+    # Big numbers 2
+    add_text(s, rx, Inches(3.70), Inches(5.6), Inches(0.55),
+             "1,200+  in Yamaguchi  ·  60%  aged 65+",
+             size=18, bold=True, color=YU_INDIGO)
+    add_text(s, rx, Inches(4.25), Inches(5.6), Inches(0.4),
+             "Heat is no longer just weather — it is a regional public-health issue.",
+             size=11, color=BODY, italic=True)
+
+    # 3 questions
+    section_label(s, rx, Inches(4.85), Inches(5.5),
+                  "MY THREE QUESTIONS")
+    qy = Inches(5.30)
+    qs = [("WHERE", "is it hot?"),
+          ("WHY", "is it hot?"),
+          ("HOW", "to cool & re-vitalize the city?")]
+    for i, (k, v) in enumerate(qs):
+        y = qy + i * Inches(0.45)
+        add_rect(s, rx, y + Inches(0.05), Inches(0.06), Inches(0.30),
+                 fill=ACCENT)
+        add_text(s, rx + Inches(0.2), y, Inches(1.4), Inches(0.4),
+                 k, size=15, bold=True, color=YU_INDIGO)
+        add_text(s, rx + Inches(1.55), y + Inches(0.04), Inches(4), Inches(0.4),
+                 v, size=13, color=BODY)
+
+    # Bottom triple-challenge band
+    band_y = Inches(6.85)
+    add_rect(s, Inches(0.75), band_y, Inches(12.0), Inches(0.30),
+             fill=YU_INDIGO)
+    add_text(s, Inches(0.95), band_y, Inches(11.6), Inches(0.30),
+             "REGIONAL CITIES FACE A TRIPLE CHALLENGE   ·   CLIMATE WARMING  +  AGING SOCIETY  +  CITY-CENTER DECLINE",
+             size=11, bold=True, color=ACCENT, anchor=MSO_ANCHOR.MIDDLE)
+
+    add_notes(s, """[SLIDE 3 — WHY MY RESEARCH MATTERS — ~60 seconds]
+
+Cities are getting hotter every summer. That is not just weather — it is a regional public-health issue.
+
+In 2023 alone, Japan's Fire and Disaster Management Agency recorded more than 91,000 emergency heatstroke transports nationwide. In Yamaguchi Prefecture alone, more than 1,200 cases — and about 60 percent of those patients were aged 65 or older.
+
+But — and this is the key point — not every street is equally hot. As you can see in this section drawing on the left: in the built-up zone, an elderly resident walks through dense buildings under direct sun, where heat accumulates between facades. Just a few hundred meters away, in a zone with trees and wind, the same walk is much safer.
+
+What older residents actually face is a 500-to-1000 meter daily walking corridor through a built environment whose thermal behavior changes street by street.
+
+So my research asks three simple questions: Where is it hot? Why is it hot? And how can we cool the city while keeping it walkable and alive?
+
+These three questions sit at the intersection of three challenges that regional cities like Yamaguchi face together — climate warming, aging society, and the decline of city centers. My research is designed to address all three through one framework.
+""")
+
+
+# ============================================================
+# SLIDE 04 — RESEARCH TRAJECTORY
+# ============================================================
 def slide_04():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 4, 10, "04", "RESEARCH OUTPUTS  ·  QUALITY & CONTINUITY")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "Quality first.  Continuity second.  Volume third.",
-             size=28, bold=True, color=PRIMARY, line_spacing=1.05)
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 4, "RESEARCH TRAJECTORY",
+                "10 years, three stages — Building → Person → City.")
 
-    # Big number block
+    # Three stage boxes
+    stages = [
+        ("STAGE 01", "BUILDING",
+         "How does building type & form\nshape indoor thermal & energy?",
+         "183 households across 3 cities\nWindow-to-wall ratio optimization\nCFD wind environment",
+         "C-6, C-7, C-11, D-3", icon_building),
+        ("STAGE 02", "PERSON",
+         "How do indoor conditions\naffect learning, health, behavior?",
+         "Classroom thermal × learning\nPM2.5 health risk\nElderly spatial needs",
+         "C-3 (Q1, Top 5), C-5 (Q1)", icon_person),
+        ("STAGE 03", "CITY",
+         "How do GBI, wind & morphology\nregulate pedestrian heat exposure?",
+         "Satellite LST + Sentinel-2 LCZ\nKumamoto green-infra mapping\nMLIT EBPM-cited",
+         "C-1, C-14, C-15, A-1", icon_city),
+    ]
+    sx0 = Inches(0.75)
+    sy = Inches(1.85)
+    sw = Inches(4.05)
+    sh = Inches(4.0)
+    gap = Inches(0.10)
+
+    for i, (lab, name, q, methods, papers, icon_fn) in enumerate(stages):
+        x = sx0 + i * (sw + gap)
+        # Card
+        add_rect(s, x, sy, sw, sh, fill=WHITE, line=ARCH_LINE, line_w=Pt(0.6))
+        # Header
+        add_rect(s, x, sy, sw, Inches(0.45), fill=YU_INDIGO)
+        add_text(s, x + Inches(0.25), sy, Inches(1.5), Inches(0.45),
+                 lab, size=10, bold=True, color=ACCENT,
+                 anchor=MSO_ANCHOR.MIDDLE)
+        # Big name
+        add_text(s, x + Inches(0.25), sy + Inches(0.60), sw - Inches(2),
+                 Inches(0.55), name, size=22, bold=True, color=YU_INDIGO)
+        # Icon (right side)
+        icon_fn(s, x + sw - Inches(1.3), sy + Inches(0.55),
+                Inches(1.0))
+        # Question
+        section_label(s, x + Inches(0.25), sy + Inches(1.30),
+                      sw - Inches(0.4), "QUESTION")
+        add_text(s, x + Inches(0.25), sy + Inches(1.55), sw - Inches(0.4),
+                 Inches(0.8), q, size=11.5, color=DARK, italic=True,
+                 line_spacing=1.35)
+        # Methods/findings
+        section_label(s, x + Inches(0.25), sy + Inches(2.35),
+                      sw - Inches(0.4), "WORK")
+        add_text(s, x + Inches(0.25), sy + Inches(2.60), sw - Inches(0.4),
+                 Inches(1.05), methods, size=11, color=BODY,
+                 line_spacing=1.4)
+        # Papers
+        section_label(s, x + Inches(0.25), sy + Inches(3.45),
+                      sw - Inches(0.4), "OUTPUTS")
+        add_text(s, x + Inches(0.25), sy + Inches(3.65), sw - Inches(0.4),
+                 Inches(0.35), papers, size=10.5, bold=True,
+                 color=ACCENT_DEEP)
+
+    # Connecting arrows between stages
+    arr_y = sy + Inches(0.22)
+    for i in range(2):
+        x1 = sx0 + (i + 1) * sw + i * gap
+        x2 = x1 + gap
+        add_line(s, x1, arr_y, x2, arr_y, color=ACCENT, weight=2.5)
+
+    # Bottom claim
+    band_y = Inches(6.10)
+    add_rect(s, Inches(0.75), band_y, Inches(12.0), Inches(0.85),
+             fill=YU_INDIGO)
+    add_text(s, Inches(0.95), band_y + Inches(0.12), Inches(11.6),
+             Inches(0.35), "WHAT BINDS THE THREE STAGES",
+             size=10, bold=True, color=ACCENT)
+    add_text(s, Inches(0.95), band_y + Inches(0.40), Inches(11.6),
+             Inches(0.4),
+             "Each stage was pushed forward by a question the previous stage could only partly answer.  "
+             "Stage 3 is where HIRAKU-Global begins.",
+             size=13, bold=True, color=WHITE)
+
+    add_notes(s, """[SLIDE 4 — RESEARCH TRAJECTORY — ~70 seconds]
+
+My research has not jumped between topics. It has moved deliberately through three stages: building, person, and city.
+
+In Stage 1 — Building — I asked how the form and envelope of buildings shape indoor thermal environment and energy use. I surveyed 183 households across three Chinese cities, optimized window-to-wall ratios, and analyzed wind environments in high-rise courtyards. This gave me physical control over the indoor environment — but it could not tell me whose body was at risk.
+
+That moved me to Stage 2 — Person. Here I asked how indoor conditions affect learning, health, and behavior — not in average users, but in specific people. This is where my two strongest Q1 papers come from: Building and Environment, on classroom thermal comfort and learning, in the top 5 of its field; and Environmental Pollution, on PM2.5 health risk. By the end of Stage 2 I understood the human side — but I was still indoors.
+
+So I moved to Stage 3 — City. I now ask how green-blue infrastructure, wind, and urban morphology together regulate pedestrian heat exposure at the scale where heatstroke actually happens. The Kumamoto work — including the chapter cited by MLIT as an EBPM case — comes from this stage.
+
+Each stage was pushed forward by a question the previous one could only partly answer. Stage 3 is exactly where HIRAKU-Global begins.
+""")
+
+
+# ============================================================
+# SLIDE 05 — ORIGINALITY (CORE)
+# ============================================================
+def slide_05():
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 5, "ORIGINALITY  ·  CORE",
+                "Satellite + measurement + CFD + national-level policy — in one workflow.")
+
+    # Left: Cross-scale altitude diagram
+    dx = Inches(0.75)
+    dy = Inches(1.85)
+    dw = Inches(5.7)
+    dh = Inches(4.3)
+    add_rect(s, dx, dy, dw, dh, fill=LIGHTER, line=ARCH_LINE, line_w=Pt(0.5))
+    section_label(s, dx + Inches(0.20), dy + Inches(0.10), Inches(5),
+                  "CROSS-SCALE WORKFLOW  ·  SATELLITE → BLOCK → PEDESTRIAN")
+
+    # Altitude axis on the left
+    ax = dx + Inches(0.55)
+    ay_top = dy + Inches(0.65)
+    ay_bot = dy + dh - Inches(0.45)
+    add_line(s, ax, ay_top, ax, ay_bot, color=YU_INDIGO, weight=1.5)
+    # Tick marks
+    for ty in [ay_top + Inches(0.1), dy + Inches(2.0), dy + Inches(3.3),
+               ay_bot - Inches(0.1)]:
+        add_line(s, ax - Inches(0.08), ty, ax + Inches(0.08), ty,
+                 color=YU_INDIGO, weight=1.0)
+    add_text(s, ax - Inches(0.45), ay_top - Inches(0.05),
+             Inches(0.4), Inches(0.3), "km", size=8, color=MUTED,
+             align=PP_ALIGN.RIGHT)
+    add_text(s, ax - Inches(0.45), ay_bot - Inches(0.20),
+             Inches(0.4), Inches(0.3), "m", size=8, color=MUTED,
+             align=PP_ALIGN.RIGHT)
+
+    # Satellite (top)
+    icon_satellite(s, dx + Inches(1.0), dy + Inches(0.65),
+                   Inches(0.85), color=YU_INDIGO)
+    add_text(s, dx + Inches(2.05), dy + Inches(0.75),
+             Inches(3.5), Inches(0.3),
+             "LANDSAT-8/9  +  SENTINEL-2",
+             size=10, bold=True, color=YU_INDIGO)
+    add_text(s, dx + Inches(2.05), dy + Inches(1.05),
+             Inches(3.5), Inches(0.3),
+             "LST × LCZ — 30 m resolution screening",
+             size=9, color=BODY, italic=True)
+
+    # Block scale (middle)
+    by_block = dy + Inches(2.0)
+    icon_city(s, dx + Inches(0.85), by_block - Inches(0.05),
+              Inches(1.1), color=YU_INDIGO_LT)
+    # Wind arrows
+    for i, ay in enumerate([by_block - Inches(0.4), by_block - Inches(0.1)]):
+        add_line(s, dx + Inches(2.05), ay,
+                 dx + Inches(2.85), ay, color=HEAT_COOL, weight=1.5)
+        add_tri(s, dx + Inches(2.80), ay - Inches(0.04),
+                Inches(0.08), Inches(0.08), fill=HEAT_COOL)
+    add_text(s, dx + Inches(2.95), by_block - Inches(0.30),
+             Inches(3.0), Inches(0.3),
+             "BLOCK-SCALE CFD",
+             size=10, bold=True, color=YU_INDIGO)
+    add_text(s, dx + Inches(2.95), by_block - Inches(0.05),
+             Inches(3.0), Inches(0.3),
+             "OpenFOAM — wind × morphology × GBI",
+             size=9, color=BODY, italic=True)
+
+    # Pedestrian scale (bottom)
+    by_ped = dy + Inches(3.3)
+    icon_person(s, dx + Inches(1.20), by_ped, Inches(0.55), color=DARK)
+    # Path line
+    add_line(s, dx + Inches(0.85), by_ped + Inches(0.65),
+             dx + Inches(4.5), by_ped + Inches(0.65),
+             color=ACCENT, weight=2.0)
+    # Trees along path
+    icon_tree(s, dx + Inches(2.3), by_ped + Inches(0.2), Inches(0.4),
+              color=GREEN_PARK)
+    icon_tree(s, dx + Inches(3.5), by_ped + Inches(0.2), Inches(0.4),
+              color=GREEN_PARK)
+    add_text(s, dx + Inches(2.05), by_ped - Inches(0.10),
+             Inches(3.5), Inches(0.3),
+             "PEDESTRIAN  ·  WBGT FIELD",
+             size=10, bold=True, color=YU_INDIGO)
+    add_text(s, dx + Inches(2.05), by_ped + Inches(0.15),
+             Inches(3.5), Inches(0.3),
+             "Elderly walking corridor, 500–1000 m",
+             size=9, color=BODY, italic=True)
+
+    # Right: 4 originality cards (2x2)
+    rx = Inches(6.85)
+    ry = Inches(1.85)
+    cw = Inches(2.95)
+    ch = Inches(2.05)
+    cgap = Inches(0.10)
+    cards = [
+        ("01", "MULTI-SOURCE",
+         "Satellite RS\n+ on-site measurement\n+ CFD"),
+        ("02", "CUMULATIVE",
+         "Pedestrian-scale\nheat retention zones\n(not instantaneous T)"),
+        ("03", "POLICY-APPLIED",
+         "Kumamoto City green-\ninfrastructure policy\n(Book chapter A-1)"),
+        ("04", "MLIT EBPM",
+         "Adopted by MLIT as\nan Evidence-Based\nPolicy Making case"),
+    ]
+    for i, (n, h, b) in enumerate(cards):
+        r, c = divmod(i, 2)
+        x = rx + c * (cw + cgap)
+        y = ry + r * (ch + cgap)
+        add_rect(s, x, y, cw, ch, fill=WHITE, line=ARCH_LINE, line_w=Pt(0.5))
+        add_rect(s, x, y, cw, Inches(0.35), fill=YU_INDIGO)
+        add_text(s, x + Inches(0.15), y, Inches(0.5), Inches(0.35),
+                 n, size=10, bold=True, color=ACCENT,
+                 anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, x + Inches(0.7), y, cw - Inches(0.8), Inches(0.35),
+                 h, size=10, bold=True, color=ACCENT,
+                 anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, x + Inches(0.15), y + Inches(0.50),
+                 cw - Inches(0.3), Inches(1.5), b,
+                 size=11, color=DARK, line_spacing=1.4)
+        if i == 3:
+            # Highlight the MLIT card with gold border
+            add_rect(s, x, y, cw, ch, fill=None, line=ACCENT, line_w=Pt(1.5))
+
+    # Bottom claim
+    band_y = Inches(6.25)
+    add_rect(s, Inches(0.75), band_y, Inches(12.0), Inches(0.70),
+             fill=YU_INDIGO)
+    add_text(s, Inches(0.95), band_y + Inches(0.10), Inches(11.6), Inches(0.3),
+             "RESEARCH  →  POLICY  →  NATIONAL RECOGNITION",
+             size=10, bold=True, color=ACCENT)
+    add_text(s, Inches(0.95), band_y + Inches(0.35), Inches(11.6), Inches(0.35),
+             "Few researchers combine satellite, measurement, CFD, and national-level policy adoption in one continuous workflow.",
+             size=12, bold=True, color=WHITE)
+
+    add_notes(s, """[SLIDE 5 — ORIGINALITY — ~75 seconds]
+
+This is the core of my originality.
+
+On the left, you see my cross-scale workflow. I work at three altitudes — satellite, block, and pedestrian — chained as one inference path, not three separate studies.
+
+At the top, satellite remote sensing: I use Landsat-8/9 thermal infrared and Sentinel-2 multispectral imagery to retrieve land surface temperature and local climate zone classification at 30-meter resolution. This tells me where heat accumulates across the whole city.
+
+In the middle, block-scale CFD: I use OpenFOAM to test how wind, building morphology, and green-blue infrastructure interact at the block level. This tells me why heat accumulates in specific places.
+
+At the bottom, pedestrian-scale validation: I measure WBGT along the actual 500-to-1000 meter walking corridors that elderly residents use. This tells me whether the predicted mechanisms appear at the human scale.
+
+Four things make this original. First, multi-source data integration. Second, cumulative heat exposure — beyond instantaneous temperature. Third, the workflow has already been applied to Kumamoto City's green-infrastructure policy, through Chapter 4 of the city's official policy volume. Fourth — and this is the strongest evidence — this work has been cited by Japan's Ministry of Land, Infrastructure, Transport and Tourism as an Evidence-Based Policy Making case.
+
+Few researchers can show all four — satellite, measurement, CFD, and national-level policy adoption — in one continuous workflow.
+""")
+
+
+# ============================================================
+# SLIDE 06 — RESEARCH OUTPUTS
+# ============================================================
+def slide_06():
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 6, "RESEARCH OUTPUTS",
+                "Quality first. Continuity second. All Q1 led by me.")
+
+    # Big number block (4 columns)
     nums = [
         ("15", "peer-reviewed\npapers"),
-        ("10", "English\nSCI/SCIE"),
+        ("10", "English\nSCI / SCIE"),
         ("8", "with Impact\nFactor"),
-        ("3", "Q1 papers — all\n1st / corresponding"),
+        ("3", "Q1 papers — all\n1st / co-1st / corresponding"),
     ]
-    x0 = Inches(0.6)
-    y0 = Inches(2.20)
+    x0 = Inches(0.75)
+    y0 = Inches(1.85)
     nw = Inches(3.02)
-    nh = Inches(2.0)
-    gap = Inches(0.07)
+    nh = Inches(2.10)
+    gap = Inches(0.10)
     for i, (num, lab) in enumerate(nums):
         x = x0 + i * (nw + gap)
-        fill = PRIMARY if i == 3 else LIGHT_BG
-        text_c = WHITE if i == 3 else PRIMARY
-        body_c = ACCENT if i == 3 else BODY
+        fill = YU_INDIGO if i == 3 else LIGHT_BG
+        tc = WHITE if i == 3 else YU_INDIGO
+        bc = ACCENT if i == 3 else BODY
         add_rect(s, x, y0, nw, nh, fill=fill)
-        add_text(s, x, y0 + Inches(0.2), nw, Inches(1.1), num,
-                 size=72, bold=True, color=text_c, align=PP_ALIGN.CENTER,
-                 line_spacing=1.0)
-        add_text(s, x, y0 + Inches(1.35), nw, Inches(0.6), lab,
-                 size=12, color=body_c, align=PP_ALIGN.CENTER,
-                 line_spacing=1.3, bold=(i == 3))
+        # number-line decoration
+        add_rect(s, x + Inches(0.3), y0 + Inches(1.65),
+                 Inches(0.4), Emu(38100), fill=ACCENT if i == 3 else YU_INDIGO)
+        add_text(s, x, y0 + Inches(0.20), nw, Inches(1.30),
+                 num, size=80, bold=True, color=tc,
+                 align=PP_ALIGN.CENTER, line_spacing=1.0)
+        add_text(s, x + Inches(0.3), y0 + Inches(1.75), nw - Inches(0.6),
+                 Inches(0.5), lab, size=11, color=bc, line_spacing=1.3,
+                 bold=(i == 3))
 
     # Q1 journals row
-    add_text(s, Inches(0.6), Inches(4.50), Inches(12), Inches(0.4),
-             "Q1 JOURNALS — ALL FIRST / CO-FIRST / CORRESPONDING AUTHOR",
-             size=11, bold=True, color=ACCENT_DEEP)
+    section_label(s, Inches(0.75), Inches(4.20), Inches(12),
+                  "Q1 JOURNALS  ·  ALL FIRST / CO-FIRST / CORRESPONDING AUTHOR")
     journals = [
-        ("Building and Environment", "IF ≈ 7.1  ·  Q1", "Top 5 in field  ·  Co-first author"),
-        ("Environmental Pollution", "IF ≈ 7.3  ·  Q1", "Top-tier Env. Science"),
-        ("Energies", "IF ≈ 3.1  ·  Q1", "First author"),
+        ("Building and Environment", "IF ≈ 7.1  ·  Q1",
+         "TOP 5 IN FIELD  ·  Co-first author\nClassroom thermal × learning"),
+        ("Environmental Pollution", "IF ≈ 7.3  ·  Q1",
+         "Top-tier Environmental Science\nPM2.5 health-effects assessment"),
+        ("Energies", "IF ≈ 3.1  ·  Q1",
+         "First author\nClassroom comfort × learning efficiency"),
     ]
-    jx = Inches(0.6)
-    jy = Inches(4.95)
+    jx0 = Inches(0.75)
+    jy = Inches(4.70)
     jw = Inches(4.05)
-    jh = Inches(1.30)
+    jh = Inches(1.50)
     for i, (jn, jq, jr) in enumerate(journals):
-        x = jx + i * (jw + Inches(0.13))
-        add_rect(s, x, jy, jw, jh, fill=WHITE, line=ACCENT, line_w=Pt(0.75))
+        x = jx0 + i * (jw + Inches(0.10))
+        add_rect(s, x, jy, jw, jh, fill=WHITE, line=ARCH_LINE, line_w=Pt(0.6))
         add_rect(s, x, jy, Inches(0.07), jh, fill=ACCENT)
-        add_text(s, x + Inches(0.25), jy + Inches(0.15), jw - Inches(0.4),
-                 Inches(0.45), jn, size=14, bold=True, color=PRIMARY)
-        add_text(s, x + Inches(0.25), jy + Inches(0.60), jw - Inches(0.4),
-                 Inches(0.35), jq, size=11, color=ACCENT_DEEP, bold=True)
-        add_text(s, x + Inches(0.25), jy + Inches(0.92), jw - Inches(0.4),
-                 Inches(0.35), jr, size=11, color=BODY, italic=True)
+        add_text(s, x + Inches(0.25), jy + Inches(0.15),
+                 jw - Inches(0.4), Inches(0.4),
+                 jn, size=13, bold=True, color=YU_INDIGO)
+        add_text(s, x + Inches(0.25), jy + Inches(0.55),
+                 jw - Inches(0.4), Inches(0.30),
+                 jq, size=10.5, bold=True, color=ACCENT_DEEP)
+        add_text(s, x + Inches(0.25), jy + Inches(0.85),
+                 jw - Inches(0.4), Inches(0.6),
+                 jr, size=10.5, color=BODY, italic=True, line_spacing=1.35)
 
     # Bottom continuity line
-    add_text(s, Inches(0.6), Inches(6.45), Inches(12), Inches(0.4),
-             "RESEARCH LINE", size=10, bold=True, color=ACCENT_DEEP)
-    add_text(s, Inches(0.6), Inches(6.78), Inches(12), Inches(0.4),
-             "Building energy  →  Indoor comfort & learning  →  Urban heat & LULC  →  Green-blue infrastructure  →  Pedestrian heat & policy",
-             size=13, color=PRIMARY, bold=True)
+    band_y = Inches(6.35)
+    add_rect(s, Inches(0.75), band_y, Inches(12.0), Inches(0.60),
+             fill=YU_INDIGO)
+    add_text(s, Inches(0.95), band_y + Inches(0.06), Inches(11.6),
+             Inches(0.25), "RESEARCH LINE  ·  ONE CONTINUOUS AGENDA",
+             size=9, bold=True, color=ACCENT)
+    add_text(s, Inches(0.95), band_y + Inches(0.30), Inches(11.6),
+             Inches(0.30),
+             "Building energy  →  Indoor comfort & learning  →  PM2.5 health  →  Urban heat & LULC  →  Green-blue infrastructure  →  Policy",
+             size=11.5, bold=True, color=WHITE)
+
+    add_notes(s, """[SLIDE 6 — RESEARCH OUTPUTS — ~55 seconds]
+
+Let me talk about quality, not just numbers.
+
+Fifteen peer-reviewed papers. Ten in English SCI or SCIE journals. Eight with impact factor. Three in Q1 journals — and this is what I most want you to remember: all three Q1 papers are first author, co-first author, or corresponding author. These are not background co-authorships. I led them.
+
+The three Q1 journals are: Building and Environment — in the top 5 of construction and building technology — where I am co-first author on a study of classroom thermal comfort and learning. Environmental Pollution, a top-tier environmental science journal, on PM2.5 health-effects assessment. And Energies, where I am first author on classroom comfort and learning efficiency.
+
+What matters even more than the journals is the line that connects them. Building energy, then indoor comfort and learning, then PM2.5 health, then urban heat and land use, then green-blue infrastructure, and finally policy. This is not a scattered publication record. It is one continuous research agenda — moving from buildings to people to cities, and from technical analysis to social application.
+""")
 
 
-# ============== SLIDE 5 — International Collaboration ==============
-def slide_05():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 5, 10, "05", "INTERNATIONAL COLLABORATION  ·  ORGANIZER, NOT JUST PARTICIPANT")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "Three concrete records of organizing international cooperation.",
-             size=28, bold=True, color=PRIMARY, line_spacing=1.05)
+# ============================================================
+# SLIDE 07 — INTERNATIONAL COLLABORATION
+# ============================================================
+def slide_07():
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 7, "INTERNATIONAL COLLABORATION",
+                "Organizer, not just participant — three concrete records.")
 
     # Three records
     records = [
-        ("01", "Sakura Science Program",
-         "Organized ZSTU × Japanese\nuniversities student-researcher\nexchanges multiple times",
-         "Sustained partnership\n(paused by COVID, friendship intact)"),
-        ("02", "Zhejiang Carbon-Neutral Center",
-         "Built the Zhejiang International\nCo-op Center on Carbon Neutrality\nas ZSTU representative",
+        ("01", "SAKURA SCIENCE PROGRAM",
+         "Organized ZSTU × Japanese\nuniversities student-researcher\nexchanges over multiple years",
+         "Sustained partnership — paused\nby COVID, friendship intact"),
+        ("02", "ZHEJIANG CARBON-NEUTRAL CENTER",
+         "Built the Zhejiang International\nCo-op Center on Carbon Neutrality,\nas ZSTU representative",
          "1 of 4 provincial centers\n— ZSTU as core unit"),
-        ("03", "5-Country Online Forum",
+        ("03", "5-COUNTRY ONLINE FORUM",
          "Organized international forum:\nChina · Japan · UK (UCL) ·\nIndonesia · Bangladesh",
-         "Multi-country coordination\nunder COVID restrictions"),
+         "Multi-country coordination\nunder COVID constraints"),
     ]
-    x0 = Inches(0.6)
-    y0 = Inches(2.25)
+    x0 = Inches(0.75)
+    y0 = Inches(1.85)
     cw = Inches(4.05)
-    ch = Inches(3.4)
-    gap = Inches(0.13)
-    for i, (num, head, body_t, footer) in enumerate(records):
+    ch = Inches(3.20)
+    gap = Inches(0.10)
+    for i, (n, h, b, f) in enumerate(records):
         x = x0 + i * (cw + gap)
-        add_rect(s, x, y0, cw, ch, fill=WHITE, line=LINE_GRAY, line_w=Pt(0.75))
-        add_rect(s, x, y0, cw, Inches(0.5), fill=PRIMARY)
-        add_text(s, x + Inches(0.3), y0, Inches(1.0), Inches(0.5),
-                 num, size=14, bold=True, color=ACCENT,
+        add_rect(s, x, y0, cw, ch, fill=WHITE, line=ARCH_LINE, line_w=Pt(0.6))
+        add_rect(s, x, y0, cw, Inches(0.55), fill=YU_INDIGO)
+        add_text(s, x + Inches(0.25), y0, Inches(0.6), Inches(0.55),
+                 n, size=14, bold=True, color=ACCENT,
                  anchor=MSO_ANCHOR.MIDDLE)
-        add_text(s, x + Inches(0.3), y0 + Inches(0.75), cw - Inches(0.6),
-                 Inches(0.6), head, size=16, bold=True, color=PRIMARY,
-                 line_spacing=1.15)
-        add_text(s, x + Inches(0.3), y0 + Inches(1.50), cw - Inches(0.6),
-                 Inches(1.2), body_t, size=12.5, color=BODY, line_spacing=1.4)
-        # Footer line
-        add_rect(s, x + Inches(0.3), y0 + Inches(2.75), cw - Inches(0.6),
-                 Emu(6350), fill=ACCENT)
-        add_text(s, x + Inches(0.3), y0 + Inches(2.85), cw - Inches(0.6),
-                 Inches(0.5), footer, size=11, color=ACCENT_DEEP, italic=True,
-                 line_spacing=1.3)
-
-    # Bottom future network band
-    band_y = Inches(5.95)
-    add_rect(s, Inches(0.6), band_y, Inches(12.13), Inches(0.85),
-             fill=PRIMARY)
-    add_text(s, Inches(0.85), band_y + Inches(0.12), Inches(11.5), Inches(0.35),
-             "FUTURE NETWORK · BUILT ON EXISTING FRIENDSHIP",
-             size=11, bold=True, color=ACCENT)
-    add_text(s, Inches(0.85), band_y + Inches(0.42), Inches(11.5), Inches(0.4),
-             "Yamaguchi U.  ↔  UCL (Dr. Huanfa Chen)  ↔  Zhejiang U. (Prof. Jian Ge)  ↔  ZSTU  ↔  Shanghai / Indonesia / Bangladesh nodes",
-             size=13, bold=True, color=WHITE)
-
-
-# ============== SLIDE 6 — Funding ==============
-def slide_06():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 6, 10, "06", "FUNDING & PROJECT LEADERSHIP")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "Approximately 100 million yen — and the Japan pattern has already started.",
-             size=27, bold=True, color=PRIMARY, line_spacing=1.05)
-
-    # Three-phase timeline
-    phases = [
-        ("CHINA  2018–2023",
-         "≈ 100 M JPY",
-         "Across 8 projects ·  5 as Leading Researcher\nNational Social Science Fund (collaborator)\nHigh-competition environment",
-         PRIMARY, WHITE, ACCENT),
-        ("KUMAMOTO  2023–2025",
-         "Municipal post",
-         "Institutional rule:\nexternal competitive grants\nnot permitted\n→ but produced MLIT EBPM-cited outputs",
-         LIGHT_BG, PRIMARY, ACCENT_DEEP),
-        ("YAMAGUCHI  since Jan 2026",
-         "# 1  /  13",
-         "Ranked #1 of 13 applicants\nin Yamaguchi U. regional research\n(4 selected) — within months of joining",
-         PRIMARY, WHITE, ACCENT),
-    ]
-    x0 = Inches(0.6)
-    y0 = Inches(2.25)
-    pw = Inches(4.05)
-    ph = Inches(3.7)
-    gap = Inches(0.13)
-    for i, (head, big, body_t, bg, hc, accent_c) in enumerate(phases):
-        x = x0 + i * (pw + gap)
-        add_rect(s, x, y0, pw, ph, fill=bg)
-        # Top tag
-        add_text(s, x + Inches(0.3), y0 + Inches(0.3), pw - Inches(0.6),
-                 Inches(0.4), head, size=11, bold=True, color=accent_c)
-        # Big figure
-        add_text(s, x + Inches(0.3), y0 + Inches(0.85), pw - Inches(0.6),
-                 Inches(1.3), big, size=42, bold=True, color=hc,
-                 line_spacing=1.0)
+        add_text(s, x + Inches(0.95), y0, cw - Inches(1.0), Inches(0.55),
+                 h, size=11.5, bold=True, color=ACCENT,
+                 anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, x + Inches(0.25), y0 + Inches(0.85),
+                 cw - Inches(0.4), Inches(1.40),
+                 b, size=12, color=DARK, line_spacing=1.4)
         # Divider
-        add_rect(s, x + Inches(0.3), y0 + Inches(2.20),
-                 Inches(0.8), Emu(9525), fill=accent_c)
-        # Body
-        add_text(s, x + Inches(0.3), y0 + Inches(2.40), pw - Inches(0.6),
-                 Inches(1.2), body_t, size=12, color=hc, line_spacing=1.4)
+        add_rect(s, x + Inches(0.25), y0 + Inches(2.35),
+                 cw - Inches(0.5), Emu(6350), fill=ACCENT)
+        add_text(s, x + Inches(0.25), y0 + Inches(2.45),
+                 cw - Inches(0.4), Inches(0.65),
+                 f, size=10.5, color=ACCENT_DEEP, italic=True,
+                 line_spacing=1.35)
 
-    # Forward-looking strip
-    fy = Inches(6.20)
-    add_rect(s, Inches(0.6), fy, Inches(12.13), Inches(0.7),
-             fill=None, line=ACCENT, line_w=Pt(1.0))
-    add_text(s, Inches(0.85), fy + Inches(0.18), Inches(11.5), Inches(0.4),
-             "NEXT  →  Kakenhi Kiban C  (FY2026 autumn)  →  Kiban B  during HIRAKU-Global",
-             size=14, bold=True, color=PRIMARY)
+    # Future network diagram (bottom)
+    nx = Inches(0.75)
+    ny = Inches(5.25)
+    nw = Inches(12.0)
+    nh = Inches(1.5)
+    add_rect(s, nx, ny, nw, nh, fill=LIGHTER, line=ARCH_LINE, line_w=Pt(0.5))
+    section_label(s, nx + Inches(0.15), ny + Inches(0.10), Inches(8),
+                  "FUTURE NETWORK  ·  BUILDING ON EXISTING FRIENDSHIP")
 
+    # Central hub (Yamaguchi)
+    cx = nx + nw / 2
+    cy = ny + Inches(0.95)
+    add_rect(s, cx - Inches(0.85), cy - Inches(0.2), Inches(1.7),
+             Inches(0.4), fill=YU_INDIGO)
+    add_text(s, cx - Inches(0.85), cy - Inches(0.2), Inches(1.7),
+             Inches(0.4), "YAMAGUCHI U.", size=11, bold=True,
+             color=ACCENT, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 
-# ============== SLIDE 7 — Plan & International Development ==============
-def slide_07():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 7, 10, "07", "RESEARCH PLAN  ·  FEASIBILITY & INTERNATIONAL DEVELOPMENT")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "Not starting from zero.  Pipeline running, partners ready, first grant won.",
-             size=26, bold=True, color=PRIMARY, line_spacing=1.05)
-
-    # Left column: 3 cities × 3 wind regimes
-    add_text(s, Inches(0.6), Inches(2.05), Inches(6), Inches(0.4),
-             "3 CITIES  ×  3 WIND REGIMES", size=12, bold=True,
-             color=ACCENT_DEEP)
-    cities = [
-        ("YAMAGUCHI", "Inland basin"),
-        ("UBE", "Coastal sea-breeze"),
-        ("MATSUE", "Sea-of-Japan lakeside"),
-    ]
-    cy = Inches(2.50)
-    for i, (cn, cd) in enumerate(cities):
-        y = cy + i * Inches(0.85)
-        add_rect(s, Inches(0.6), y, Inches(0.06), Inches(0.65), fill=ACCENT)
-        add_text(s, Inches(0.85), y, Inches(2.5), Inches(0.4),
-                 cn, size=18, bold=True, color=PRIMARY)
-        add_text(s, Inches(0.85), y + Inches(0.40), Inches(5), Inches(0.3),
-                 cd, size=13, color=BODY, italic=True)
-
-    # Middle column: 3-step method chain
-    mx = Inches(5.30)
-    add_text(s, mx, Inches(2.05), Inches(4), Inches(0.4),
-             "METHOD CHAIN  ·  CITY-TO-CORRIDOR", size=12, bold=True,
-             color=ACCENT_DEEP)
-    steps = [
-        ("STEP 1", "Satellite diagnosis",
-         "Landsat-8/9 LST × Sentinel-2 LCZ"),
-        ("STEP 2", "Block-scale CFD",
-         "OpenFOAM wind × morphology × GBI"),
-        ("STEP 3", "Pedestrian validation",
-         "WBGT along elderly walking corridors"),
-    ]
-    sy = Inches(2.50)
-    for i, (st, sh, sb) in enumerate(steps):
-        y = sy + i * Inches(0.85)
-        add_rect(s, mx, y, Inches(0.6), Inches(0.65), fill=PRIMARY)
-        add_text(s, mx, y, Inches(0.6), Inches(0.65),
-                 st.split()[1], size=18, bold=True, color=ACCENT,
-                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-        add_text(s, mx + Inches(0.75), y, Inches(3.5), Inches(0.4),
-                 sh, size=15, bold=True, color=PRIMARY)
-        add_text(s, mx + Inches(0.75), y + Inches(0.40), Inches(3.5),
-                 Inches(0.35), sb, size=11, color=BODY, italic=True)
-
-    # Right column: international partners
-    rx = Inches(9.7)
-    add_text(s, rx, Inches(2.05), Inches(4), Inches(0.4),
-             "PARTNERS  ·  ALREADY ON BOARD", size=12, bold=True,
-             color=ACCENT_DEEP)
+    # Partners around
     partners = [
-        ("UCL", "Dr. Huanfa Chen", "2-month stay  ·  Year 2"),
-        ("Zhejiang U.", "Prof. Jian Ge", "Short visit  ·  Year 3"),
-        ("Sakura net & 5-country forum",
-         "Indonesia · Bangladesh · UCL",
-         "Reactivation as expansion nodes"),
+        (-4.5, 0.0, "UCL", "Dr. Huanfa Chen"),
+        (-2.4, 0.0, "ZSTU", "Sakura net"),
+        (2.4, 0.0, "ZHEJIANG U.", "Prof. Jian Ge"),
+        (4.5, 0.0, "ASIA NODES", "Indonesia · Bangladesh"),
     ]
-    py = Inches(2.50)
-    for i, (pa, pn, pd) in enumerate(partners):
-        y = py + i * Inches(0.85)
-        add_rect(s, rx, y, Inches(0.06), Inches(0.65), fill=ACCENT)
-        add_text(s, rx + Inches(0.2), y, Inches(3.5), Inches(0.4),
-                 pa, size=14, bold=True, color=PRIMARY, line_spacing=1.05)
-        add_text(s, rx + Inches(0.2), y + Inches(0.40), Inches(3.5),
-                 Inches(0.35), f"{pn}   ·   {pd}", size=10.5,
-                 color=BODY, italic=True)
+    for off, _, name, sub in partners:
+        px = cx + Inches(off)
+        py = cy
+        # Connection line
+        add_line(s, cx, cy, px, py, color=ACCENT, weight=1.0,
+                 dash="dash")
+        # Node
+        add_rect(s, px - Inches(0.85), py - Inches(0.20),
+                 Inches(1.7), Inches(0.4),
+                 fill=WHITE, line=YU_INDIGO, line_w=Pt(1.0))
+        add_text(s, px - Inches(0.85), py - Inches(0.20),
+                 Inches(1.7), Inches(0.4),
+                 name, size=10, bold=True, color=YU_INDIGO,
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, px - Inches(0.85), py + Inches(0.22),
+                 Inches(1.7), Inches(0.3),
+                 sub, size=8, color=BODY, italic=True,
+                 align=PP_ALIGN.CENTER)
 
-    # Bottom strong claim
-    band_y = Inches(5.85)
-    add_rect(s, Inches(0.6), band_y, Inches(12.13), Inches(1.0),
-             fill=PRIMARY)
-    add_text(s, Inches(0.85), band_y + Inches(0.18), Inches(11.5), Inches(0.4),
-             "FEASIBILITY — ALREADY PROVEN",
-             size=12, bold=True, color=ACCENT)
-    add_text(s, Inches(0.85), band_y + Inches(0.50), Inches(11.5), Inches(0.5),
-             "Satellite pipeline running (C-1, 2024)  ·  CFD methodology established  ·  Partners aligned  ·  First Japanese grant won",
-             size=13, bold=True, color=WHITE)
+    # Bottom note
+    add_text(s, Inches(0.75), Inches(6.95), Inches(12), Inches(0.25),
+             "IN ALL THREE CASES — I WAS THE ORGANIZER, NOT JUST A PARTICIPANT.",
+             size=11, bold=True, color=YU_INDIGO,
+             align=PP_ALIGN.CENTER)
+
+    add_notes(s, """[SLIDE 7 — INTERNATIONAL COLLABORATION — ~65 seconds]
+
+International collaboration, for me, is not about attending conferences. It is about organizing actual cooperation between institutions.
+
+Three concrete records.
+
+First, the Sakura Science Program. I organized exchanges between Zhejiang Sci-Tech University and Japanese universities over multiple years — bringing students and researchers across the bridge. The program was paused by COVID, but the partnership is intact.
+
+Second, during COVID, as a Zhejiang Sci-Tech University representative, I helped build the Zhejiang International Cooperation Center on Carbon Neutrality. Zhejiang Province established only four such centers — and ZSTU was the core unit of one of them. That gave me direct experience in setting up a provincial-level international research platform.
+
+Third, I organized an international online forum that brought together researchers from China, Japan, the UK — including UCL — Indonesia, and Bangladesh. Coordinating five countries during pandemic constraints is itself a track record.
+
+The future network shown below is not a wish list — it builds on these existing friendships. Yamaguchi University at the center, connecting UCL, Zhejiang University, and Asian nodes that I have already worked with.
+
+In all three cases, I was the organizer. Not just a participant.
+""")
 
 
-# ============== SLIDE 8 — Aspirations DURING HIRAKU ==============
+# ============================================================
+# SLIDE 08 — FUNDING & LEADERSHIP
+# ============================================================
 def slide_08():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 8, 10, "08", "DURING HIRAKU-GLOBAL  ·  MEET & EXCEED THE 3I GOAL")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "Aligning my action plan with HIRAKU-Global's 3I framework.",
-             size=27, bold=True, color=PRIMARY, line_spacing=1.05)
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 8, "FUNDING & PROJECT LEADERSHIP",
+                "≈ 100 million JPY total — and the Japan pattern has already started.")
 
-    # 3I framework header
-    add_text(s, Inches(0.6), Inches(2.05), Inches(12), Inches(0.4),
-             "HIRAKU-GLOBAL  3I  FRAMEWORK   →   MY DELIVERABLES",
-             size=11, bold=True, color=ACCENT_DEEP)
+    # Three phases
+    phases = [
+        ("CHINA  ·  2018–2023",
+         "≈ 100 M\nJPY",
+         "8 projects  ·  5 as Leading Researcher\nIncluding NSSFC General Project\n(collaborator)",
+         "HIGH-COMPETITION ENVIRONMENT",
+         YU_INDIGO, WHITE),
+        ("KUMAMOTO  ·  2023–2025",
+         "Municipal\npost",
+         "Institutional rule:\nexternal competitive grants\nnot permitted",
+         "POLICY-OUTPUT  ·  MLIT EBPM-CITED",
+         LIGHT_BG, YU_INDIGO),
+        ("YAMAGUCHI  ·  since Jan 2026",
+         "# 1\n/ 13",
+         "Top-ranked applicant\nin Yamaguchi U. regional\nresearch program (4 selected)",
+         "JAPAN PATTERN HAS STARTED",
+         YU_INDIGO, WHITE),
+    ]
+    px0 = Inches(0.75)
+    py = Inches(1.85)
+    pw = Inches(4.05)
+    ph = Inches(4.0)
+    gap = Inches(0.10)
+    for i, (h, big, body_t, footer, bg, hc) in enumerate(phases):
+        x = px0 + i * (pw + gap)
+        add_rect(s, x, py, pw, ph, fill=bg)
+        # Top tag
+        accent_c = ACCENT if hc == WHITE else ACCENT_DEEP
+        add_text(s, x + Inches(0.25), py + Inches(0.25),
+                 pw - Inches(0.5), Inches(0.4),
+                 h, size=11, bold=True, color=accent_c)
+        # Big figure
+        add_text(s, x + Inches(0.25), py + Inches(0.7),
+                 pw - Inches(0.5), Inches(1.65),
+                 big, size=46, bold=True, color=hc, line_spacing=0.95)
+        # Divider
+        add_rect(s, x + Inches(0.25), py + Inches(2.40),
+                 Inches(0.8), Emu(12700), fill=accent_c)
+        # Body
+        add_text(s, x + Inches(0.25), py + Inches(2.60),
+                 pw - Inches(0.5), Inches(1.0),
+                 body_t, size=12, color=hc, line_spacing=1.4)
+        # Footer tag
+        add_text(s, x + Inches(0.25), py + Inches(3.60),
+                 pw - Inches(0.5), Inches(0.3),
+                 footer, size=9, bold=True, color=accent_c, italic=True)
+
+    # Forward path
+    fy = Inches(6.10)
+    add_rect(s, Inches(0.75), fy, Inches(12.0), Inches(0.80),
+             fill=None, line=ACCENT, line_w=Pt(1.2))
+    add_text(s, Inches(0.95), fy + Inches(0.10), Inches(11.6), Inches(0.30),
+             "FORWARD PATH",
+             size=10, bold=True, color=ACCENT_DEEP)
+    add_text(s, Inches(0.95), fy + Inches(0.36), Inches(11.6), Inches(0.4),
+             "KAKENHI KIBAN C  (FY2026 autumn)   →   KAKENHI KIBAN B  (during HIRAKU)",
+             size=15, bold=True, color=YU_INDIGO)
+
+    add_notes(s, """[SLIDE 8 — FUNDING & PROJECT LEADERSHIP — ~65 seconds]
+
+Now, funding. I will give you the honest picture in three phases.
+
+China, 2018 to 2023: across 8 projects I have accumulated approximately 100 million yen equivalent in research funding, with 5 of those as Leading Researcher. I was also a collaborator on a National Social Science Fund of China General Project. The Chinese research environment is highly competitive, with many universities and many applicants — so this track record came from a competitive selection.
+
+Kumamoto, 2023 to 2025: my position there was at the Institute of Policy Research, a municipal post. The institutional rule was clear — external competitive grants such as JSPS Kakenhi were not permitted from that position. The absence of Japanese grants in that period reflects the role, not the ability. What I produced instead was policy-oriented output — including the MLIT EBPM case I mentioned earlier.
+
+Yamaguchi, from January 2026: the first time I have been eligible to apply in Japan. And within months of joining, I was ranked number one out of thirteen applicants in the Yamaguchi University regional research program — four were selected. The Japan pattern has started.
+
+The path forward: Kakenhi Kiban C this autumn, then Kiban B during the HIRAKU-Global period — using the Chugoku-Shikoku evidence base as pilot foundation.
+""")
+
+
+# ============================================================
+# SLIDE 09 — RESEARCH PLAN
+# ============================================================
+def slide_09():
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 9, "RESEARCH PLAN  ·  FEASIBILITY & INTERNATIONAL",
+                "Not from zero — pipeline running, partners ready, first grant won.")
+
+    # Left: Western Japan schematic map with 3 cities
+    mx = Inches(0.75)
+    my = Inches(1.85)
+    mw = Inches(4.2)
+    mh = Inches(3.0)
+    add_rect(s, mx, my, mw, mh, fill=LIGHTER, line=ARCH_LINE, line_w=Pt(0.5))
+    section_label(s, mx + Inches(0.15), my + Inches(0.10), Inches(5),
+                  "3 CITIES  ×  3 WIND REGIMES")
+
+    # Simplified Honshu/Western Japan outline (using a few connected rectangles)
+    # Just a stylized shape for reference
+    # Sea of Japan (top)
+    add_rect(s, mx + Inches(0.3), my + Inches(0.45), mw - Inches(0.6),
+             Inches(0.65), fill=HEAT_COOL)
+    add_text(s, mx + Inches(0.4), my + Inches(0.50), Inches(3), Inches(0.3),
+             "SEA OF JAPAN", size=8, bold=True, color=WHITE, italic=True)
+
+    # Land mass (stylized)
+    add_rect(s, mx + Inches(0.3), my + Inches(1.10),
+             mw - Inches(0.6), Inches(1.0), fill=LIGHT_BG,
+             line=ARCH_LINE, line_w=Pt(0.6))
+    add_text(s, mx + Inches(0.4), my + Inches(1.15),
+             Inches(3), Inches(0.3),
+             "CHUGOKU REGION  ·  WESTERN HONSHU",
+             size=8, bold=True, color=MUTED, italic=True)
+
+    # Seto Inland Sea (bottom)
+    add_rect(s, mx + Inches(0.3), my + Inches(2.10),
+             mw - Inches(0.6), Inches(0.5), fill=HEAT_COOL)
+    add_text(s, mx + Inches(0.4), my + Inches(2.18),
+             Inches(3), Inches(0.3),
+             "SETO INLAND SEA", size=8, bold=True, color=WHITE, italic=True)
+
+    # City dots
+    cities = [
+        (0.65, 1.5, "MATSUE", "LAKESIDE"),
+        (1.95, 1.7, "YAMAGUCHI", "BASIN"),
+        (2.85, 1.95, "UBE", "COASTAL"),
+    ]
+    for cxoff, cyoff, name, regime in cities:
+        cx_d = mx + Inches(cxoff)
+        cy_d = my + Inches(cyoff)
+        add_oval(s, cx_d - Inches(0.12), cy_d - Inches(0.12),
+                 Inches(0.24), Inches(0.24), fill=HEAT_HOT)
+        # Label
+        add_text(s, cx_d + Inches(0.18), cy_d - Inches(0.14),
+                 Inches(1.6), Inches(0.22),
+                 name, size=9, bold=True, color=YU_INDIGO)
+        add_text(s, cx_d + Inches(0.18), cy_d + Inches(0.04),
+                 Inches(1.6), Inches(0.22),
+                 regime, size=7, color=BODY, italic=True)
+
+    # N indicator
+    add_text(s, mx + mw - Inches(0.45), my + Inches(0.85),
+             Inches(0.3), Inches(0.3), "N",
+             size=11, bold=True, color=YU_INDIGO, align=PP_ALIGN.CENTER)
+    add_tri(s, mx + mw - Inches(0.38), my + Inches(0.55),
+            Inches(0.16), Inches(0.30), fill=YU_INDIGO)
+
+    # Middle: Method chain (vertical pipeline)
+    px = Inches(5.20)
+    py = Inches(1.85)
+    pw = Inches(3.4)
+    ph = Inches(3.0)
+    section_label(s, px, py, Inches(3.4),
+                  "METHOD CHAIN  ·  CITY → CORRIDOR")
+    steps = [
+        ("01", "SATELLITE SCREENING",
+         "Landsat-8/9 LST × Sentinel-2 LCZ\nYears 1–2"),
+        ("02", "BLOCK CFD",
+         "OpenFOAM wind × morphology × GBI\nYear 3"),
+        ("03", "PEDESTRIAN VALIDATION",
+         "WBGT field measurement\nYear 4"),
+    ]
+    sy = py + Inches(0.40)
+    for i, (n, h, b) in enumerate(steps):
+        y = sy + i * Inches(0.85)
+        add_rect(s, px, y, pw, Inches(0.75),
+                 fill=WHITE, line=ARCH_LINE, line_w=Pt(0.5))
+        add_rect(s, px, y, Inches(0.55), Inches(0.75),
+                 fill=YU_INDIGO)
+        add_text(s, px, y, Inches(0.55), Inches(0.75),
+                 n, size=14, bold=True, color=ACCENT,
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, px + Inches(0.7), y + Inches(0.08),
+                 pw - Inches(0.8), Inches(0.30),
+                 h, size=11, bold=True, color=YU_INDIGO)
+        add_text(s, px + Inches(0.7), y + Inches(0.38),
+                 pw - Inches(0.8), Inches(0.35),
+                 b, size=9, color=BODY, italic=True, line_spacing=1.25)
+        # Connector arrow (down)
+        if i < 2:
+            add_line(s, px + pw / 2, y + Inches(0.75),
+                     px + pw / 2, y + Inches(0.85),
+                     color=ACCENT, weight=2.0)
+
+    # Right: 5-year timeline (Gantt-style)
+    gx = Inches(8.85)
+    gy = Inches(1.85)
+    gw = Inches(4.05)
+    gh = Inches(3.0)
+    section_label(s, gx, gy, Inches(4),
+                  "5-YEAR PLAN  ·  HIRAKU PERIOD")
+
+    # Year columns
+    year_h = Inches(0.40)
+    year_y = gy + Inches(0.4)
+    year_w = gw / 5
+    for yi in range(5):
+        x = gx + yi * year_w
+        add_rect(s, x, year_y, year_w, year_h,
+                 fill=LIGHT_BG, line=ARCH_LINE, line_w=Pt(0.5))
+        add_text(s, x, year_y, year_w, year_h,
+                 f"Y{yi+1}", size=10, bold=True, color=YU_INDIGO,
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+
+    # Tasks bars
+    tasks = [
+        ("LST × LCZ diagnosis", 0, 2, YU_INDIGO_LT),
+        ("UCL stay (2 months)", 1, 1, ACCENT),
+        ("Block-scale CFD", 2, 1, YU_INDIGO_LT),
+        ("Zhejiang U. visit", 2, 1, ACCENT),
+        ("Pedestrian WBGT", 3, 1, YU_INDIGO_LT),
+        ("Int'l workshop", 3, 1, ACCENT),
+        ("Synthesis + Kakenhi B", 4, 1, HEAT_HOT),
+    ]
+    ty0 = year_y + Inches(0.55)
+    bar_h = Inches(0.20)
+    bar_gap = Inches(0.05)
+    for i, (name, start, dur, col) in enumerate(tasks):
+        y = ty0 + i * (bar_h + bar_gap)
+        bx = gx + start * year_w + Inches(0.03)
+        bw_ = dur * year_w - Inches(0.06)
+        add_rect(s, bx, y, bw_, bar_h, fill=col)
+        # Label
+        add_text(s, gx, y - Inches(0.02),
+                 Inches(4), Inches(0.25),
+                 name, size=8, color=DARK,
+                 align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+    # Place labels INSIDE / OVER bars
+    for i, (name, start, dur, col) in enumerate(tasks):
+        y = ty0 + i * (bar_h + bar_gap)
+        bx = gx + start * year_w + Inches(0.06)
+        add_text(s, bx, y, year_w * dur, bar_h,
+                 name, size=7, bold=True, color=WHITE,
+                 anchor=MSO_ANCHOR.MIDDLE)
+
+    # Bottom feasibility claim
+    band_y = Inches(5.05)
+    add_rect(s, Inches(0.75), band_y, Inches(12.0), Inches(0.85),
+             fill=YU_INDIGO)
+    add_text(s, Inches(0.95), band_y + Inches(0.13), Inches(11.6),
+             Inches(0.30),
+             "FEASIBILITY — ALREADY PROVEN",
+             size=10, bold=True, color=ACCENT)
+    add_text(s, Inches(0.95), band_y + Inches(0.40), Inches(11.6),
+             Inches(0.40),
+             "Satellite pipeline running (C-1, 2024)  ·  CFD methodology established (C-2, D-3)  ·  Partners aligned  ·  First Japanese grant won",
+             size=12, bold=True, color=WHITE)
+
+    # Bottom: Risk awareness
+    section_label(s, Inches(0.75), Inches(6.10), Inches(8),
+                  "RISK MANAGEMENT  ·  WHAT COULD GO WRONG, AND HOW I HANDLE IT")
+    add_text(s, Inches(0.75), Inches(6.45), Inches(12),
+             Inches(0.6),
+             "Anchor Yamaguchi as the primary case  ·  expand stepwise to Ube and Matsue  ·  "
+             "online collaboration if travel is constrained  ·  Kumamoto baseline retained as pre-validated reference.",
+             size=11, color=BODY, italic=True, line_spacing=1.4)
+
+    add_notes(s, """[SLIDE 9 — RESEARCH PLAN — ~75 seconds]
+
+This is the project I will run during HIRAKU-Global.
+
+On the left, three cities — Yamaguchi, Ube, and Matsue — chosen because they span three contrasting wind regimes within one administrative region: inland basin, coastal sea-breeze, and Sea-of-Japan lakeside. That contrast is exactly what the science needs.
+
+In the middle, the method chain. Step 1, satellite screening — already running. Step 2, block-scale CFD — methodology already established in my earlier work. Step 3, pedestrian-scale WBGT validation — co-developed with Yamaguchi City's elderly-care offices.
+
+On the right, the five-year plan. Year 1: city-scale diagnosis. Year 2: two-month stay at UCL with Dr. Huanfa Chen. Year 3: block CFD plus a short Zhejiang visit. Year 4: pedestrian validation and an international workshop at Yamaguchi. Year 5: synthesis and the Kakenhi Kiban B application.
+
+This plan does not start from zero. The satellite pipeline is already running. The international partners are already in place. The first Japanese grant is already won.
+
+I have also thought about risk. The main risk is over-extension. My approach is to anchor Yamaguchi first, expand stepwise to Ube and Matsue, use online collaboration when travel is constrained, and keep the Kumamoto data as a pre-validated reference. I want to deliver, not over-promise.
+""")
+
+
+# ============================================================
+# SLIDE 10 — DURING HIRAKU + POST-TENURE
+# ============================================================
+def slide_10():
+    s = prs.slides.add_slide(blank)
+    page_chrome(s, 10, "ASPIRATIONS",
+                "During HIRAKU-Global, and after tenure — a long-term anchor.")
+
+    # Left: During HIRAKU - 3I framework alignment
+    lx = Inches(0.75)
+    ly = Inches(1.85)
+    section_label(s, lx, ly, Inches(6.0),
+                  "DURING HIRAKU-GLOBAL  ·  ALIGNED WITH THE 3I FRAMEWORK")
 
     rows = [
         ("INNOVATIVE",
-         "Cross-scale wind × GBI × pedestrian-heat mechanism paper",
-         "Reproducible city-to-corridor diagnostic workflow"),
+         "Cross-scale wind × GBI ×\npedestrian-heat mechanism paper",
+         "Reproducible city-to-corridor\ndiagnostic workflow"),
         ("INFLUENTIAL",
-         "Continued Q1 publications during HIRAKU period",
-         "Kakenhi Kiban C (FY2026)  →  Kiban B"),
+         "Continued Q1 publications\nthrough the HIRAKU period",
+         "Kakenhi Kiban C (FY2026)\n→ Kiban B target"),
         ("IMPACTFUL",
-         "Deliver outputs to Yamaguchi, Ube, Matsue municipalities",
-         "Continue MLIT EBPM-aligned policy translation"),
+         "Deliver outputs to Yamaguchi,\nUbe, Matsue municipalities",
+         "Continue MLIT EBPM-aligned\npolicy translation"),
     ]
-    rx = Inches(0.6)
-    ry = Inches(2.50)
+    ry = ly + Inches(0.42)
     rh = Inches(0.95)
     for i, (lab, d1, d2) in enumerate(rows):
-        y = ry + i * (rh + Inches(0.10))
-        # Tag block
-        add_rect(s, rx, y, Inches(2.4), rh, fill=PRIMARY)
-        add_text(s, rx, y, Inches(2.4), rh, lab, size=15, bold=True,
-                 color=ACCENT, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-        # Deliverable 1
-        add_rect(s, rx + Inches(2.5), y, Inches(5.0), rh,
-                 fill=WHITE, line=LINE_GRAY, line_w=Pt(0.5))
-        add_text(s, rx + Inches(2.65), y, Inches(4.8), rh, d1,
-                 size=12, color=DARK, anchor=MSO_ANCHOR.MIDDLE,
-                 line_spacing=1.3)
-        # Deliverable 2
-        add_rect(s, rx + Inches(7.6), y, Inches(5.13), rh,
-                 fill=WHITE, line=LINE_GRAY, line_w=Pt(0.5))
-        add_text(s, rx + Inches(7.75), y, Inches(4.9), rh, d2,
-                 size=12, color=DARK, anchor=MSO_ANCHOR.MIDDLE,
-                 line_spacing=1.3)
-
-    # Give-back band
-    gy = Inches(5.70)
-    add_text(s, Inches(0.6), gy, Inches(12), Inches(0.4),
-             "WHAT I GIVE BACK  ·  ACTIVE MEMBER, NOT ONLY RECIPIENT",
-             size=11, bold=True, color=ACCENT_DEEP)
-    gives = [
-        ("Year-4 international workshop",
-         "Urban thermal × GBI × climate adaptation"),
-        ("China–Japan bridging",
-         "Annual seminar · translation · fieldwork support"),
-        ("Cross-discipline seminars",
-         "Cross-scale analysis · translational research"),
-    ]
-    gx = Inches(0.6)
-    gy2 = Inches(6.15)
-    gw = Inches(4.05)
-    for i, (gh, gb) in enumerate(gives):
-        x = gx + i * (gw + Inches(0.13))
-        add_rect(s, x, gy2, Inches(0.06), Inches(0.8), fill=ACCENT)
-        add_text(s, x + Inches(0.2), gy2, gw - Inches(0.2), Inches(0.4),
-                 gh, size=13, bold=True, color=PRIMARY)
-        add_text(s, x + Inches(0.2), gy2 + Inches(0.42), gw - Inches(0.2),
-                 Inches(0.4), gb, size=11, color=BODY, italic=True)
-
-
-# ============== SLIDE 9 — After tenure ==============
-def slide_09():
-    s = prs.slides.add_slide(blank_layout)
-    slide_frame(s, 9, 10, "09", "POST-TENURE  ·  LONG-TERM VISION & LEADERSHIP")
-    add_text(s, Inches(0.6), Inches(0.95), Inches(12), Inches(1.0),
-             "A long-term anchor — not a short-term passenger.",
-             size=28, bold=True, color=PRIMARY, line_spacing=1.05)
-
-    # Concentric expansion (left side)
-    add_text(s, Inches(0.6), Inches(2.0), Inches(6), Inches(0.4),
-             "LOCAL-TO-GLOBAL  ·  EXPANDING IMPACT", size=11,
-             bold=True, color=ACCENT_DEEP)
-    rings = [
-        ("Lab", "Stable research group at Yamaguchi U."),
-        ("Region", "Chugoku-Shikoku heat-adaptation toolkit"),
-        ("Western Japan", "Urban-thermal research hub"),
-        ("Asia", "Comparative platform: EU · China · SE Asia"),
-        ("Global", "Local-to-Global model for aging climate cities"),
-    ]
-    rx = Inches(0.6)
-    ry = Inches(2.55)
-    for i, (rn, rd) in enumerate(rings):
-        y = ry + i * Inches(0.62)
-        # Indent progressively
-        indent = Inches(i * 0.18)
-        add_rect(s, rx + indent, y + Inches(0.10), Inches(0.35),
-                 Inches(0.35), fill=PRIMARY)
-        add_text(s, rx + indent, y + Inches(0.10), Inches(0.35),
-                 Inches(0.35), str(i + 1), size=11, bold=True, color=ACCENT,
+        y = ry + i * (rh + Inches(0.08))
+        # Tag
+        add_rect(s, lx, y, Inches(1.5), rh, fill=YU_INDIGO)
+        add_text(s, lx, y, Inches(1.5), rh, lab,
+                 size=11, bold=True, color=ACCENT,
                  align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-        add_text(s, rx + indent + Inches(0.5), y, Inches(2.2), Inches(0.4),
-                 rn.upper(), size=13, bold=True, color=PRIMARY)
-        add_text(s, rx + indent + Inches(0.5), y + Inches(0.30), Inches(5),
-                 Inches(0.4), rd, size=11, color=BODY, italic=True)
+        add_rect(s, lx + Inches(1.55), y, Inches(2.20), rh,
+                 fill=WHITE, line=ARCH_LINE, line_w=Pt(0.5))
+        add_text(s, lx + Inches(1.70), y, Inches(2.05), rh, d1,
+                 size=10, color=DARK, anchor=MSO_ANCHOR.MIDDLE,
+                 line_spacing=1.3)
+        add_rect(s, lx + Inches(3.80), y, Inches(2.20), rh,
+                 fill=WHITE, line=ARCH_LINE, line_w=Pt(0.5))
+        add_text(s, lx + Inches(3.95), y, Inches(2.05), rh, d2,
+                 size=10, color=DARK, anchor=MSO_ANCHOR.MIDDLE,
+                 line_spacing=1.3)
 
-    # Right side: Strategic anchors
-    sx = Inches(7.3)
-    add_text(s, sx, Inches(2.0), Inches(5.5), Inches(0.4),
-             "STRATEGIC ANCHORS", size=11, bold=True, color=ACCENT_DEEP)
+    # Right: Post-tenure — concentric expansion + anchors
+    rx = Inches(7.20)
+    ry2 = Inches(1.85)
+    section_label(s, rx, ry2, Inches(5.7),
+                  "POST-TENURE  ·  LONG-TERM ANCHOR  ·  LOCAL-TO-GLOBAL")
 
-    anchors = [
-        ("KAKENHI KIBAN B",
-         "as PI — wind × GBI cross-scale\nmechanism, using Chugoku-Shikoku\nevidence base as pilot foundation"),
-        ("YAMAGUCHI U. AS HUB",
-         "Western Japan's reference point\nfor urban thermal science &\nclimate-adaptive spatial design"),
-        ("LOCAL-TO-GLOBAL EXPORT",
-         "Diagnostic workflow exportable to\nAsian & global cities facing\naging × climate-change crises"),
+    rings = [
+        ("LAB",      "Stable group at Yamaguchi U."),
+        ("REGION",   "Chugoku-Shikoku heat toolkit"),
+        ("W. JAPAN", "Urban-thermal research hub"),
+        ("ASIA",     "EU · China · SE Asia platform"),
+        ("GLOBAL",   "Local-to-Global model export"),
     ]
-    ay = Inches(2.55)
-    for i, (ah, ab) in enumerate(anchors):
-        y = ay + i * Inches(1.1)
-        add_rect(s, sx, y, Inches(5.43), Inches(1.0),
-                 fill=WHITE, line=ACCENT, line_w=Pt(0.75))
-        add_rect(s, sx, y, Inches(0.08), Inches(1.0), fill=ACCENT)
-        add_text(s, sx + Inches(0.25), y + Inches(0.10), Inches(5),
-                 Inches(0.35), ah, size=13, bold=True, color=PRIMARY)
-        add_text(s, sx + Inches(0.25), y + Inches(0.42), Inches(5),
-                 Inches(0.6), ab, size=10.5, color=BODY, line_spacing=1.35)
+    ry3 = ry2 + Inches(0.42)
+    rh2 = Inches(0.55)
+    for i, (n, d) in enumerate(rings):
+        y = ry3 + i * (rh2 + Inches(0.02))
+        indent = Inches(i * 0.12)
+        add_rect(s, rx + indent, y, Inches(0.45), rh2,
+                 fill=YU_INDIGO)
+        add_text(s, rx + indent, y, Inches(0.45), rh2,
+                 str(i + 1), size=14, bold=True, color=ACCENT,
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+        add_rect(s, rx + indent + Inches(0.5), y, Inches(1.50), rh2,
+                 fill=LIGHT_BG)
+        add_text(s, rx + indent + Inches(0.60), y, Inches(1.40), rh2,
+                 n, size=11, bold=True, color=YU_INDIGO,
+                 anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, rx + indent + Inches(2.05), y, Inches(3.6), rh2,
+                 d, size=10, color=BODY, italic=True,
+                 anchor=MSO_ANCHOR.MIDDLE)
 
-    # Bottom commitment band
-    band_y = Inches(6.0)
-    add_rect(s, Inches(0.6), band_y, Inches(12.13), Inches(0.95),
-             fill=PRIMARY)
-    add_text(s, Inches(0.85), band_y + Inches(0.15), Inches(11.5),
-             Inches(0.4), "COMMITMENT", size=11, bold=True, color=ACCENT)
-    add_text(s, Inches(0.85), band_y + Inches(0.42), Inches(11.5),
-             Inches(0.5),
-             "Anchor Yamaguchi University inside the international urban-climate network — as a long-term faculty, not a short-term visitor.",
-             size=14, bold=True, color=WHITE)
+    # Bottom: WHAT I GIVE BACK
+    band_y = Inches(5.30)
+    section_label(s, Inches(0.75), band_y, Inches(12),
+                  "WHAT I GIVE BACK  ·  ACTIVE MEMBER, NOT ONLY RECIPIENT")
+
+    gives = [
+        ("INTERNATIONAL WORKSHOP",
+         "Year 4 at Yamaguchi University\nUrban thermal × GBI × climate adaptation"),
+        ("CHINA-JAPAN BRIDGE",
+         "Annual seminar · academic translation\nFieldwork & collaboration support"),
+        ("TEACHING & MENTORING",
+         "Graduate supervision\nCross-discipline seminars"),
+        ("DEPT. & REGION SERVICE",
+         "Active in faculty collaboration\nSupport to Chugoku-Shikoku cities"),
+    ]
+    gy = Inches(5.75)
+    gx0 = Inches(0.75)
+    gw = Inches(2.97)
+    gh2 = Inches(1.05)
+    gap = Inches(0.08)
+    for i, (h, b) in enumerate(gives):
+        x = gx0 + i * (gw + gap)
+        add_rect(s, x, gy, gw, gh2, fill=WHITE, line=ACCENT, line_w=Pt(0.8))
+        add_rect(s, x, gy, Inches(0.06), gh2, fill=ACCENT)
+        add_text(s, x + Inches(0.2), gy + Inches(0.10),
+                 gw - Inches(0.3), Inches(0.30),
+                 h, size=10.5, bold=True, color=YU_INDIGO)
+        add_text(s, x + Inches(0.2), gy + Inches(0.42),
+                 gw - Inches(0.3), Inches(0.6),
+                 b, size=9.5, color=BODY, italic=True, line_spacing=1.35)
+
+    add_notes(s, """[SLIDE 10 — ASPIRATIONS — ~70 seconds]
+
+During HIRAKU-Global, I will align every deliverable with the program's 3I framework — Innovative, Influential, Impactful.
+
+For Innovative — I will produce the cross-scale wind × GBI × pedestrian-heat mechanism paper, and the reproducible city-to-corridor diagnostic workflow.
+
+For Influential — continued Q1 publications, and the Kakenhi path: Kiban C in autumn 2026, building toward Kiban B during HIRAKU.
+
+For Impactful — deliverables to Yamaguchi, Ube, and Matsue municipalities, continuing the MLIT EBPM-aligned policy translation that I started in Kumamoto.
+
+After tenure — and this is important — I want to be a long-term anchor at Yamaguchi University, not a short-term visitor. The five concentric rings on the right show the path: from my lab, to the Chugoku-Shikoku region, to becoming Western Japan's urban thermal research hub, to an Asia-wide platform, to a Local-to-Global model that other aging climate cities can adopt.
+
+But I do not see myself only as a recipient. I want to give back. A Year-4 international workshop hosted at Yamaguchi. A standing China-Japan academic bridge for the HIRAKU community. Teaching, mentoring, and supervising graduate students — I have already developed one such student into a doctoral researcher at Tsinghua University. And active service to the department, the region, and the wider HIRAKU community.
+""")
 
 
-# ============== SLIDE 10 — Closing ==============
-def slide_10():
-    s = prs.slides.add_slide(blank_layout)
-    # Full dark bleed
-    add_rect(s, 0, 0, SLIDE_W, SLIDE_H, fill=PRIMARY)
-    add_rect(s, 0, 0, Inches(2.2), Inches(0.06), fill=ACCENT)
+# ============================================================
+# SLIDE 11 — CLOSING + COMMITMENTS
+# ============================================================
+def slide_11():
+    s = prs.slides.add_slide(blank)
+    add_rect(s, 0, 0, SLIDE_W, SLIDE_H, fill=YU_INDIGO_DK)
+    # Subtle grid background
+    for i in range(1, 8):
+        y = Inches(0.75 * i)
+        add_line(s, Inches(0.45), y, SLIDE_W - Inches(0.45), y,
+                 color=RGBColor(0x1C, 0x35, 0x60), weight=0.4)
+    for i in range(1, 13):
+        x = Inches(1.0 * i)
+        add_line(s, x, Inches(0.45), x, SLIDE_H - Inches(0.45),
+                 color=RGBColor(0x1C, 0x35, 0x60), weight=0.4)
 
-    add_text(s, Inches(0.8), Inches(0.55), Inches(12), Inches(0.4),
-             "CLOSING", size=11, bold=True, color=ACCENT)
-    add_text(s, Inches(0.8), Inches(0.95), Inches(12), Inches(1.0),
+    # Top brand
+    add_rect(s, 0, 0, Inches(3.0), Inches(0.10), fill=ACCENT)
+    add_text(s, Inches(0.75), Inches(0.30), Inches(8), Inches(0.3),
+             "CLOSING  ·  4 FOUNDATIONS  ·  4 COMMITMENTS",
+             size=10, bold=True, color=ACCENT)
+
+    add_text(s, Inches(0.75), Inches(0.90), Inches(12), Inches(0.9),
              "Four foundations — already in motion.",
-             size=32, bold=True, color=WHITE, line_spacing=1.05)
+             size=32, bold=True, color=WHITE, line_spacing=1.0)
 
-    # Four pillars
+    # Four foundations (compact pillars)
     pillars = [
-        ("QUALITY",
-         "15 papers · 3 Q1\nall 1st / responsible",
+        ("QUALITY", "15 papers · 3 Q1\nall 1st / responsible author",
          "Building & Env.  ·  Env. Pollution  ·  Energies"),
-        ("BRIDGE",
-         "Sakura · Zhejiang Center · 5-country forum",
-         "UCL  ·  Zhejiang U.  ·  Asia network"),
-        ("FUNDING",
-         "≈ 100 M JPY · # 1 of 13",
-         "Kakenhi Kiban C → Kiban B"),
-        ("IMPLEMENTATION",
-         "Kumamoto green-infra policy",
-         "MLIT EBPM evaluation case"),
+        ("BRIDGE", "Sakura · Zhejiang Center\n· 5-country forum",
+         "UCL  ·  Zhejiang U.  ·  Asia"),
+        ("FUNDING", "≈ 100 M JPY · # 1 of 13",
+         "Kakenhi C → B"),
+        ("IMPLEMENTATION", "Kumamoto green-infra\n+ MLIT EBPM case",
+         "→ Yamaguchi · Ube · Matsue"),
     ]
-    px = Inches(0.8)
-    py = Inches(2.4)
+    px = Inches(0.75)
+    py = Inches(2.05)
     pw = Inches(2.95)
-    ph = Inches(2.7)
+    ph = Inches(2.20)
     gap = Inches(0.12)
     for i, (lab, big, footer) in enumerate(pillars):
         x = px + i * (pw + gap)
-        # Top accent
-        add_rect(s, x, py, pw, Inches(0.08), fill=ACCENT)
-        # Label
-        add_text(s, x, py + Inches(0.2), pw, Inches(0.4),
-                 lab, size=12, bold=True, color=ACCENT,
+        add_rect(s, x, py, pw, Inches(0.06), fill=ACCENT)
+        add_text(s, x, py + Inches(0.18), pw, Inches(0.35),
+                 lab, size=11, bold=True, color=ACCENT,
                  align=PP_ALIGN.CENTER)
-        # Big content
-        add_text(s, x, py + Inches(0.75), pw, Inches(1.3),
-                 big, size=17, bold=True, color=WHITE,
-                 align=PP_ALIGN.CENTER, line_spacing=1.25)
-        # Bottom divider
-        add_rect(s, x + Inches(0.7), py + Inches(1.95),
+        add_text(s, x, py + Inches(0.65), pw, Inches(1.1),
+                 big, size=14, bold=True, color=WHITE,
+                 align=PP_ALIGN.CENTER, line_spacing=1.3)
+        add_rect(s, x + Inches(0.7), py + Inches(1.65),
                  pw - Inches(1.4), Emu(6350), fill=ACCENT)
-        # Footer
-        add_text(s, x, py + Inches(2.10), pw, Inches(0.55),
-                 footer, size=10.5, color=RGBColor(0xCB, 0xD5, 0xE0),
-                 align=PP_ALIGN.CENTER, italic=True, line_spacing=1.35)
+        add_text(s, x, py + Inches(1.78), pw, Inches(0.4),
+                 footer, size=9, color=RGBColor(0xCB, 0xD5, 0xE0),
+                 align=PP_ALIGN.CENTER, italic=True, line_spacing=1.3)
+
+    # Four commitments (what professors want to hear)
+    cy = Inches(4.55)
+    add_text(s, Inches(0.75), cy, Inches(12), Inches(0.3),
+             "FOUR COMMITMENTS",
+             size=10, bold=True, color=ACCENT)
+    commits = [
+        ("RESEARCH",
+         "Deliver papers,\nworkflow, and Kakenhi B"),
+        ("TEACHING & MENTORING",
+         "Supervise students;\nteaching informed by research"),
+        ("DEPARTMENT & COLLABORATION",
+         "Active member of the\nfaculty community"),
+        ("REGION & LONG-TERM",
+         "A long-term anchor at\nYamaguchi University"),
+    ]
+    cx = Inches(0.75)
+    cy2 = Inches(4.90)
+    cw = Inches(2.95)
+    ch = Inches(1.00)
+    for i, (h, b) in enumerate(commits):
+        x = cx + i * (cw + gap)
+        add_rect(s, x, cy2, cw, ch, fill=None,
+                 line=ACCENT, line_w=Pt(0.8))
+        add_rect(s, x, cy2, Inches(0.06), ch, fill=ACCENT)
+        add_text(s, x + Inches(0.2), cy2 + Inches(0.10),
+                 cw - Inches(0.3), Inches(0.3),
+                 h, size=10, bold=True, color=ACCENT)
+        add_text(s, x + Inches(0.2), cy2 + Inches(0.40),
+                 cw - Inches(0.3), Inches(0.55),
+                 b, size=10, color=WHITE, italic=True,
+                 line_spacing=1.35)
 
     # Powerful statement
-    add_rect(s, Inches(0.8), Inches(5.55), Inches(11.73), Inches(0.05),
+    add_rect(s, Inches(0.75), Inches(6.20), Inches(12), Emu(25400),
              fill=ACCENT)
-    add_text(s, Inches(0.8), Inches(5.75), Inches(11.73), Inches(0.6),
+    add_text(s, Inches(0.75), Inches(6.35), Inches(12), Inches(0.55),
              "HIRAKU-Global is the multiplier — not the starter.",
-             size=24, bold=True, color=WHITE)
-    add_text(s, Inches(0.8), Inches(6.30), Inches(11.73), Inches(0.45),
-             "I will give it back to Yamaguchi University, to the Chugoku-Shikoku region, and to the HIRAKU community.",
-             size=14, color=RGBColor(0xCB, 0xD5, 0xE0), italic=True)
-
-    add_text(s, Inches(0.8), Inches(6.95), Inches(11.73), Inches(0.4),
+             size=22, bold=True, color=WHITE)
+    add_text(s, Inches(0.75), Inches(6.90), Inches(12), Inches(0.35),
              "Thank you very much.  I look forward to your questions.",
-             size=12, bold=True, color=ACCENT)
+             size=11, bold=True, color=ACCENT)
+
+    # Architectural corner marks
+    corner_marks(s)
+
+    add_notes(s, """[SLIDE 11 — CLOSING — ~30 seconds]
+
+To close.
+
+Four foundations — all already in motion.
+Quality — fifteen papers, three Q1, all led by me. Bridge — Sakura, Zhejiang Carbon-Neutral Center, five-country forum. Funding — approximately one hundred million yen total, and ranked number one of thirteen at Yamaguchi. Implementation — Kumamoto green-infrastructure policy, cited by MLIT as an EBPM case.
+
+And four commitments — what I will do at Yamaguchi University.
+First, deliver the research: papers, the workflow, and the Kakenhi Kiban B. Second, teach and mentor students — including supervision through to publication. Third, contribute to the department and to faculty collaboration, not work alone. Fourth, commit long-term — I am here as an anchor, not a passenger.
+
+HIRAKU-Global is the multiplier — not the starter.
+
+Thank you very much. I look forward to your questions.
+""")
 
 
-# ============== BUILD ==============
-for fn in [slide_01, slide_02, slide_03, slide_04, slide_05,
-           slide_06, slide_07, slide_08, slide_09, slide_10]:
+# ============================================================
+# BUILD
+# ============================================================
+for fn in [slide_01, slide_02, slide_03, slide_04, slide_05, slide_06,
+           slide_07, slide_08, slide_09, slide_10, slide_11]:
     fn()
 
-out_path = "/home/user/academic-research-skills/interview_materials/HIRAKU_Global_Interview_Liu.pptx"
-prs.save(out_path)
-print(f"Saved: {out_path}")
-print(f"Slide count: {len(prs.slides)}")
-print(f"Slide size: {prs.slide_width / 914400:.3f} x {prs.slide_height / 914400:.3f} inches (16:9)")
+out = "/home/user/academic-research-skills/interview_materials/HIRAKU_Global_Interview_Liu.pptx"
+prs.save(out)
+print(f"Saved: {out}")
+print(f"Slides: {len(prs.slides)}  |  Size: 16:9  ({prs.slide_width/914400:.3f} x {prs.slide_height/914400:.3f} in)")
