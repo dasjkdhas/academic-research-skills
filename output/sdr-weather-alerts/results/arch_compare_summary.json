@@ -1,0 +1,92 @@
+{
+  "cv_summary": [
+    {
+      "arch": "A_Obs",
+      "MAE_mean": 59.374,
+      "MAE_std": 19.406,
+      "RMSE_mean": 78.184,
+      "R2_mean": 0.892,
+      "R2_std": 0.038,
+      "MAPE_mean": 7.745
+    },
+    {
+      "arch": "B_Forecast",
+      "MAE_mean": 64.562,
+      "MAE_std": 20.575,
+      "RMSE_mean": 83.232,
+      "R2_mean": 0.873,
+      "R2_std": 0.07,
+      "MAPE_mean": 8.293
+    },
+    {
+      "arch": "C_Hybrid",
+      "MAE_mean": 59.469,
+      "MAE_std": 15.969,
+      "RMSE_mean": 79.537,
+      "R2_mean": 0.888,
+      "R2_std": 0.04,
+      "MAPE_mean": 7.667
+    }
+  ],
+  "holdout_summary": {
+    "A_Obs": {
+      "MAE": 50.71891913938159,
+      "RMSE": 66.27612735643199,
+      "R2": 0.915428268927655,
+      "MAPE": 6.960309434559429
+    },
+    "B_Forecast": {
+      "MAE": 59.74271146558904,
+      "RMSE": 77.9884802737787,
+      "R2": 0.8828959574704659,
+      "MAPE": 7.93251144127447
+    },
+    "C_Hybrid": {
+      "MAE": 53.977648471158034,
+      "RMSE": 70.23598553558212,
+      "R2": 0.9050204005051845,
+      "MAPE": 7.280707486226258
+    }
+  },
+  "day_level": [
+    {
+      "arch": "A_Obs",
+      "TP": 11,
+      "FP": 0,
+      "FN": 1,
+      "TN": 16,
+      "precision": 1.0,
+      "recall": 0.917,
+      "F1": 0.957,
+      "peak_MAE_kW": 78.554
+    },
+    {
+      "arch": "B_Forecast",
+      "TP": 11,
+      "FP": 0,
+      "FN": 1,
+      "TN": 16,
+      "precision": 1.0,
+      "recall": 0.917,
+      "F1": 0.957,
+      "peak_MAE_kW": 92.35
+    },
+    {
+      "arch": "C_Hybrid",
+      "TP": 11,
+      "FP": 0,
+      "FN": 1,
+      "TN": 16,
+      "precision": 1.0,
+      "recall": 0.917,
+      "F1": 0.957,
+      "peak_MAE_kW": 84.954
+    }
+  ],
+  "thresholds_kW": {
+    "P80": 1139.0,
+    "P95": 1461.1999999999998
+  },
+  "n_features": 40,
+  "n_samples": 2145
+}

@@ -1,0 +1,83 @@
+{
+  "model_type": "LightGBM day-ahead \u2014 Architecture C (Hybrid)",
+  "deployment_constraint": "lag>=24h; lag-weather=obs, current-weather=JMA MSM forecast",
+  "test_metrics": {
+    "MAE_kW": 53.977648471158034,
+    "RMSE_kW": 70.23598553558212,
+    "R2": 0.9050204005051845,
+    "MAPE_pct": 7.280707486226258
+  },
+  "cv_mean_MAE": 59.469,
+  "cv_mean_R2": 0.888,
+  "day_level_decision": {
+    "precision": 1.0,
+    "recall": 0.25,
+    "F1": 0.4,
+    "TP": 3,
+    "FP": 0,
+    "FN": 9,
+    "TN": 16,
+    "n_days_with_call": 3,
+    "total_days": 28
+  },
+  "ccri_thresholds": {
+    "P50": 765.0,
+    "P80": 1139.0,
+    "P95": 1461.1999999999998
+  },
+  "top_features_shap": [
+    {
+      "feature": "b00_lag168",
+      "mean_abs": 72.05199686223335
+    },
+    {
+      "feature": "day_type_id_B",
+      "mean_abs": 70.12498899925527
+    },
+    {
+      "feature": "temp_lag24",
+      "mean_abs": 45.46878864175636
+    },
+    {
+      "feature": "b00_lag24",
+      "mean_abs": 44.058984882813824
+    },
+    {
+      "feature": "day_of_year",
+      "mean_abs": 28.997877411426224
+    },
+    {
+      "feature": "shortwave_radiation",
+      "mean_abs": 26.366333349061215
+    },
+    {
+      "feature": "hour",
+      "mean_abs": 11.342284850508722
+    },
+    {
+      "feature": "wbgt_lag1",
+      "mean_abs": 10.790790552262022
+    },
+    {
+      "feature": "dow_hour",
+      "mean_abs": 8.494300424735886
+    },
+    {
+      "feature": "b00_lag48",
+      "mean_abs": 8.034637429835497
+    },
+    {
+      "feature": "hour_cos",
+      "mean_abs": 7.548574831290925
+    },
+    {
+      "feature": "apparent_temperature",
+      "mean_abs": 6.29429114501482
+    }
+  ],
+  "vs_architecture_B": {
+    "B_holdout_MAE_kW": 59.7,
+    "C_holdout_MAE_kW": 53.977648471158034,
+    "delta_MAE_pct": -9.585178440271305
+  }
+}
