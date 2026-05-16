@@ -1,0 +1,101 @@
+{
+  "step7_ccri": {
+    "thresholds": {
+      "P50": 766.0,
+      "P80": 1143.4,
+      "P95": 1463.1
+    },
+    "C_adaptive_used": 1143.4,
+    "weights_w1_w2_w3": [
+      0.5,
+      0.3,
+      0.2
+    ],
+    "tier_distribution": {
+      "Normal": 628,
+      "High": 66
+    },
+    "tier_definition": {
+      "Critical": "CCRI >= 0.85",
+      "High": "0.65 <= CCRI < 0.85",
+      "Normal": "CCRI < 0.65"
+    }
+  },
+  "step8_sdr": {
+    "tier1_buildings": [
+      "b07",
+      "b01",
+      "b05",
+      "b13"
+    ],
+    "n_critical_hours_analyzed": 66,
+    "baseline_peak_kW": 1451.0,
+    "simulated_peak_kW": 1267.376,
+    "peak_reduction_kW": 183.62400000000002,
+    "peak_reduction_pct": 12.654996554100622,
+    "RDCR": 0.7727272727272727,
+    "actions": {
+      "A1_cooling_setpoint_up_2C": {
+        "desc": "Raise cooling setpoint by 2\u00b0C in afternoon",
+        "reduction_pct": 0.12
+      },
+      "A2_lighting_dim_30pct": {
+        "desc": "Dim non-essential lighting by 30%",
+        "reduction_pct": 0.06
+      },
+      "A3_lab_equipment_defer": {
+        "desc": "Defer non-critical lab equipment 1h",
+        "reduction_pct": 0.18
+      },
+      "A4_elevator_reduce": {
+        "desc": "Reduce elevator service to 50%",
+        "reduction_pct": 0.03
+      }
+    }
+  },
+  "step9_shap": {
+    "n_samples_explained": 500,
+    "top10_features": [
+      {
+        "feature": "shortwave_radiation",
+        "mean_abs_shap": 92.75908320169688
+      },
+      {
+        "feature": "day_type_id_B",
+        "mean_abs_shap": 83.12523363736204
+      },
+      {
+        "feature": "hour",
+        "mean_abs_shap": 35.70850578226956
+      },
+      {
+        "feature": "temp_lag24",
+        "mean_abs_shap": 33.01294443250982
+      },
+      {
+        "feature": "hour_cos",
+        "mean_abs_shap": 19.23949552023293
+      },
+      {
+        "feature": "hour_sin",
+        "mean_abs_shap": 14.401556271323008
+      },
+      {
+        "feature": "relative_humidity_2m",
+        "mean_abs_shap": 11.49581605463004
+      },
+      {
+        "feature": "wbgt_lag1",
+        "mean_abs_shap": 11.29866889888353
+      },
+      {
+        "feature": "temperature_2m",
+        "mean_abs_shap": 9.883724507954406
+      },
+      {
+        "feature": "day_of_year",
+        "mean_abs_shap": 9.697999600410872
+      }
+    ]
+  }
+}

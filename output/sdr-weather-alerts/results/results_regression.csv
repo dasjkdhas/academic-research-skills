@@ -1,0 +1,13 @@
+variant,model,MAE_mean,MAE_std,RMSE_mean,R2_mean,MAPE_mean
++PathA (manual),LightGBM,72.722,22.41,104.069,0.809,10.203
++PathA (manual),LinearReg,106.539,15.243,137.934,0.672,14.632
++PathA (manual),Persistence(24h),106.781,25.199,185.63,0.395,12.903
++PathA+B (both),LightGBM,56.322,19.209,80.455,0.884,7.864
++PathA+B (both),LinearReg,111.194,18.172,138.382,0.67,15.492
++PathA+B (both),Persistence(24h),106.781,25.199,185.63,0.395,12.903
++PathB (clustering),LightGBM,56.086,18.64,81.33,0.881,7.854
++PathB (clustering),LinearReg,113.45,20.521,141.246,0.656,15.843
++PathB (clustering),Persistence(24h),106.781,25.199,185.63,0.395,12.903
+Common (no day-type),LightGBM,76.754,22.806,109.928,0.789,10.698
+Common (no day-type),LinearReg,113.106,13.35,144.709,0.64,15.518
+Common (no day-type),Persistence(24h),106.781,25.199,185.63,0.395,12.903

@@ -1,0 +1,5 @@
+variant,F1_mean,AUC_mean,AP_mean,Prec_mean,Rec_mean
++PathA (manual),0.0,0.94,0.168,0.0,0.0
++PathA+B (both),0.095,0.974,0.273,0.067,0.167
++PathB (clustering),0.095,0.953,0.364,0.067,0.167
+Common (no day-type),0.0,0.934,0.143,0.0,0.0

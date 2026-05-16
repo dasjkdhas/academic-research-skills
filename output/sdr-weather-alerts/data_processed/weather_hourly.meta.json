@@ -1,0 +1,31 @@
+{
+  "source": "Open-Meteo Historical API (ERA5 reanalysis)",
+  "url": "https://archive-api.open-meteo.com/v1/archive",
+  "coordinates": {
+    "latitude": 33.9522,
+    "longitude": 131.2614,
+    "site": "Yamaguchi U. Engineering Faculty, Tokiwa campus, Ube"
+  },
+  "reference_amedas_station": "宇部 (Ube), ~0.8 km away",
+  "period_start": "2025-07-06",
+  "period_end": "2025-10-31",
+  "hourly_variables": [
+    "temperature_2m",
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "apparent_temperature",
+    "precipitation",
+    "wind_speed_10m",
+    "wind_direction_10m",
+    "surface_pressure",
+    "cloud_cover",
+    "shortwave_radiation",
+    "wbgt_approx",
+    "heat_alert_level"
+  ],
+  "derived": [
+    "wbgt_approx (°C)",
+    "heat_alert_level (0-4 JMA-style)"
+  ],
+  "timezone": "Asia/Tokyo (JST, UTC+9)"
+}
