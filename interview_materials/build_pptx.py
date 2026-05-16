@@ -401,17 +401,13 @@ def slide_01():
              size=8, color=ACCENT_LT, anchor=MSO_ANCHOR.MIDDLE)
 
     # Speaker notes
-    add_notes(s, """[SLIDE 1 — TITLE — ~25 seconds]
+    add_notes(s, """[SLIDE 1 — TITLE — ~25s]
 
-Good morning, and thank you for this opportunity.
+Good morning. My name is Liu Haiqiang. I am a tenure-track Lecturer at Yamaguchi University, working on urban thermal environment.
 
-My name is Liu Haiqiang. I am a tenure-track Lecturer at the Graduate School of Sciences and Technology for Innovation at Yamaguchi University.
+In one sentence — I bridge urban thermal research with international collaboration, regional policy, and social implementation.
 
-The title of my talk today is "Bridging Cities, Climate, and People."
-
-In one sentence: I connect urban thermal environment research with international collaboration, regional policy, and social implementation.
-
-In the next ten minutes, I would like to share why my background fits HIRAKU-Global, and how HIRAKU-Global can help me grow into an international research leader anchored at Yamaguchi University.
+In ten minutes, I will show you why my background fits HIRAKU-Global.
 """)
 
 
@@ -506,19 +502,15 @@ def slide_02():
              "and Chinese high-density urbanism — through one continuous research agenda on urban heat.",
              size=12, color=WHITE, italic=True)
 
-    add_notes(s, """[SLIDE 2 — PROFILE — ~50 seconds]
+    add_notes(s, """[SLIDE 2 — PROFILE — ~45s]
 
-Before I talk about research, let me briefly say who I am — because the bridge between Japan and China runs through my entire career.
+Briefly — who I am.
 
-I was trained in Japan. I earned my master's degree and doctorate from Saga University, in Architectural Environmental Engineering, in 2011 and 2017.
+Three pillars. Japan-trained: Ph.D. from Saga University in 2017. China-experienced: Associate Professor at Zhejiang Sci-Tech University, 2018 to 2023. Japan-returned: Yamaguchi University since January 2026.
 
-Then I moved to China. From 2018 to early 2023, I was an Associate Professor at Zhejiang Sci-Tech University, teaching and supervising students in building environment and urban design.
+The timeline below shows ten years of continuity, moving from building, to person, to city.
 
-After that, I returned to Japan. From 2023 to 2025, I was a researcher at the Institute of Policy Research, Kumamoto City — a municipal policy research institute. There I worked directly with city government on urban environment and heat policy.
-
-In January 2026, I joined Yamaguchi University as a tenure-track Lecturer. This is my current position.
-
-So across ten years, my research moved through three stages — building, person, and city. And throughout, I have been one of the few researchers who works natively in both Japanese regional cities and Chinese high-density urbanism. That bridge is at the center of everything I will show you today.
+What this gives me is rare — I work natively in both Japanese regional cities and Chinese high-density urbanism, through one continuous research agenda on urban heat.
 """)
 
 
@@ -632,19 +624,17 @@ def slide_03():
              "REGIONAL CITIES FACE A TRIPLE CHALLENGE   ·   CLIMATE WARMING  +  AGING SOCIETY  +  CITY-CENTER DECLINE",
              size=11, bold=True, color=ACCENT, anchor=MSO_ANCHOR.MIDDLE)
 
-    add_notes(s, """[SLIDE 3 — WHY MY RESEARCH MATTERS — ~60 seconds]
+    add_notes(s, """[SLIDE 3 — WHY MY RESEARCH MATTERS — ~50s]
 
-Cities are getting hotter every summer. That is not just weather — it is a regional public-health issue.
+Why does this research matter?
 
-In 2023 alone, Japan's Fire and Disaster Management Agency recorded more than 91,000 emergency heatstroke transports nationwide. In Yamaguchi Prefecture alone, more than 1,200 cases — and about 60 percent of those patients were aged 65 or older.
+In 2023, Japan recorded over 91,000 emergency heatstroke transports. In Yamaguchi alone, 1,200 cases — and 60 percent were aged 65 or older.
 
-But — and this is the key point — not every street is equally hot. As you can see in this section drawing on the left: in the built-up zone, an elderly resident walks through dense buildings under direct sun, where heat accumulates between facades. Just a few hundred meters away, in a zone with trees and wind, the same walk is much safer.
+But not every street is equally hot. As the section drawing shows: built-up zones trap heat; green-and-wind zones stay cool. Elderly residents walk through this contrast every day, over 500 to 1,000 meters.
 
-What older residents actually face is a 500-to-1000 meter daily walking corridor through a built environment whose thermal behavior changes street by street.
+So my research asks three simple questions — Where is it hot? Why is it hot? How can we cool the city while keeping it walkable?
 
-So my research asks three simple questions: Where is it hot? Why is it hot? And how can we cool the city while keeping it walkable and alive?
-
-These three questions sit at the intersection of three challenges that regional cities like Yamaguchi face together — climate warming, aging society, and the decline of city centers. My research is designed to address all three through one framework.
+This sits at the intersection of climate warming, aging society, and city-center decline — the triple challenge of regional cities.
 """)
 
 
@@ -731,17 +721,17 @@ def slide_04():
              "Stage 3 is where HIRAKU-Global begins.",
              size=13, bold=True, color=WHITE)
 
-    add_notes(s, """[SLIDE 4 — RESEARCH TRAJECTORY — ~70 seconds]
+    add_notes(s, """[SLIDE 4 — RESEARCH TRAJECTORY — ~60s]
 
-My research has not jumped between topics. It has moved deliberately through three stages: building, person, and city.
+My research has moved through three stages — not jumped between topics.
 
-In Stage 1 — Building — I asked how the form and envelope of buildings shape indoor thermal environment and energy use. I surveyed 183 households across three Chinese cities, optimized window-to-wall ratios, and analyzed wind environments in high-rise courtyards. This gave me physical control over the indoor environment — but it could not tell me whose body was at risk.
+Stage 1 — Building. How does form shape indoor thermal and energy performance? This gave me the physical side, but not the human side.
 
-That moved me to Stage 2 — Person. Here I asked how indoor conditions affect learning, health, and behavior — not in average users, but in specific people. This is where my two strongest Q1 papers come from: Building and Environment, on classroom thermal comfort and learning, in the top 5 of its field; and Environmental Pollution, on PM2.5 health risk. By the end of Stage 2 I understood the human side — but I was still indoors.
+Stage 2 — Person. How do indoor conditions affect learning, health, behavior? This is where my two Q1 papers come from — Building and Environment, top 5 in its field, and Environmental Pollution. But I was still indoors.
 
-So I moved to Stage 3 — City. I now ask how green-blue infrastructure, wind, and urban morphology together regulate pedestrian heat exposure at the scale where heatstroke actually happens. The Kumamoto work — including the chapter cited by MLIT as an EBPM case — comes from this stage.
+Stage 3 — City. How do green-blue infrastructure, wind, and morphology together regulate pedestrian heat exposure? This is where the Kumamoto work — and the MLIT-cited case — comes from.
 
-Each stage was pushed forward by a question the previous one could only partly answer. Stage 3 is exactly where HIRAKU-Global begins.
+Each stage was pushed forward by a question the previous one could only partly answer. Stage 3 is where HIRAKU-Global begins.
 """)
 
 
@@ -877,21 +867,23 @@ def slide_05():
              "Few researchers combine satellite, measurement, CFD, and national-level policy adoption in one continuous workflow.",
              size=12, bold=True, color=WHITE)
 
-    add_notes(s, """[SLIDE 5 — ORIGINALITY — ~75 seconds]
+    add_notes(s, """[SLIDE 5 — ORIGINALITY (CORE) — ~70s]
 
 This is the core of my originality.
 
-On the left, you see my cross-scale workflow. I work at three altitudes — satellite, block, and pedestrian — chained as one inference path, not three separate studies.
+I work at three scales — chained as one workflow, not three separate studies.
 
-At the top, satellite remote sensing: I use Landsat-8/9 thermal infrared and Sentinel-2 multispectral imagery to retrieve land surface temperature and local climate zone classification at 30-meter resolution. This tells me where heat accumulates across the whole city.
+Top — satellite. Landsat-8/9 and Sentinel-2 tell me where heat accumulates.
 
-In the middle, block-scale CFD: I use OpenFOAM to test how wind, building morphology, and green-blue infrastructure interact at the block level. This tells me why heat accumulates in specific places.
+Middle — block-scale CFD. OpenFOAM tells me why, given wind and building form.
 
-At the bottom, pedestrian-scale validation: I measure WBGT along the actual 500-to-1000 meter walking corridors that elderly residents use. This tells me whether the predicted mechanisms appear at the human scale.
+Bottom — pedestrian validation. WBGT along the actual 500-to-1,000-meter walking corridors of elderly residents.
 
-Four things make this original. First, multi-source data integration. Second, cumulative heat exposure — beyond instantaneous temperature. Third, the workflow has already been applied to Kumamoto City's green-infrastructure policy, through Chapter 4 of the city's official policy volume. Fourth — and this is the strongest evidence — this work has been cited by Japan's Ministry of Land, Infrastructure, Transport and Tourism as an Evidence-Based Policy Making case.
+Four things make this original. First, multi-source data fusion. Second, cumulative heat exposure — not instantaneous temperature. Third, already applied to Kumamoto's green-infrastructure policy.
 
-Few researchers can show all four — satellite, measurement, CFD, and national-level policy adoption — in one continuous workflow.
+And fourth — most importantly — cited by Japan's MLIT as an Evidence-Based Policy Making case.
+
+Few researchers can show all four — satellite, measurement, CFD, and national policy adoption — in one workflow.
 """)
 
 
@@ -972,15 +964,15 @@ def slide_06():
              "Building energy  →  Indoor comfort & learning  →  PM2.5 health  →  Urban heat & LULC  →  Green-blue infrastructure  →  Policy",
              size=11.5, bold=True, color=WHITE)
 
-    add_notes(s, """[SLIDE 6 — RESEARCH OUTPUTS — ~55 seconds]
+    add_notes(s, """[SLIDE 6 — RESEARCH OUTPUTS — ~50s]
 
-Let me talk about quality, not just numbers.
+Now my publications — quality first.
 
-Fifteen peer-reviewed papers. Ten in English SCI or SCIE journals. Eight with impact factor. Three in Q1 journals — and this is what I most want you to remember: all three Q1 papers are first author, co-first author, or corresponding author. These are not background co-authorships. I led them.
+Fifteen peer-reviewed papers. Ten English SCI or SCIE. Eight with impact factor. Three in Q1 — and this is what I want you to remember: all three Q1 papers are first, co-first, or corresponding author. I led them.
 
-The three Q1 journals are: Building and Environment — in the top 5 of construction and building technology — where I am co-first author on a study of classroom thermal comfort and learning. Environmental Pollution, a top-tier environmental science journal, on PM2.5 health-effects assessment. And Energies, where I am first author on classroom comfort and learning efficiency.
+The three Q1 journals — Building and Environment, in the top 5 of its field. Environmental Pollution, top-tier environmental science. And Energies.
 
-What matters even more than the journals is the line that connects them. Building energy, then indoor comfort and learning, then PM2.5 health, then urban heat and land use, then green-blue infrastructure, and finally policy. This is not a scattered publication record. It is one continuous research agenda — moving from buildings to people to cities, and from technical analysis to social application.
+What matters more than the journal count is the line that connects them — building energy, indoor comfort, PM2.5 health, urban heat, green infrastructure, policy. One continuous research agenda.
 """)
 
 
@@ -1080,21 +1072,21 @@ def slide_07():
              size=11, bold=True, color=YU_INDIGO,
              align=PP_ALIGN.CENTER)
 
-    add_notes(s, """[SLIDE 7 — INTERNATIONAL COLLABORATION — ~65 seconds]
+    add_notes(s, """[SLIDE 7 — INTERNATIONAL COLLABORATION — ~55s]
 
-International collaboration, for me, is not about attending conferences. It is about organizing actual cooperation between institutions.
+International collaboration, for me, means organizing — not just attending.
 
 Three concrete records.
 
-First, the Sakura Science Program. I organized exchanges between Zhejiang Sci-Tech University and Japanese universities over multiple years — bringing students and researchers across the bridge. The program was paused by COVID, but the partnership is intact.
+One — the Sakura Science Program. I organized exchanges between Zhejiang Sci-Tech University and Japanese universities over multiple years. Paused by COVID; friendship intact.
 
-Second, during COVID, as a Zhejiang Sci-Tech University representative, I helped build the Zhejiang International Cooperation Center on Carbon Neutrality. Zhejiang Province established only four such centers — and ZSTU was the core unit of one of them. That gave me direct experience in setting up a provincial-level international research platform.
+Two — during COVID, I helped build the Zhejiang International Cooperation Center on Carbon Neutrality. Only four such centers province-wide; ZSTU was the core unit of one.
 
-Third, I organized an international online forum that brought together researchers from China, Japan, the UK — including UCL — Indonesia, and Bangladesh. Coordinating five countries during pandemic constraints is itself a track record.
+Three — I organized a five-country online forum: China, Japan, UK at UCL, Indonesia, and Bangladesh.
 
-The future network shown below is not a wish list — it builds on these existing friendships. Yamaguchi University at the center, connecting UCL, Zhejiang University, and Asian nodes that I have already worked with.
+The future network below builds on these existing friendships, with Yamaguchi University at the center.
 
-In all three cases, I was the organizer. Not just a participant.
+In all three cases — I was the organizer.
 """)
 
 
@@ -1164,17 +1156,17 @@ def slide_08():
              "KAKENHI KIBAN C  (FY2026 autumn)   →   KAKENHI KIBAN B  (during HIRAKU)",
              size=15, bold=True, color=YU_INDIGO)
 
-    add_notes(s, """[SLIDE 8 — FUNDING & PROJECT LEADERSHIP — ~65 seconds]
+    add_notes(s, """[SLIDE 8 — FUNDING & LEADERSHIP — ~60s]
 
-Now, funding. I will give you the honest picture in three phases.
+Funding — the honest picture in three phases.
 
-China, 2018 to 2023: across 8 projects I have accumulated approximately 100 million yen equivalent in research funding, with 5 of those as Leading Researcher. I was also a collaborator on a National Social Science Fund of China General Project. The Chinese research environment is highly competitive, with many universities and many applicants — so this track record came from a competitive selection.
+China, 2018 to 2023. Across eight projects, approximately 100 million yen total. Five as Leading Researcher, in a highly competitive environment.
 
-Kumamoto, 2023 to 2025: my position there was at the Institute of Policy Research, a municipal post. The institutional rule was clear — external competitive grants such as JSPS Kakenhi were not permitted from that position. The absence of Japanese grants in that period reflects the role, not the ability. What I produced instead was policy-oriented output — including the MLIT EBPM case I mentioned earlier.
+Kumamoto, 2023 to 2025. Municipal post — institutional rule did not permit external grants such as Kakenhi. What I produced instead was the MLIT EBPM-cited policy work.
 
-Yamaguchi, from January 2026: the first time I have been eligible to apply in Japan. And within months of joining, I was ranked number one out of thirteen applicants in the Yamaguchi University regional research program — four were selected. The Japan pattern has started.
+Yamaguchi, since January 2026 — the first time I could apply in Japan. Within months, I was ranked number one out of thirteen applicants in the Yamaguchi regional research program. Four were selected.
 
-The path forward: Kakenhi Kiban C this autumn, then Kiban B during the HIRAKU-Global period — using the Chugoku-Shikoku evidence base as pilot foundation.
+Forward path — Kakenhi Kiban C this autumn, building toward Kiban B during HIRAKU. The Japan pattern has started.
 """)
 
 
@@ -1355,19 +1347,19 @@ def slide_09():
              "online collaboration if travel is constrained  ·  Kumamoto baseline retained as pre-validated reference.",
              size=11, color=BODY, italic=True, line_spacing=1.4)
 
-    add_notes(s, """[SLIDE 9 — RESEARCH PLAN — ~75 seconds]
+    add_notes(s, """[SLIDE 9 — RESEARCH PLAN (CORE) — ~70s]
 
 This is the project I will run during HIRAKU-Global.
 
-On the left, three cities — Yamaguchi, Ube, and Matsue — chosen because they span three contrasting wind regimes within one administrative region: inland basin, coastal sea-breeze, and Sea-of-Japan lakeside. That contrast is exactly what the science needs.
+Left — three cities, three wind regimes within one region: Matsue lakeside, Yamaguchi basin, Ube coastal. The contrast is exactly what the science needs.
 
-In the middle, the method chain. Step 1, satellite screening — already running. Step 2, block-scale CFD — methodology already established in my earlier work. Step 3, pedestrian-scale WBGT validation — co-developed with Yamaguchi City's elderly-care offices.
+Middle — the method chain. Step 1 satellite screening — already running. Step 2 block CFD — methodology already established. Step 3 pedestrian WBGT — co-designed with Yamaguchi City's elderly-care offices.
 
-On the right, the five-year plan. Year 1: city-scale diagnosis. Year 2: two-month stay at UCL with Dr. Huanfa Chen. Year 3: block CFD plus a short Zhejiang visit. Year 4: pedestrian validation and an international workshop at Yamaguchi. Year 5: synthesis and the Kakenhi Kiban B application.
+Right — the five-year plan. Year 1 diagnosis. Year 2 UCL stay with Dr. Huanfa Chen. Year 3 CFD plus Zhejiang visit. Year 4 pedestrian field plus international workshop at Yamaguchi. Year 5 synthesis and Kakenhi B.
 
-This plan does not start from zero. The satellite pipeline is already running. The international partners are already in place. The first Japanese grant is already won.
+This plan does not start from zero. Pipeline running. Partners ready. First grant won.
 
-I have also thought about risk. The main risk is over-extension. My approach is to anchor Yamaguchi first, expand stepwise to Ube and Matsue, use online collaboration when travel is constrained, and keep the Kumamoto data as a pre-validated reference. I want to deliver, not over-promise.
+I also manage risk — anchor Yamaguchi first, expand stepwise, use online collaboration when needed. Deliver, not over-promise.
 """)
 
 
@@ -1479,19 +1471,15 @@ def slide_10():
                  gw - Inches(0.3), Inches(0.6),
                  b, size=9.5, color=BODY, italic=True, line_spacing=1.35)
 
-    add_notes(s, """[SLIDE 10 — ASPIRATIONS — ~70 seconds]
+    add_notes(s, """[SLIDE 10 — ASPIRATIONS — ~60s]
 
-During HIRAKU-Global, I will align every deliverable with the program's 3I framework — Innovative, Influential, Impactful.
+What will I do during and after HIRAKU-Global?
 
-For Innovative — I will produce the cross-scale wind × GBI × pedestrian-heat mechanism paper, and the reproducible city-to-corridor diagnostic workflow.
+Aligned with the 3I framework. Innovative — the cross-scale mechanism paper and a reusable diagnostic workflow. Influential — continued Q1 publications and the Kakenhi path. Impactful — deliverables to Yamaguchi, Ube, and Matsue.
 
-For Influential — continued Q1 publications, and the Kakenhi path: Kiban C in autumn 2026, building toward Kiban B during HIRAKU.
+After tenure — and this is critical — I will be a long-term anchor at Yamaguchi University. The rings on the right show the path: from my lab, to the region, to Western Japan as an urban thermal hub, to an Asia platform, to a Local-to-Global model.
 
-For Impactful — deliverables to Yamaguchi, Ube, and Matsue municipalities, continuing the MLIT EBPM-aligned policy translation that I started in Kumamoto.
-
-After tenure — and this is important — I want to be a long-term anchor at Yamaguchi University, not a short-term visitor. The five concentric rings on the right show the path: from my lab, to the Chugoku-Shikoku region, to becoming Western Japan's urban thermal research hub, to an Asia-wide platform, to a Local-to-Global model that other aging climate cities can adopt.
-
-But I do not see myself only as a recipient. I want to give back. A Year-4 international workshop hosted at Yamaguchi. A standing China-Japan academic bridge for the HIRAKU community. Teaching, mentoring, and supervising graduate students — I have already developed one such student into a doctoral researcher at Tsinghua University. And active service to the department, the region, and the wider HIRAKU community.
+I am not only a recipient. I will give back — an international workshop at Yamaguchi, a China–Japan academic bridge, teaching and mentoring graduate students, and active service to the department and the region.
 """)
 
 
@@ -1597,15 +1585,13 @@ def slide_11():
     # Architectural corner marks
     corner_marks(s)
 
-    add_notes(s, """[SLIDE 11 — CLOSING — ~30 seconds]
+    add_notes(s, """[SLIDE 11 — CLOSING — ~25s]
 
 To close.
 
-Four foundations — all already in motion.
-Quality — fifteen papers, three Q1, all led by me. Bridge — Sakura, Zhejiang Carbon-Neutral Center, five-country forum. Funding — approximately one hundred million yen total, and ranked number one of thirteen at Yamaguchi. Implementation — Kumamoto green-infrastructure policy, cited by MLIT as an EBPM case.
+Four foundations — already in motion. Quality. Bridge. Funding. Implementation.
 
-And four commitments — what I will do at Yamaguchi University.
-First, deliver the research: papers, the workflow, and the Kakenhi Kiban B. Second, teach and mentor students — including supervision through to publication. Third, contribute to the department and to faculty collaboration, not work alone. Fourth, commit long-term — I am here as an anchor, not a passenger.
+And four commitments — research, teaching, collaboration, long-term anchor.
 
 HIRAKU-Global is the multiplier — not the starter.
 
