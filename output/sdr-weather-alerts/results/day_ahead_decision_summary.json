@@ -1,0 +1,122 @@
+{
+  "model": "LightGBM trained on JMA MSM forecast features (day-ahead deployment)",
+  "split": "70/30 chronological holdout",
+  "test_holdout": {
+    "MAE_kW": 34.3,
+    "R2": 0.964,
+    "test_hours": 694
+  },
+  "cv_summary": {
+    "OBSERVED_MAE": 24.6,
+    "FORECAST_MAE": 23.4,
+    "interpretation": "JMA MSM forecast performs equally well or slightly better than ERA5 observation, validating forecast-driven deployment."
+  },
+  "ccri_thresholds": {
+    "P50": 774.0,
+    "P80": 1183.8000000000002,
+    "P95": 1498.6999999999998,
+    "C_adaptive_used_kW": 1183.8000000000002,
+    "weights_w1_w2_w3": [
+      0.5,
+      0.3,
+      0.2
+    ],
+    "tier_definitions": {
+      "Critical": "CCRI >= 0.85 \u2192 SDR call mandatory + escalation",
+      "High": "0.65 <= CCRI < 0.85 \u2192 SDR call recommended",
+      "Normal": "CCRI < 0.65 \u2192 no SDR call"
+    }
+  },
+  "warning_metrics": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "F1": 0.0,
+    "lead_time_mean_hours": null,
+    "n_truly_peak_hours": 0
+  },
+  "top_features_shap": [
+    {
+      "feature": "b00_lag1",
+      "mean_abs": 215.15621909513953
+    },
+    {
+      "feature": "b00_lag2",
+      "mean_abs": 23.504840198534417
+    },
+    {
+      "feature": "hour",
+      "mean_abs": 12.519988772314651
+    },
+    {
+      "feature": "hour_sin",
+      "mean_abs": 11.22431687250912
+    },
+    {
+      "feature": "hour_cos",
+      "mean_abs": 10.560129243396466
+    },
+    {
+      "feature": "shortwave_radiation",
+      "mean_abs": 9.887448221771312
+    },
+    {
+      "feature": "b00_lag6",
+      "mean_abs": 8.853455869153555
+    },
+    {
+      "feature": "day_type_id_B",
+      "mean_abs": 8.552589832717704
+    },
+    {
+      "feature": "b00_lag3",
+      "mean_abs": 4.9536925954622575
+    },
+    {
+      "feature": "b00_lag168",
+      "mean_abs": 3.805231047044215
+    },
+    {
+      "feature": "b00_lag12",
+      "mean_abs": 3.725779426694488
+    },
+    {
+      "feature": "wbgt_approx",
+      "mean_abs": 3.6992337647273077
+    }
+  ],
+  "demo_decisions": [
+    {
+      "date": "2025-10-01",
+      "peak_predicted_kW": 1286.3514307994237,
+      "peak_actual_kW": 1258.0,
+      "max_ccri": 0.6937635618714593,
+      "sdr_call": true,
+      "risk_hours": [
+        12,
+        13
+      ]
+    },
+    {
+      "date": "2025-10-02",
+      "peak_predicted_kW": 1260.6507969364413,
+      "peak_actual_kW": 1171.0,
+      "max_ccri": 0.6546064723986996,
+      "sdr_call": true,
+      "risk_hours": [
+        12
+      ]
+    },
+    {
+      "date": "2025-10-06",
+      "peak_predicted_kW": 1298.3006293618987,
+      "peak_actual_kW": 1335.0,
+      "max_ccri": 0.7342179625573173,
+      "sdr_call": true,
+      "risk_hours": [
+        11,
+        12,
+        13
+      ]
+    }
+  ]
+}

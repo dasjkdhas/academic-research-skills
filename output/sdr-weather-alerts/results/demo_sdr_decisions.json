@@ -1,0 +1,35 @@
+[
+  {
+    "date": "2025-10-01",
+    "peak_predicted_kW": 1286.3514307994237,
+    "peak_actual_kW": 1258.0,
+    "max_ccri": 0.6937635618714593,
+    "sdr_call": true,
+    "risk_hours": [
+      12,
+      13
+    ]
+  },
+  {
+    "date": "2025-10-02",
+    "peak_predicted_kW": 1260.6507969364413,
+    "peak_actual_kW": 1171.0,
+    "max_ccri": 0.6546064723986996,
+    "sdr_call": true,
+    "risk_hours": [
+      12
+    ]
+  },
+  {
+    "date": "2025-10-06",
+    "peak_predicted_kW": 1298.3006293618987,
+    "peak_actual_kW": 1335.0,
+    "max_ccri": 0.7342179625573173,
+    "sdr_call": true,
+    "risk_hours": [
+      11,
+      12,
+      13
+    ]
+  }
+]

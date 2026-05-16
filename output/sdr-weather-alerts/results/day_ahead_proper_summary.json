@@ -1,0 +1,75 @@
+{
+  "model_type": "LightGBM day-ahead forecast-driven",
+  "deployment_constraint": "Only lag >= 24h used (no future leak)",
+  "test_metrics": {
+    "MAE_kW": 59.74271146558904,
+    "R2": 0.8828959574704659,
+    "MAPE_pct": 7.93251144127447
+  },
+  "cv_mean_MAE": 64.562,
+  "day_level_decision": {
+    "precision": 1.0,
+    "recall": 0.4166666666666667,
+    "TP": 5,
+    "FP": 0,
+    "FN": 7,
+    "TN": 16,
+    "n_days_with_call": 5,
+    "total_days": 28
+  },
+  "ccri_thresholds": {
+    "P50": 765.0,
+    "P80": 1139.0,
+    "P95": 1461.1999999999998
+  },
+  "top_features_shap": [
+    {
+      "feature": "day_type_id_B",
+      "mean_abs": 72.09362391061491
+    },
+    {
+      "feature": "b00_lag168",
+      "mean_abs": 69.74201311648987
+    },
+    {
+      "feature": "b00_lag24",
+      "mean_abs": 39.352630074876394
+    },
+    {
+      "feature": "shortwave_radiation",
+      "mean_abs": 37.45635228057921
+    },
+    {
+      "feature": "temp_lag24",
+      "mean_abs": 36.86073885353769
+    },
+    {
+      "feature": "day_of_year",
+      "mean_abs": 28.458177322787115
+    },
+    {
+      "feature": "wbgt_lag1",
+      "mean_abs": 22.06178847391166
+    },
+    {
+      "feature": "hour",
+      "mean_abs": 10.51190962962323
+    },
+    {
+      "feature": "hour_cos",
+      "mean_abs": 9.273240202094012
+    },
+    {
+      "feature": "apparent_temperature",
+      "mean_abs": 7.566453222725036
+    },
+    {
+      "feature": "dow_hour",
+      "mean_abs": 6.632309563563096
+    },
+    {
+      "feature": "temperature_2m",
+      "mean_abs": 6.394104901917686
+    }
+  ]
+}
