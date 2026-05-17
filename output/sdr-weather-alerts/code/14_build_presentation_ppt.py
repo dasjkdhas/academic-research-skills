@@ -1,8 +1,10 @@
 """Build Yamaguchi-University-style Japanese PPT for the energy-saving conference.
 
-10 slides, 16:9. Yamaguchi blue (#003B71) header + footer. Each content slide
+12 slides, 16:9. Yamaguchi blue (#003B71) header + footer. Each content slide
 uses a 2-column layout: text on left, figure on right (or full-bleed figure).
 Slide notes contain the Japanese speaker script (simple language).
+
+v2 (2026-05-17): added correlation analysis (Slide 7) and PCA (Slide 8).
 """
 import os, json
 from pptx import Presentation
@@ -87,7 +89,7 @@ def add_rect(slide, x, y, w, h, fill_color, line_color=None):
     return sh
 
 
-def add_header_footer(slide, slide_no, total=10, title_text="省エネ研究 (山口大学)"):
+def add_header_footer(slide, slide_no, total=12, title_text="省エネ研究 (山口大学)"):
     # Top header band (navy)
     add_rect(slide, 0, 0, SW, Inches(0.35), YU_NAVY)
     add_text_box(slide, Inches(0.3), Inches(0.04), Inches(8), Inches(0.27),
@@ -350,10 +352,93 @@ add_speaker_notes(slide,
 
 
 # ============================================================================
-# SLIDE 7: 結果① 時系列予測
+# SLIDE 7: 気象 × 電力 相関分析 (NEW)
 # ============================================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
 add_header_footer(slide, 7)
+add_title(slide, "気象 × 電力の相関分析",
+          "どの気象要素が電力消費に最も影響するか")
+
+# Left: correlation heatmap
+slide.shapes.add_picture(f"{FIG}/corr_01_pearson_heatmap.png",
+                          Inches(0.4), Inches(1.9), width=Inches(7.0))
+
+# Right: key findings + standardized β
+add_text_box(slide, Inches(7.6), Inches(1.95), Inches(5.4), Inches(0.4),
+             "■ 主な所見", size=15, bold=True, color=YU_NAVY)
+add_text_box(slide, Inches(7.6), Inches(2.4), Inches(5.4), Inches(2.0),
+             "1. 最強の正相関: 日射量\n"
+             "    Pearson r = +0.67 (時間別)\n\n"
+             "2. 強い正相関: 気温\n"
+             "    Pearson r = +0.57\n\n"
+             "3. 強い負相関: 湿度\n"
+             "    Pearson r = −0.52",
+             size=12.5, color=YU_GREY)
+
+# Bottom right: small β plot
+slide.shapes.add_picture(f"{FIG}/corr_07_standardized_beta.png",
+                          Inches(7.6), Inches(4.5), width=Inches(5.5))
+
+add_text_box(slide, Inches(0.4), Inches(6.7), Inches(7.0), Inches(0.4),
+             "■ 線形重回帰でも気象だけで b00 分散の 53% を説明",
+             size=12, bold=True, color=YU_ORANGE)
+
+add_speaker_notes(slide,
+"まず気象と電力の関係性を見ていきます。\n"
+"左の図は、各気象変数と電力消費 b00 の相関係数です。\n"
+"最も強い正相関は「日射量」、r = +0.67 です。\n"
+"次が「気温」、r = +0.57。\n"
+"そして「湿度」は負相関、r = −0.52 です。\n"
+"右下の標準化回帰係数では、日射量と気温が主な「電力を上げる」要因、\n"
+"湿度と気圧が「電力を下げる」要因として現れています。\n"
+"気象変数だけで電力分散の約 53% を説明できることが分かりました。")
+
+
+# ============================================================================
+# SLIDE 8: 主成分分析 (PCA)  (NEW)
+# ============================================================================
+slide = prs.slides.add_slide(prs.slide_layouts[6])
+add_header_footer(slide, 8)
+add_title(slide, "主成分分析 (PCA)",
+          "気象10変数の本質を 3 つの主成分に圧縮")
+
+# Left: variance explained
+slide.shapes.add_picture(f"{FIG}/corr_05_pca_variance.png",
+                          Inches(0.4), Inches(1.9), width=Inches(6.4))
+
+# Right: loadings heatmap (full)
+slide.shapes.add_picture(f"{FIG}/corr_06_pca_loadings.png",
+                          Inches(6.95), Inches(1.9), width=Inches(6.2))
+
+# Bottom: interpretation
+add_text_box(slide, Inches(0.4), Inches(6.2), Inches(12.5), Inches(0.4),
+             "■ 解釈: 3つの主成分で気象変動の 76% を説明", size=14,
+             bold=True, color=YU_NAVY)
+add_text_box(slide, Inches(0.4), Inches(6.65), Inches(12.5), Inches(0.8),
+             "・PC1 (41.7%) = 「熱関連成分」気温・体感・WBGT が共に寄与   →  b00 と +0.47 の相関\n"
+             "・PC2 (21.1%) = 「湿度・日射成分」湿度↑かつ日射↓ (悪天候)   →  b00 と −0.50 の相関\n"
+             "・PC3 (13.1%) = 「風・降水成分」 (b00 への影響は小)",
+             size=11.5, color=YU_GREY)
+
+add_speaker_notes(slide,
+"次に主成分分析、PCAの結果です。\n"
+"気象データは 10個の変数からなりますが、互いに相関するため、独立な成分に分解しました。\n"
+"左のグラフは各主成分の寄与率です。\n"
+"PC1 が 41.7%、PC2 が 21.1%、PC3 が 13.1%。\n"
+"つまり、3つの主成分だけで、気象変動の 76% を表現できます。\n\n"
+"右のヒートマップは、各主成分の構成を示しています。\n"
+"PC1 は「熱関連成分」、気温・体感気温・WBGT が共に寄与します。\n"
+"PC2 は「湿度と日射の対立成分」、悪天候の日に対応します。\n"
+"右側のバーは、各主成分と b00 の相関を示しており、\n"
+"PC1 は +0.47、PC2 は −0.50、PC3 は +0.16 となっています。\n"
+"つまり、気温と湿天候という 2つの軸が電力を主に左右していることが分かります。")
+
+
+# ============================================================================
+# SLIDE 9: 結果① 時系列予測
+# ============================================================================
+slide = prs.slides.add_slide(prs.slide_layouts[6])
+add_header_footer(slide, 9)
 hC_mae = S["results"]["C_Hybrid"]["MAE"]
 hC_r2  = S["results"]["C_Hybrid"]["R2"]
 hC_mape= S["results"]["C_Hybrid"]["MAPE"]
@@ -380,10 +465,10 @@ f"平均誤差 (MAE) は約 {hC_mae} kW、決定係数 R² は {hC_r2} と良好
 
 
 # ============================================================================
-# SLIDE 8: 結果② 散布図
+# SLIDE 10: 結果② 散布図
 # ============================================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_header_footer(slide, 8)
+add_header_footer(slide, 10)
 add_title(slide, "結果② 予測 vs 実測の対応",
           f"散布図で見る予測精度  —  MAE {hC_mae} kW, MAPE {hC_mape}%")
 
@@ -446,10 +531,10 @@ f"Cは B より MAE が 10% 改善し、A との差はわずか 6% です。\n"
 
 
 # ============================================================================
-# SLIDE 9: 結果③ 特徴量重要度 (SHAP)
+# SLIDE 11: 結果③ 特徴量重要度 (SHAP)
 # ============================================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_header_footer(slide, 9)
+add_header_footer(slide, 11)
 add_title(slide, "結果③ 何が予測を決めているか",
           "SHAP値で見る上位特徴量")
 
@@ -480,10 +565,10 @@ add_speaker_notes(slide,
 
 
 # ============================================================================
-# SLIDE 10: まとめと今後の課題
+# SLIDE 12: まとめと今後の課題
 # ============================================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_header_footer(slide, 10)
+add_header_footer(slide, 12)
 add_title(slide, "まとめと今後の課題", "達成内容と次のステップ")
 
 # Left box: achievements
