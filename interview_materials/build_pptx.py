@@ -412,7 +412,7 @@ def slide_01():
              size=8, color=ACCENT_LT, anchor=MSO_ANCHOR.MIDDLE)
 
     # Speaker notes
-    add_notes(s, """[SLIDE 1 — TITLE — ~25s]
+    add_notes(s, """[SLIDE 1 — TITLE — ~25s — TIME CHECK: 0:25]
 
 Good morning. My name is Liu Haiqiang. I am a tenure-track Lecturer at Yamaguchi University, working on urban thermal environment.
 
@@ -502,42 +502,43 @@ def slide_02():
                  anchor=MSO_ANCHOR.MIDDLE)
         lx += Inches(2.7)
 
-    # Selected Distinctions strip (NEW)
+    # Selected Distinctions strip (4 cards including Patent + Languages)
     section_label(s, Inches(0.75), Inches(6.00), Inches(8),
-                  "SELECTED DISTINCTIONS  ·  RECOGNITION & SERVICE")
+                  "SELECTED DISTINCTIONS & CREDENTIALS")
     dist_y = Inches(6.35)
     dist_items = [
-        ("2012", "CCTV-featured", "Eco-City Design 1st Prize on China Central TV"),
-        ("2011", "Croucher Institute", "Adv. Study Institute (Hong Kong) — early international training"),
-        ("2020–", "3 Advisory Roles", "Urban Regen. · Changzhou Sci-Tech Expert · Saga Alumni"),
+        ("2012", "CCTV-featured", "Eco-City 1st Prize on China Central TV"),
+        ("2011", "Croucher Institute", "Adv. Study Institute (Hong Kong)"),
+        ("2020–", "3 Advisory Roles", "Urban Regen. · Changzhou · Saga Alumni"),
+        ("Skills", "Patent + Languages", "Patent CN 210135674 U · 中 / 日 / EN"),
     ]
     dx0 = Inches(0.75)
-    dw = Inches(4.05)
-    dgap = Inches(0.10)
+    dw = Inches(2.97)
+    dgap = Inches(0.08)
     for i, (yr, head, body_t) in enumerate(dist_items):
         x = dx0 + i * (dw + dgap)
         add_rect(s, x, dist_y, dw, Inches(0.55),
                  fill=None, line=ACCENT, line_w=Pt(0.6))
         add_rect(s, x, dist_y, Inches(0.06), Inches(0.55), fill=ACCENT)
-        add_text(s, x + Inches(0.18), dist_y + Inches(0.03),
+        add_text(s, x + Inches(0.16), dist_y + Inches(0.03),
                  Inches(0.7), Inches(0.22),
-                 yr, size=9, bold=True, color=ACCENT_DEEP)
+                 yr, size=8.5, bold=True, color=ACCENT_DEEP)
         add_text(s, x + Inches(0.78), dist_y + Inches(0.03),
                  dw - Inches(0.9), Inches(0.22),
-                 head, size=10, bold=True, color=YU_INDIGO)
-        add_text(s, x + Inches(0.18), dist_y + Inches(0.28),
-                 dw - Inches(0.3), Inches(0.25),
-                 body_t, size=8, color=BODY, italic=True)
+                 head, size=9.5, bold=True, color=YU_INDIGO)
+        add_text(s, x + Inches(0.16), dist_y + Inches(0.27),
+                 dw - Inches(0.28), Inches(0.27),
+                 body_t, size=7.5, color=BODY, italic=True, line_spacing=1.2)
 
-    add_notes(s, """[SLIDE 2 — PROFILE — ~45s]
+    add_notes(s, """[SLIDE 2 — PROFILE — ~35s — TIME CHECK: 0:35]
 
 Briefly — who I am.
 
-Three pillars. Japan-trained: Ph.D. from Saga University in 2017. China-experienced: Associate Professor at Zhejiang Sci-Tech University, 2018 to 2023. Japan-returned: Yamaguchi University since January 2026.
+Three pillars: Japan-trained (Ph.D. Saga 2017). China-experienced (Associate Professor at ZSTU, 2018 to 2023). Japan-returned (Yamaguchi University since January).
 
-The timeline below shows ten years of continuity, moving from building, to person, to city.
+The timeline shows ten years across building, person, and city.
 
-What this gives me is rare — I work natively in both Japanese regional cities and Chinese high-density urbanism, through one continuous research agenda on urban heat.
+What this gives me is rare — I work natively across Japan and China, through one continuous urban-heat agenda.
 """)
 
 
@@ -620,12 +621,15 @@ def slide_03():
              size=11, color=BODY)
 
     # Big numbers 2
-    add_text(s, rx, Inches(3.70), Inches(5.6), Inches(0.55),
-             "1,200+  in Yamaguchi  ·  60%  aged 65+",
-             size=18, bold=True, color=YU_INDIGO)
-    add_text(s, rx, Inches(4.25), Inches(5.6), Inches(0.4),
-             "Heat is no longer just weather — it is a regional public-health issue.",
-             size=11, color=BODY, italic=True)
+    add_text(s, rx, Inches(3.70), Inches(5.6), Inches(0.45),
+             "1,200+ in Yamaguchi  ·  60% aged 65+",
+             size=17, bold=True, color=YU_INDIGO)
+    add_text(s, rx, Inches(4.15), Inches(5.6), Inches(0.35),
+             "Yamaguchi 65+ share ≈ 35%   (national avg ≈ 29%)",
+             size=12, bold=True, color=ACCENT_DEEP)
+    add_text(s, rx, Inches(4.50), Inches(5.6), Inches(0.30),
+             "Heat × aging × decline — triple challenge concentrated here.",
+             size=10, color=BODY, italic=True)
 
     # 3 questions
     section_label(s, rx, Inches(4.85), Inches(5.5),
@@ -651,17 +655,15 @@ def slide_03():
              "REGIONAL CITIES FACE A TRIPLE CHALLENGE   ·   CLIMATE WARMING  +  AGING SOCIETY  +  CITY-CENTER DECLINE",
              size=11, bold=True, color=ACCENT, anchor=MSO_ANCHOR.MIDDLE)
 
-    add_notes(s, """[SLIDE 3 — WHY MY RESEARCH MATTERS — ~50s]
+    add_notes(s, """[SLIDE 3 — WHY — ~45s — TIME CHECK: 1:45]
 
-Why does this research matter?
+Why does this matter?
 
-In 2023, Japan recorded over 91,000 emergency heatstroke transports. In Yamaguchi alone, 1,200 cases — and 60 percent were aged 65 or older.
+In 2023, Japan recorded over 91,000 emergency heatstroke transports. Yamaguchi — 1,200 cases, 60 percent aged 65 or older. Yamaguchi's elderly share is about 35 percent — well above national 29.
 
-But not every street is equally hot. As the section drawing shows: built-up zones trap heat; green-and-wind zones stay cool. Elderly residents walk through this contrast every day, over 500 to 1,000 meters.
+But not every street is equally hot. The section shows it — built-up zones trap heat; green-and-wind zones stay cool. Elderly residents walk through this contrast every day.
 
-So my research asks three simple questions — Where is it hot? Why is it hot? How can we cool the city while keeping it walkable?
-
-This sits at the intersection of climate warming, aging society, and city-center decline — the triple challenge of regional cities.
+My research asks three simple questions — where, why, and how.
 """)
 
 
@@ -748,17 +750,17 @@ def slide_04():
              "Stage 3 is where HIRAKU-Global begins.",
              size=13, bold=True, color=WHITE)
 
-    add_notes(s, """[SLIDE 4 — RESEARCH TRAJECTORY — ~60s]
+    add_notes(s, """[SLIDE 4 — TRAJECTORY — ~55s — TIME CHECK: 2:40]
 
-My research has moved through three stages — not jumped between topics.
+Three deliberate stages — building, person, city.
 
-Stage 1 — Building. How does form shape indoor thermal and energy performance? This gave me the physical side, but not the human side.
+Stage 1 building — how does form shape indoor thermal and energy. Physical side.
 
-Stage 2 — Person. How do indoor conditions affect learning, health, behavior? This is where my two Q1 papers come from — Building and Environment, top 5 in its field, and Environmental Pollution. But I was still indoors.
+Stage 2 person — how do indoor conditions affect learning, health, behavior. My two Q1 first-author papers come from here — Building and Environment top 5, and Energies.
 
-Stage 3 — City. How do green-blue infrastructure, wind, and morphology together regulate pedestrian heat exposure? This is where the Kumamoto work — and the MLIT-cited case — comes from.
+Stage 3 city — how do green-blue infrastructure, wind, and morphology regulate pedestrian heat exposure. This is where the Kumamoto work and the MLIT-cited case sit.
 
-Each stage was pushed forward by a question the previous one could only partly answer. Stage 3 is where HIRAKU-Global begins.
+Each stage answered what the previous one could not. Stage 3 is where HIRAKU-Global begins.
 """)
 
 
@@ -883,10 +885,25 @@ def slide_05():
             # Highlight the MLIT card with gold border
             add_rect(s, x, y, cw, ch, fill=None, line=ACCENT, line_w=Pt(1.5))
 
-    # Patent + data source footer (small annotation under cross-scale diagram)
+    # Real Kumamoto finding callout (NEW) — between right cards and bottom band
+    kx = Inches(6.85)
+    ky = Inches(6.05)
+    kw = Inches(5.98)
+    kh = Inches(0.35)
+    add_rect(s, kx, ky, kw, kh, fill=YU_INDIGO)
+    add_rect(s, kx, ky, Inches(0.06), kh, fill=ACCENT)
+    add_text(s, kx + Inches(0.16), ky, Inches(2.0), kh,
+             "  REAL KUMAMOTO FINDING", size=8.5, bold=True, color=ACCENT,
+             anchor=MSO_ANCHOR.MIDDLE)
+    add_text(s, kx + Inches(2.20), ky, kw - Inches(2.30), kh,
+             "Same forest patch — daytime cooling varies 3–5 °C by wind-corridor position",
+             size=10, bold=True, color=WHITE,
+             anchor=MSO_ANCHOR.MIDDLE)
+
+    # Methods + Patent footer
     add_text(s, dx + Inches(0.20), dy + dh + Inches(0.02),
              dw - Inches(0.4), Inches(0.22),
-             "Methods validated in C-1 (Sustainability 2024) & A-1 book chapter  ·  + Utility Model Patent CN 210135674 U",
+             "Methods validated in Sustainability (2024) & Kumamoto book chapter  ·  + Utility Model Patent CN 210135674 U",
              size=8.5, color=MUTED, italic=True)
 
     # Bottom claim
@@ -900,23 +917,17 @@ def slide_05():
              "Few researchers combine satellite, measurement, CFD, and national-level policy adoption in one continuous workflow.",
              size=11.5, bold=True, color=WHITE)
 
-    add_notes(s, """[SLIDE 5 — ORIGINALITY (CORE) — ~70s]
+    add_notes(s, """[SLIDE 5 — ORIGINALITY (CORE) — ~65s — TIME CHECK: 3:45]
 
 This is the core of my originality.
 
-I work at three scales — chained as one workflow, not three separate studies.
+Three scales chained as one workflow. Satellite — where heat accumulates. Block-scale CFD — why. Pedestrian WBGT — along elderly walking corridors.
 
-Top — satellite. Landsat-8/9 and Sentinel-2 tell me where heat accumulates.
+Four originality points. Multi-source data. Cumulative heat exposure. Applied to Kumamoto green-infrastructure policy. And cited by Japan's MLIT as an Evidence-Based Policy Making case.
 
-Middle — block-scale CFD. OpenFOAM tells me why, given wind and building form.
+The real Kumamoto finding — the same forest patch produces 3 to 5 degrees of cooling difference depending on its wind-corridor position.
 
-Bottom — pedestrian validation. WBGT along the actual 500-to-1,000-meter walking corridors of elderly residents.
-
-Four things make this original. First, multi-source data fusion. Second, cumulative heat exposure — not instantaneous temperature. Third, already applied to Kumamoto's green-infrastructure policy.
-
-And fourth — most importantly — cited by Japan's MLIT as an Evidence-Based Policy Making case.
-
-Few researchers can show all four — satellite, measurement, CFD, and national policy adoption — in one workflow.
+Few researchers combine all four in one workflow.
 """)
 
 
@@ -1039,22 +1050,25 @@ def slide_06():
                  year, size=10, bold=True, color=YU_INDIGO,
                  align=PP_ALIGN.CENTER)
 
-    # Continuity inline (very compact, no band)
-    add_text(s, Inches(0.75), Inches(6.97), Inches(12), Inches(0.10),
+    # Continuity inline + ORCID identifier (compact, no band)
+    add_text(s, Inches(0.75), Inches(6.97), Inches(8.5), Inches(0.10),
              "ONE CONTINUOUS LINE: building energy → indoor comfort → PM2.5 → urban heat → green infra → policy",
              size=8.5, bold=True, color=YU_INDIGO, italic=True)
+    add_text(s, Inches(9.3), Inches(6.97), Inches(3.5), Inches(0.10),
+             "ORCID 0000-0001-7378-5265  ·  ResearcherID 51035663",
+             size=8, color=MUTED, italic=True, align=PP_ALIGN.RIGHT)
 
-    add_notes(s, """[SLIDE 6 — RESEARCH OUTPUTS — ~50s]
+    add_notes(s, """[SLIDE 6 — OUTPUTS — ~45s — TIME CHECK: 4:30]
 
-Now my publications — quality first, and honest positioning.
+Publications — quality first, honest positioning.
 
-Fifteen peer-reviewed papers. Ten English SCI or SCIE. Eight with impact factor. Three in Q1.
+Fifteen peer-reviewed. Ten English SCI or SCIE. Eight with impact factor. Three Q1.
 
-I want to be precise about authorship — I led two of the three Q1 papers, and contributed to one. As first or co-first author: Building and Environment, top 5 in its field; and Energies. As co-author: Environmental Pollution, where I joined a research-team study on PM2.5 health.
+I want to be precise — two led, one contributed. As first or co-first: Building and Environment top 5, and Energies. As co-author: Environmental Pollution.
 
-The timeline below shows my first or co-first authored papers by year — including two Kumamoto Urban Policy articles in 2024.
+The timeline below shows my first or co-first papers year by year.
 
-What matters more than journal count is the line that connects them — building energy, indoor comfort, PM2.5 health, urban heat, green infrastructure, policy. One continuous research agenda.
+What matters more than the count — one continuous research line from building energy to urban policy.
 """)
 
 
@@ -1066,15 +1080,15 @@ def slide_07():
     page_chrome(s, 7, "INTERNATIONAL COLLABORATION",
                 "Organizer, not just participant — three concrete records.")
 
-    # Three records
+    # Three records (with year tags)
     records = [
-        ("01", "SAKURA SCIENCE PROGRAM",
+        ("01", "SAKURA SCIENCE PROGRAM", "2019–2020",
          "Organized ZSTU × Japanese\nuniversities student-researcher\nexchanges over multiple years",
          "Sustained partnership — paused\nby COVID, friendship intact"),
-        ("02", "ZHEJIANG CARBON-NEUTRAL CENTER",
+        ("02", "ZHEJIANG CARBON-NEUTRAL CENTER", "2021–2022",
          "Built the Zhejiang International\nCo-op Center on Carbon Neutrality,\nas ZSTU representative",
          "1 of 4 provincial centers\n— ZSTU as core unit"),
-        ("03", "5-COUNTRY ONLINE FORUM",
+        ("03", "5-COUNTRY ONLINE FORUM", "2022",
          "Organized international forum:\nChina · Japan · UK (UCL) ·\nIndonesia · Bangladesh",
          "Multi-country coordination\nunder COVID constraints"),
     ]
@@ -1083,16 +1097,19 @@ def slide_07():
     cw = Inches(4.05)
     ch = Inches(3.20)
     gap = Inches(0.10)
-    for i, (n, h, b, f) in enumerate(records):
+    for i, (n, h, yr, b, f) in enumerate(records):
         x = x0 + i * (cw + gap)
         add_rect(s, x, y0, cw, ch, fill=WHITE, line=ARCH_LINE, line_w=Pt(0.6))
         add_rect(s, x, y0, cw, Inches(0.55), fill=YU_INDIGO)
         add_text(s, x + Inches(0.25), y0, Inches(0.6), Inches(0.55),
                  n, size=14, bold=True, color=ACCENT,
                  anchor=MSO_ANCHOR.MIDDLE)
-        add_text(s, x + Inches(0.95), y0, cw - Inches(1.0), Inches(0.55),
-                 h, size=11.5, bold=True, color=ACCENT,
-                 anchor=MSO_ANCHOR.MIDDLE)
+        add_text(s, x + Inches(0.95), y0 + Inches(0.04),
+                 cw - Inches(1.0), Inches(0.30),
+                 h, size=11, bold=True, color=ACCENT)
+        add_text(s, x + Inches(0.95), y0 + Inches(0.32),
+                 cw - Inches(1.0), Inches(0.22),
+                 yr, size=8.5, color=ACCENT_LT, italic=True)
         add_text(s, x + Inches(0.25), y0 + Inches(0.85),
                  cw - Inches(0.4), Inches(1.40),
                  b, size=12, color=DARK, line_spacing=1.4)
@@ -1160,21 +1177,19 @@ def slide_07():
                  sub, size=8, color=BODY, italic=True,
                  align=PP_ALIGN.CENTER)
 
-    add_notes(s, """[SLIDE 7 — INTERNATIONAL COLLABORATION — ~55s]
+    add_notes(s, """[SLIDE 7 — INT'L COLLABORATION — ~50s — TIME CHECK: 5:20]
 
-International collaboration, for me, means organizing — not just attending.
+For me, collaboration means organizing — not just attending.
 
 Three concrete records.
 
-One — the Sakura Science Program. I organized exchanges between Zhejiang Sci-Tech University and Japanese universities over multiple years. Paused by COVID; friendship intact.
+Sakura Science Program, 2019 to 2020 — organized exchanges between ZSTU and Japanese universities. Paused by COVID; friendship intact.
 
-Two — during COVID, I helped build the Zhejiang International Cooperation Center on Carbon Neutrality. Only four such centers province-wide; ZSTU was the core unit of one.
+Zhejiang Carbon-Neutral Center, 2021 to 2022 — I helped build one of only four provincial centers, ZSTU as core unit.
 
-Three — I organized a five-country online forum: China, Japan, UK at UCL, Indonesia, and Bangladesh.
+Five-country online forum, 2022 — China, Japan, UK at UCL, Indonesia, Bangladesh.
 
-The future network below builds on these existing friendships, with Yamaguchi University at the center.
-
-In all three cases — I was the organizer.
+The future network builds on these existing friendships. In all three — I was the organizer.
 """)
 
 
@@ -1186,21 +1201,21 @@ def slide_08():
     page_chrome(s, 8, "FUNDING & PROJECT LEADERSHIP",
                 "≈ 100 million JPY total — and the Japan pattern has already started.")
 
-    # Three phases
+    # Three phases (with named flagship projects)
     phases = [
         ("CHINA  ·  2018–2023",
          "≈ 100 M\nJPY",
-         "8 projects  ·  5 as Leading Researcher\nIncluding NSSFC General Project\n(collaborator)",
+         "8 projects · 5 as Leading Researcher\nNSSFC General Project (collaborator)\nHangzhou Public Spaces ¥12 M PI\nZSTU Start-up + Carbon Neutrality",
          "HIGH-COMPETITION ENVIRONMENT",
          YU_INDIGO, WHITE),
         ("KUMAMOTO  ·  2023–2025",
          "Municipal\npost",
-         "Institutional rule:\nexternal competitive grants\nnot permitted",
+         "Institute of Policy Research\nInstitutional rule:\nexternal competitive grants\nnot permitted from this post",
          "POLICY-OUTPUT  ·  MLIT EBPM-CITED",
          LIGHT_BG, YU_INDIGO),
         ("YAMAGUCHI  ·  since Jan 2026",
          "# 1\n/ 13",
-         "Top-ranked applicant\nin Yamaguchi U. regional\nresearch program (4 selected)",
+         "Top-ranked applicant\nin Yamaguchi U. regional\nresearch program\n(4 selected, within months)",
          "JAPAN PATTERN HAS STARTED",
          YU_INDIGO, WHITE),
     ]
@@ -1244,17 +1259,17 @@ def slide_08():
              "KAKENHI KIBAN C  (FY2026 autumn)   →   KAKENHI KIBAN B  (during HIRAKU)",
              size=15, bold=True, color=YU_INDIGO)
 
-    add_notes(s, """[SLIDE 8 — FUNDING & LEADERSHIP — ~60s]
+    add_notes(s, """[SLIDE 8 — FUNDING — ~50s — TIME CHECK: 6:10]
 
-Funding — the honest picture in three phases.
+Funding — honest picture in three phases.
 
-China, 2018 to 2023. Across eight projects, approximately 100 million yen total. Five as Leading Researcher, in a highly competitive environment.
+China, 2018 to 2023. Eight projects, approximately 100 million yen total — five as Leading Researcher. Notable: Hangzhou Public Spaces as PI; NSSFC General Project as collaborator.
 
-Kumamoto, 2023 to 2025. Municipal post — institutional rule did not permit external grants such as Kakenhi. What I produced instead was the MLIT EBPM-cited policy work.
+Kumamoto, 2023 to 2025. Municipal post — institutional rule did not permit external Kakenhi from this position. Instead — the MLIT-cited policy work.
 
-Yamaguchi, since January 2026 — the first time I could apply in Japan. Within months, I was ranked number one out of thirteen applicants in the Yamaguchi regional research program. Four were selected.
+Yamaguchi, since January. First time eligible. Ranked number one of thirteen — within months. The Japan pattern has started.
 
-Forward path — Kakenhi Kiban C this autumn, building toward Kiban B during HIRAKU. The Japan pattern has started.
+Forward — Kakenhi Kiban C autumn, then Kiban B during HIRAKU.
 """)
 
 
@@ -1464,19 +1479,19 @@ def slide_09():
              "RISK MANAGED  ·  ANCHOR YAMAGUCHI FIRST · STEPWISE EXPANSION · ONLINE COLLAB FALLBACK · KUMAMOTO BASELINE AS REFERENCE",
              size=8.5, bold=True, color=ACCENT_DEEP)
 
-    add_notes(s, """[SLIDE 9 — RESEARCH PLAN (CORE) — ~70s]
+    add_notes(s, """[SLIDE 9 — PLAN (CORE) — ~70s — TIME CHECK: 7:20]
 
-This is the project I will run during HIRAKU-Global.
+This is the HIRAKU project.
 
-Left — three cities, three wind regimes within one region: Matsue lakeside, Yamaguchi basin, Ube coastal. The contrast is exactly what the science needs.
+Three cities — three wind regimes: Matsue lakeside, Yamaguchi basin, Ube coastal. The contrast is what the science needs.
 
-Middle — the method chain. Step 1 satellite screening — already running. Step 2 block CFD — methodology already established. Step 3 pedestrian WBGT — co-designed with Yamaguchi City's elderly-care offices.
+The method chain. Satellite screening already running. Block CFD methodology already established. Pedestrian WBGT co-designed with Yamaguchi's elderly-care offices.
 
-Right — the five-year plan. Year 1 diagnosis. Year 2 UCL stay with Dr. Huanfa Chen. Year 3 CFD plus Zhejiang visit. Year 4 pedestrian field plus international workshop at Yamaguchi. Year 5 synthesis and Kakenhi B.
+The five-year plan. Year 1 diagnosis. Year 2 UCL stay. Year 3 CFD plus Zhejiang visit. Year 4 pedestrian field plus international workshop. Year 5 synthesis and Kakenhi B.
 
-This plan does not start from zero. Pipeline running. Partners ready. First grant won.
+This does not start from zero. Pipeline running, partners ready, first grant won. Budget allocation below.
 
-I also manage risk — anchor Yamaguchi first, expand stepwise, use online collaboration when needed. Deliver, not over-promise.
+Risk managed — anchor Yamaguchi first, expand stepwise.
 """)
 
 
@@ -1602,15 +1617,15 @@ def slide_10():
                  gw - Inches(0.3), Inches(0.30),
                  b, size=9, color=BODY, italic=True)
 
-    add_notes(s, """[SLIDE 10 — ASPIRATIONS — ~60s]
+    add_notes(s, """[SLIDE 10 — ASPIRATIONS — ~55s — TIME CHECK: 8:15]
 
-What will I do during and after HIRAKU-Global?
+What I will do — during and after HIRAKU.
 
-Aligned with the 3I framework. Innovative — the cross-scale mechanism paper and a reusable diagnostic workflow. Influential — continued Q1 publications and the Kakenhi path. Impactful — deliverables to Yamaguchi, Ube, and Matsue.
+The matrix shows year-by-year deliverables aligned with the 3I framework — Innovative, Influential, Impactful — across five years. Each cell is one specific milestone.
 
-After tenure — and this is critical — I will be a long-term anchor at Yamaguchi University. The rings on the right show the path: from my lab, to the region, to Western Japan as an urban thermal hub, to an Asia platform, to a Local-to-Global model.
+After tenure — I will be a long-term anchor at Yamaguchi University. The rings show the path: lab, region, Western Japan as urban thermal hub, Asia platform, Local-to-Global model.
 
-I am not only a recipient. I will give back — an international workshop at Yamaguchi, a China–Japan academic bridge, teaching and mentoring graduate students, and active service to the department and the region.
+I am not only a recipient. I give back — international workshop, China-Japan bridge, graduate teaching, and active department service.
 """)
 
 
@@ -1716,7 +1731,7 @@ def slide_11():
     # Architectural corner marks
     corner_marks(s)
 
-    add_notes(s, """[SLIDE 11 — CLOSING — ~25s]
+    add_notes(s, """[SLIDE 11 — CLOSING — ~25s — TIME CHECK: 9:10  ·  FINISH: 9:35]
 
 To close.
 
