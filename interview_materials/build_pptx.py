@@ -10,6 +10,10 @@ from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.oxml.ns import qn
+import os
+from PIL import Image
+
+FIG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
 
 # ============== DESIGN SYSTEM ==============
 # Yamaguchi University inspired deep indigo + academic palette
@@ -1727,11 +1731,125 @@ Thank you very much. I look forward to your questions.
 
 
 # ============================================================
+# APPENDIX / BACKUP SLIDES (for 20-min Q&A — NOT part of 10-min talk)
+# ============================================================
+def appendix_chrome(slide, idx, total_app, title_text, subtitle):
+    """Chrome for backup slides — visually distinct (gold band marked APPENDIX)"""
+    add_rect(slide, 0, 0, SLIDE_W, SLIDE_H, fill=WHITE)
+    # Top band — gold to signal "backup, not main"
+    add_rect(slide, 0, 0, SLIDE_W, Inches(0.18), fill=ACCENT_DEEP)
+    add_rect(slide, 0, Inches(0.18), Inches(2.0), Emu(38100), fill=YU_INDIGO)
+    add_text(slide, Inches(0.45), Inches(0.02), Inches(8), Inches(0.16),
+             "APPENDIX  ·  BACKUP FOR Q&A  ·  NOT PART OF THE 10-MIN TALK",
+             size=8, bold=True, color=WHITE, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(slide, Inches(10.5), Inches(0.02), Inches(2.7), Inches(0.16),
+             f"BACKUP  A{idx}  /  A{total_app}",
+             size=8, bold=True, color=YU_INDIGO,
+             align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
+    add_text(slide, Inches(0.45), Inches(0.38), Inches(8), Inches(0.30),
+             "ORIGINAL APPLICATION FIGURE", size=10, bold=True,
+             color=ACCENT_DEEP)
+    add_text(slide, Inches(0.45), Inches(0.66), Inches(12.5), Inches(0.45),
+             title_text, size=22, bold=True, color=YU_INDIGO,
+             line_spacing=1.0)
+    add_text(slide, Inches(0.45), Inches(1.18), Inches(12.5), Inches(0.30),
+             subtitle, size=11, color=BODY, italic=True)
+    corner_marks(slide)
+
+
+def add_figure_fit(slide, img_path, x, y, max_w, max_h):
+    """Place image scaled to fit inside box, centered, with thin frame"""
+    with Image.open(img_path) as im:
+        iw, ih = im.size
+    ar = iw / ih
+    box_ar = max_w / max_h
+    if ar > box_ar:
+        w = max_w
+        h = int(max_w / ar)
+    else:
+        h = max_h
+        w = int(max_h * ar)
+    px = x + (max_w - w) // 2
+    py = y + (max_h - h) // 2
+    # Frame
+    add_rect(slide, px - Emu(9525), py - Emu(9525),
+             w + Emu(19050), h + Emu(19050),
+             fill=None, line=ARCH_LINE, line_w=Pt(0.75))
+    slide.shapes.add_picture(img_path, px, py, width=w, height=h)
+
+
+def appendix_slide(idx, total_app, fig_file, title, subtitle, qa_hint, notes):
+    s = prs.slides.add_slide(blank)
+    appendix_chrome(s, idx, total_app, title, subtitle)
+    # Figure area
+    fig_path = os.path.join(FIG_DIR, fig_file)
+    add_figure_fit(s, fig_path, Inches(0.6), Inches(1.65),
+                   Inches(9.4), Inches(5.2))
+    # Right rail — Q&A hint
+    rx = Inches(10.25)
+    add_rect(s, rx, Inches(1.65), Inches(2.65), Inches(5.2),
+             fill=LIGHT_BG)
+    add_rect(s, rx, Inches(1.65), Inches(2.65), Inches(0.45),
+             fill=YU_INDIGO)
+    add_text(s, rx + Inches(0.18), Inches(1.65), Inches(2.4), Inches(0.45),
+             "IF ASKED ABOUT…", size=10, bold=True, color=ACCENT,
+             anchor=MSO_ANCHOR.MIDDLE)
+    yy = Inches(2.30)
+    for line in qa_hint:
+        add_rect(s, rx + Inches(0.18), yy + Inches(0.04),
+                 Inches(0.08), Inches(0.08), fill=ACCENT)
+        add_text(s, rx + Inches(0.38), yy, Inches(2.15), Inches(0.7),
+                 line, size=10, color=DARK, line_spacing=1.25)
+        yy += Inches(0.75)
+    add_notes(s, notes)
+
+
+APP_FIGS = [
+    ("fig1_trajectory.png",
+     "Research Trajectory & Academic Framework",
+     "Figure 1 (application) — full Building → Person → City framework with key actions, methods, and significance.",
+     ["My three research\nstages in detail",
+      "Why each stage\nled to the next",
+      "Specific methods\nper stage",
+      "How Stage 3 leads\nto this project"],
+     "[BACKUP A1 — Research Trajectory] Use if a reviewer asks for the detailed evolution of my research, the specific methods at each stage, or how the three stages connect. This is the full framework from my application; Slide 4 is its simplified version."),
+    ("fig2_crossscale.png",
+     "Cross-Scale Scientific Framework",
+     "Figure 2 (application) — green-blue-wind mechanisms, three core scientific questions, technical pathway, and domain-specific knowledge model.",
+     ["The 3 core\nscientific questions",
+      "City / Block /\nHuman scale detail",
+      "How the scales\nare integrated",
+      "Expected academic\n& applied outcomes"],
+     "[BACKUP A2 — Cross-Scale Framework] Use if a reviewer wants the scientific depth behind Slide 5 — the Q0/Q1/Q2 questions, the three analytical scales, and how they integrate into one knowledge model."),
+    ("fig3_workflow.png",
+     "Diagnostic Workflow & 5-Year Plan",
+     "Figure 3 (application) — three-step sequential chain (screening → mechanism → validation) mapped onto the five-year HIRAKU timeline.",
+     ["Year-by-year\ndeliverables",
+      "The 3-step\nmethod chain",
+      "Where UCL &\nZhejiang fit in",
+      "Screening →\nvalidation logic"],
+     "[BACKUP A3 — Workflow & Plan] Use if a reviewer probes feasibility or the year-by-year schedule. Shows the full screening-explanation-validation chain behind Slide 9."),
+    ("fig4_collaboration.png",
+     "International Collaboration Framework",
+     "Figure 4 (application) — core project team at Yamaguchi with UCL and Zhejiang as primary nodes; US and Thailand as reserve expansion nodes.",
+     ["Roles of UCL &\nZhejiang partners",
+      "What each partner\ncontributes",
+      "Reserve nodes\n(US, Thailand)",
+      "How the network\ngrows cumulatively"],
+     "[BACKUP A4 — Collaboration] Use if a reviewer asks for detail on partner roles, complementarity, or how the network expands. Expands the hub-and-spoke diagram on Slide 7."),
+]
+
+
+# ============================================================
 # BUILD
 # ============================================================
 for fn in [slide_01, slide_02, slide_03, slide_04, slide_05, slide_06,
            slide_07, slide_08, slide_09, slide_10, slide_11]:
     fn()
+
+# Appendix slides
+for i, (fig, title, sub, hint, notes) in enumerate(APP_FIGS, 1):
+    appendix_slide(i, len(APP_FIGS), fig, title, sub, hint, notes)
 
 out = "/home/user/academic-research-skills/interview_materials/HIRAKU_Global_Interview_Liu.pptx"
 prs.save(out)
