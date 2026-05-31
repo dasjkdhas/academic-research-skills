@@ -1,0 +1,36 @@
+{
+  "source": "Open-Meteo Historical API (ERA5 + ERA5T)",
+  "url": "https://archive-api.open-meteo.com/v1/archive",
+  "coordinates": {
+    "latitude": 33.9522,
+    "longitude": 131.2614,
+    "site": "Yamaguchi U. Engineering Faculty, Tokiwa campus, Ube"
+  },
+  "reference_amedas_station": "宇部 (Ube), ~0.8 km",
+  "period_start": "2025-04-01",
+  "period_end": "2026-03-31",
+  "n_hours": 8760,
+  "n_missing": 0,
+  "timezone": "Asia/Tokyo (JST, UTC+9)",
+  "fiscal_year": "Japanese FY 2025 (April 1 2025 → March 31 2026)",
+  "files": {
+    "all_variables": "era5_yamaguchi_JFY2025.csv (+ .parquet)",
+    "core_AMeDASequiv": "era5_yamaguchi_JFY2025_CORE_AMeDASequiv.csv",
+    "extra_TrackA_only": "era5_yamaguchi_JFY2025_EXTRA_TrackA_only.csv"
+  },
+  "variables_CORE_for_TrackB_paper": [
+    "temperature_2m",
+    "precipitation",
+    "wind_speed_10m",
+    "wind_direction_10m"
+  ],
+  "variables_EXTRA_TrackA_only": [
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "apparent_temperature",
+    "surface_pressure",
+    "cloud_cover",
+    "shortwave_radiation"
+  ],
+  "usage_policy": "For the Energy-journal Track B paper (low-data framework), use ONLY the CORE variables (AMeDAS-equivalent). EXTRA variables are kept for Track A (advisory-system reference) and sensitivity/limitations only."
+}
