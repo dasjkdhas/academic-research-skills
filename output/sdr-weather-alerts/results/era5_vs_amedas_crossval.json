@@ -1,0 +1,28 @@
+{
+  "n_joined_hours": 8759,
+  "stats": {
+    "temperature_2m": {
+      "pearson_r": 0.9909018294837391,
+      "MAE": 0.8882144490169182,
+      "bias_era_minus_ame": -0.06363740283493367,
+      "n": 8748
+    },
+    "precipitation": {
+      "pearson_r": 0.4877081144943659,
+      "MAE": 0.17802285714285718,
+      "bias_era_minus_ame": 0.013634285714285715,
+      "n": 8750
+    },
+    "wind_speed_10m": {
+      "pearson_r": 0.6614521984397815,
+      "MAE": 1.360131413552737,
+      "bias_era_minus_ame": -0.41602216889498345,
+      "n": 8751
+    },
+    "wind_direction_10m": {
+      "mean_angular_diff_deg": 31.774882332682814,
+      "within_45deg_pct": 78.63620709447825,
+      "n": 8711
+    }
+  }
+}

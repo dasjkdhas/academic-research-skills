@@ -56,6 +56,7 @@ params = {
     "end_date":   END,
     "hourly": ",".join(ALL_VARS),
     "timezone": "Asia/Tokyo",
+    "wind_speed_unit": "ms",   # default is km/h — force m/s to match AMeDAS
 }
 url = "https://archive-api.open-meteo.com/v1/archive?" + urllib.parse.urlencode(params)
 print(f"GET {url[:140]}...")
