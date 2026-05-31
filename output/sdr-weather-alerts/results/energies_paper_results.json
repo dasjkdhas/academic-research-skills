@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "valid_hours": 7358,
+    "valid_days": 308,
+    "period": "2025-04-10 to 2026-03-31",
+    "contract_kW": 2000,
+    "site": "Yamaguchi University Tokiwa Campus, Ube, Japan"
+  },
+  "season_signature": {
+    "Heating (Dec–Mar)": {
+      "hourly": {
+        "slope": 4.82,
+        "r2": 0.01,
+        "n_hours": 1847
+      },
+      "daily": {
+        "slope": -9.83,
+        "r2": 0.046,
+        "n_days": 77
+      }
+    },
+    "Transition (Apr–May, Oct–Nov)": {
+      "hourly": {
+        "slope": 14.25,
+        "r2": 0.126,
+        "n_hours": 2660
+      },
+      "daily": {
+        "slope": 5.65,
+        "r2": 0.043,
+        "n_days": 111
+      }
+    },
+    "Cooling (Jun–Sep)": {
+      "hourly": {
+        "slope": 42.87,
+        "r2": 0.282,
+        "n_hours": 2851
+      },
+      "daily": {
+        "slope": 25.42,
+        "r2": 0.221,
+        "n_days": 120
+      }
+    }
+  },
+  "cooling_by_daytype": {
+    "Class day": {
+      "hourly": {
+        "slope": 58.36,
+        "r2": 0.48,
+        "n": 1104
+      },
+      "daily": {
+        "slope": 36.98,
+        "r2": 0.915,
+        "n": 46
+      }
+    },
+    "Weekend": {
+      "hourly": {
+        "slope": 25.49,
+        "r2": 0.758,
+        "n": 432
+      },
+      "daily": {
+        "slope": 23.26,
+        "r2": 0.904,
+        "n": 18
+      }
+    },
+    "Vacation": {
+      "hourly": {
+        "slope": 57.43,
+        "r2": 0.347,
+        "n": 1123
+      },
+      "daily": {
+        "slope": 39.95,
+        "r2": 0.246,
+        "n": 48
+      }
+    }
+  },
+  "cooling_by_index": {
+    "temp": {
+      "slope": 25.42,
+      "r2": 0.221,
+      "n": 120
+    },
+    "T_app": {
+      "slope": 16.41,
+      "r2": 0.182,
+      "n": 120
+    },
+    "WBGT": {
+      "slope": 19.96,
+      "r2": 0.155,
+      "n": 120
+    },
+    "HI": {
+      "slope": 14.2,
+      "r2": 0.19,
+      "n": 120
+    }
+  },
+  "balance_points": {
+    "Class day": {
+      "T_balance_C": 18.4,
+      "cooling_slope": 37.44,
+      "base_load_kWh_h": 683.0,
+      "n_days": 119
+    },
+    "Weekend": {
+      "T_balance_C": 19.3,
+      "cooling_slope": 23.81,
+      "base_load_kWh_h": 526.0,
+      "n_days": 47
+    },
+    "Vacation": {
+      "T_balance_C": 22.4,
+      "cooling_slope": 47.2,
+      "base_load_kWh_h": 560.0,
+      "n_days": 48
+    }
+  },
+  "risk": {
+    "max_rho": 0.897,
+    "P95_rho": 0.6555749999999998,
+    "critical_hours": 14,
+    "high_hours": 234,
+    "critical_by_daytype": {
+      "Class day": 14
+    },
+    "high_by_daytype": {
+      "Class day": 182,
+      "Vacation": 44,
+      "Special event": 8
+    }
+  }
+}
