@@ -1,0 +1,7 @@
+action_id,building,mean_delta_kW,total_delta_kW,n_hours
+A1_cooling_setpoint_up_2C,b01,-33.08,-1720.2,52
+A1_cooling_setpoint_up_2C,b07,-48.94,-2544.84,52
+A1_cooling_setpoint_up_2C,b13,-9.23,-479.86,52
+A3_lab_equipment_defer,b05,-14.58,-160.43,11
+A3_lab_equipment_defer,b07,-77.87,-856.62,11
+A4_elevator_reduce,b01,-8.27,-430.05,52

@@ -1,0 +1,4 @@
+arch,TP,FP,FN,TN,precision,recall,F1,peak_MAE_kW
+A_Obs,11,0,1,16,1.0,0.917,0.957,78.554
+B_Forecast,11,0,1,16,1.0,0.917,0.957,92.35
+C_Hybrid,11,0,1,16,1.0,0.917,0.957,84.954

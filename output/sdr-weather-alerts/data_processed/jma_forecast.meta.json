@@ -1,0 +1,17 @@
+{
+  "source": "Open-Meteo Historical Forecast API",
+  "url": "https://historical-forecast-api.open-meteo.com/v1/forecast",
+  "models": {
+    "jma_msm": "JMA Meso-Scale Model (5km, 39-hr horizon, 8x daily)",
+    "jma_gsm": "JMA Global Spectral Model (20km, 264-hr horizon)"
+  },
+  "coordinates": [
+    33.9522,
+    131.2614
+  ],
+  "period": [
+    "2025-07-06",
+    "2025-10-31"
+  ],
+  "interpretation": "These are the *operational forecast* data products that JMA actually published. Hourly MSM data approximates what was available as 'day-ahead forecast' for SDR planning."
+}

@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1040.341855pt" height="369.966562pt" viewBox="0 0 1040.341855 369.966562" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-05-31T12:08:43.467992</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 369.966562 
+L 1040.341855 369.966562 
+L 1040.341855 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 36.375 333.84625 
+L 437.882773 333.84625 
+L 437.882773 64.73625 
+L 36.375 64.73625 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="QuadMesh_1">
+    <path d="M 36.375 64.73625 
+L 103.292962 64.73625 
+L 103.292962 154.439583 
+L 36.375 154.439583 
+L 36.375 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: #bed8ec"/>
+    <path d="M 103.292962 64.73625 
+L 170.210924 64.73625 
+L 170.210924 154.439583 
+L 103.292962 154.439583 
+L 103.292962 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: #e7f0fa"/>
+    <path d="M 170.210924 64.73625 
+L 237.128886 64.73625 
+L 237.128886 154.439583 
+L 170.210924 154.439583 
+L 170.210924 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: #f2f7fd"/>
+    <path d="M 237.128886 64.73625 
+L 304.046848 64.73625 
+L 304.046848 154.439583 
+L 237.128886 154.439583 
+L 237.128886 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: #e7f0fa"/>
+    <path d="M 304.046848 64.73625 
+L 370.964811 64.73625 
+L 370.964811 154.439583 
+L 304.046848 154.439583 
+L 304.046848 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: #f7fbff"/>
+    <path d="M 370.964811 64.73625 
+L 437.882773 64.73625 
+L 437.882773 154.439583 
+L 370.964811 154.439583 
+L 370.964811 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: #4d99ca"/>
+    <path d="M 36.375 154.439583 
+L 103.292962 154.439583 
+L 103.292962 244.142917 
+L 36.375 244.142917 
+L 36.375 154.439583 
+" clip-path="url(#pfa0729589c)" style="fill: #08306b"/>
+    <path d="M 103.292962 154.439583 
+L 170.210924 154.439583 
+L 170.210924 244.142917 
+L 103.292962 244.142917 
+L 103.292962 154.439583 
+" clip-path="url(#pfa0729589c)" style="fill: #f7fbff"/>
+    <path d="M 170.210924 154.439583 
+L 237.128886 154.439583 
+L 237.128886 244.142917 
+L 170.210924 244.142917 
+L 170.210924 154.439583 
+" clip-path="url(#pfa0729589c)" style="fill: #f7fbff"/>
+    <path d="M 237.128886 154.439583 
+L 304.046848 154.439583 
+L 304.046848 244.142917 
+L 237.128886 244.142917 
+L 237.128886 154.439583 
+" clip-path="url(#pfa0729589c)" style="fill: #95c5df"/>
+    <path d="M 304.046848 154.439583 
+L 370.964811 154.439583 
+L 370.964811 244.142917 
+L 304.046848 244.142917 
+L 304.046848 154.439583 
+" clip-path="url(#pfa0729589c)" style="fill: #dfebf7"/>
+    <path d="M 370.964811 154.439583 
+L 437.882773 154.439583 
+L 437.882773 244.142917 
+L 370.964811 244.142917 
+L 370.964811 154.439583 
+" clip-path="url(#pfa0729589c)" style="fill: #f7fbff"/>
+    <path d="M 36.375 244.142917 
+L 103.292962 244.142917 
+L 103.292962 333.84625 
+L 36.375 333.84625 
+L 36.375 244.142917 
+" clip-path="url(#pfa0729589c)" style="fill: #4090c5"/>
+    <path d="M 103.292962 244.142917 
+L 170.210924 244.142917 
+L 170.210924 333.84625 
+L 103.292962 333.84625 
+L 103.292962 244.142917 
+" clip-path="url(#pfa0729589c)" style="fill: #f7fbff"/>
+    <path d="M 170.210924 244.142917 
+L 237.128886 244.142917 
+L 237.128886 333.84625 
+L 170.210924 333.84625 
+L 170.210924 244.142917 
+" clip-path="url(#pfa0729589c)" style="fill: #e4eff9"/>
+    <path d="M 237.128886 244.142917 
+L 304.046848 244.142917 
+L 304.046848 333.84625 
+L 237.128886 333.84625 
+L 237.128886 244.142917 
+" clip-path="url(#pfa0729589c)" style="fill: #c7dbef"/>
+    <path d="M 304.046848 244.142917 
+L 370.964811 244.142917 
+L 370.964811 333.84625 
+L 304.046848 333.84625 
+L 304.046848 244.142917 
+" clip-path="url(#pfa0729589c)" style="fill: #f5f9fe"/>
+    <path d="M 370.964811 244.142917 
+L 437.882773 244.142917 
+L 437.882773 333.84625 
+L 370.964811 333.84625 
+L 370.964811 244.142917 
+" clip-path="url(#pfa0729589c)" style="fill: #3d8dc4"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 69.833981 333.84625 
+L 69.833981 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m2eabae5837" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m2eabae5837" x="69.833981" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="69.833981" y="348.918125" transform="rotate(-0 69.833981 348.918125)">授業日</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 136.751943 333.84625 
+L 136.751943 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m2eabae5837" x="136.751943" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="136.751943" y="349.069687" transform="rotate(-0 136.751943 349.069687)">試験期間</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 203.669905 333.84625 
+L 203.669905 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m2eabae5837" x="203.669905" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="203.669905" y="348.918125" transform="rotate(-0 203.669905 348.918125)">行事日</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 270.587867 333.84625 
+L 270.587867 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m2eabae5837" x="270.587867" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="270.587867" y="348.9275" transform="rotate(-0 270.587867 348.9275)">週末</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 337.50583 333.84625 
+L 337.50583 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m2eabae5837" x="337.50583" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="337.50583" y="349.05875" transform="rotate(-0 337.50583 349.05875)">祝日</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 404.423792 333.84625 
+L 404.423792 64.73625 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m2eabae5837" x="404.423792" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="404.423792" y="349.069687" transform="rotate(-0 404.423792 349.069687)">休業期間</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="237.128886" y="361.838437" transform="rotate(-0 237.128886 361.838437)">日種別</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_13">
+      <path d="M 36.375 109.587917 
+L 437.882773 109.587917 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <defs>
+       <path id="m6b8f4eb8ce" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m6b8f4eb8ce" x="36.375" y="109.587917" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'" transform="translate(28.446875 147.087917) rotate(-90)">暖房期 (12–3月)</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_15">
+      <path d="M 36.375 199.29125 
+L 437.882773 199.29125 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m6b8f4eb8ce" x="36.375" y="199.29125" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'" transform="translate(28.446875 251.79125) rotate(-90)">中間期 (4–5・10–11月)</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_17">
+      <path d="M 36.375 288.994583 
+L 437.882773 288.994583 
+" clip-path="url(#pfa0729589c)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m6b8f4eb8ce" x="36.375" y="288.994583" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'" transform="translate(28.446875 323.994583) rotate(-90)">冷房期 (6–9月)</text>
+     </g>
+    </g>
+    <g id="text_11">
+     <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="15.295313" y="199.29125" transform="rotate(-90 15.295313 199.29125)">季節区分</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="69.833981" y="112.878542" transform="rotate(-0 69.833981 112.878542)">479</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="136.751943" y="112.878542" transform="rotate(-0 136.751943 112.878542)">144</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="203.669905" y="112.878542" transform="rotate(-0 203.669905 112.878542)">48</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="270.587867" y="112.878542" transform="rotate(-0 270.587867 112.878542)">144</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="337.50583" y="112.878542" transform="rotate(-0 337.50583 112.878542)">0</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="404.423792" y="112.878542" transform="rotate(-0 404.423792 112.878542)">1032</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="69.833981" y="202.581875" transform="rotate(-0 69.833981 202.581875)">1748</text>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="136.751943" y="202.581875" transform="rotate(-0 136.751943 202.581875)">0</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="203.669905" y="202.581875" transform="rotate(-0 203.669905 202.581875)">0</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="270.587867" y="202.581875" transform="rotate(-0 270.587867 202.581875)">696</text>
+   </g>
+   <g id="text_22">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="337.50583" y="202.581875" transform="rotate(-0 337.50583 202.581875)">216</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="404.423792" y="202.581875" transform="rotate(-0 404.423792 202.581875)">0</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="69.833981" y="292.285208" transform="rotate(-0 69.833981 292.285208)">1104</text>
+   </g>
+   <g id="text_25">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="136.751943" y="292.285208" transform="rotate(-0 136.751943 292.285208)">0</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="203.669905" y="292.285208" transform="rotate(-0 203.669905 292.285208)">168</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="270.587867" y="292.285208" transform="rotate(-0 270.587867 292.285208)">432</text>
+   </g>
+   <g id="text_28">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="337.50583" y="292.285208" transform="rotate(-0 337.50583 292.285208)">24</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="404.423792" y="292.285208" transform="rotate(-0 404.423792 292.285208)">1123</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #003b71" x="237.128886" y="58.73625" transform="rotate(-0 237.128886 58.73625)">(a) 季節×日種別 有効時間数 [時間]</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_3">
+    <path d="M 563.001534 333.84625 
+L 964.509307 333.84625 
+L 964.509307 64.73625 
+L 563.001534 64.73625 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="QuadMesh_2">
+    <path d="M 563.001534 64.73625 
+L 629.919496 64.73625 
+L 629.919496 154.439583 
+L 563.001534 154.439583 
+L 563.001534 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: #c0e6b9"/>
+    <path d="M 629.919496 64.73625 
+L 696.837458 64.73625 
+L 696.837458 154.439583 
+L 629.919496 154.439583 
+L 629.919496 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: #ebf7e7"/>
+    <path d="M 696.837458 64.73625 
+L 763.75542 64.73625 
+L 763.75542 154.439583 
+L 696.837458 154.439583 
+L 696.837458 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: #f3faf0"/>
+    <path d="M 763.75542 64.73625 
+L 830.673383 64.73625 
+L 830.673383 154.439583 
+L 763.75542 154.439583 
+L 763.75542 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: #ebf7e7"/>
+    <path d="M 830.673383 64.73625 
+L 897.591345 64.73625 
+L 897.591345 154.439583 
+L 830.673383 154.439583 
+L 830.673383 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: #f7fcf5"/>
+    <path d="M 897.591345 64.73625 
+L 964.509307 64.73625 
+L 964.509307 154.439583 
+L 897.591345 154.439583 
+L 897.591345 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: #50b264"/>
+    <path d="M 563.001534 154.439583 
+L 629.919496 154.439583 
+L 629.919496 244.142917 
+L 563.001534 244.142917 
+L 563.001534 154.439583 
+" clip-path="url(#p8ec8714de9)" style="fill: #00441b"/>
+    <path d="M 629.919496 154.439583 
+L 696.837458 154.439583 
+L 696.837458 244.142917 
+L 629.919496 244.142917 
+L 629.919496 154.439583 
+" clip-path="url(#p8ec8714de9)" style="fill: #f7fcf5"/>
+    <path d="M 696.837458 154.439583 
+L 763.75542 154.439583 
+L 763.75542 244.142917 
+L 696.837458 244.142917 
+L 696.837458 154.439583 
+" clip-path="url(#p8ec8714de9)" style="fill: #f7fcf5"/>
+    <path d="M 763.75542 154.439583 
+L 830.673383 154.439583 
+L 830.673383 244.142917 
+L 763.75542 244.142917 
+L 763.75542 154.439583 
+" clip-path="url(#p8ec8714de9)" style="fill: #99d595"/>
+    <path d="M 830.673383 154.439583 
+L 897.591345 154.439583 
+L 897.591345 244.142917 
+L 830.673383 244.142917 
+L 830.673383 154.439583 
+" clip-path="url(#p8ec8714de9)" style="fill: #e5f5e1"/>
+    <path d="M 897.591345 154.439583 
+L 964.509307 154.439583 
+L 964.509307 244.142917 
+L 897.591345 244.142917 
+L 897.591345 154.439583 
+" clip-path="url(#p8ec8714de9)" style="fill: #f7fcf5"/>
+    <path d="M 563.001534 244.142917 
+L 629.919496 244.142917 
+L 629.919496 333.84625 
+L 563.001534 333.84625 
+L 563.001534 244.142917 
+" clip-path="url(#p8ec8714de9)" style="fill: #3fa95c"/>
+    <path d="M 629.919496 244.142917 
+L 696.837458 244.142917 
+L 696.837458 333.84625 
+L 629.919496 333.84625 
+L 629.919496 244.142917 
+" clip-path="url(#p8ec8714de9)" style="fill: #f7fcf5"/>
+    <path d="M 696.837458 244.142917 
+L 763.75542 244.142917 
+L 763.75542 333.84625 
+L 696.837458 333.84625 
+L 696.837458 244.142917 
+" clip-path="url(#p8ec8714de9)" style="fill: #e9f7e5"/>
+    <path d="M 763.75542 244.142917 
+L 830.673383 244.142917 
+L 830.673383 333.84625 
+L 763.75542 333.84625 
+L 763.75542 244.142917 
+" clip-path="url(#p8ec8714de9)" style="fill: #c8e9c1"/>
+    <path d="M 830.673383 244.142917 
+L 897.591345 244.142917 
+L 897.591345 333.84625 
+L 830.673383 333.84625 
+L 830.673383 244.142917 
+" clip-path="url(#p8ec8714de9)" style="fill: #f5fbf3"/>
+    <path d="M 897.591345 244.142917 
+L 964.509307 244.142917 
+L 964.509307 333.84625 
+L 897.591345 333.84625 
+L 897.591345 244.142917 
+" clip-path="url(#p8ec8714de9)" style="fill: #39a257"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_7">
+     <g id="line2d_19">
+      <path d="M 596.460515 333.84625 
+L 596.460515 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m2eabae5837" x="596.460515" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="596.460515" y="348.918125" transform="rotate(-0 596.460515 348.918125)">授業日</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_21">
+      <path d="M 663.378477 333.84625 
+L 663.378477 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m2eabae5837" x="663.378477" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="663.378477" y="349.069687" transform="rotate(-0 663.378477 349.069687)">試験期間</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_23">
+      <path d="M 730.296439 333.84625 
+L 730.296439 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m2eabae5837" x="730.296439" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="730.296439" y="348.918125" transform="rotate(-0 730.296439 348.918125)">行事日</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_25">
+      <path d="M 797.214402 333.84625 
+L 797.214402 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m2eabae5837" x="797.214402" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_34">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="797.214402" y="348.9275" transform="rotate(-0 797.214402 348.9275)">週末</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_27">
+      <path d="M 864.132364 333.84625 
+L 864.132364 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#m2eabae5837" x="864.132364" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_35">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="864.132364" y="349.05875" transform="rotate(-0 864.132364 349.05875)">祝日</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_29">
+      <path d="M 931.050326 333.84625 
+L 931.050326 64.73625 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m2eabae5837" x="931.050326" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_36">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="931.050326" y="349.069687" transform="rotate(-0 931.050326 349.069687)">休業期間</text>
+     </g>
+    </g>
+    <g id="text_37">
+     <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="763.75542" y="361.838437" transform="rotate(-0 763.75542 361.838437)">日種別</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_4">
+     <g id="line2d_31">
+      <path d="M 563.001534 109.587917 
+L 964.509307 109.587917 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m6b8f4eb8ce" x="563.001534" y="109.587917" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_38">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'" transform="translate(555.073409 147.087917) rotate(-90)">暖房期 (12–3月)</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_33">
+      <path d="M 563.001534 199.29125 
+L 964.509307 199.29125 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m6b8f4eb8ce" x="563.001534" y="199.29125" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_39">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'" transform="translate(555.073409 251.79125) rotate(-90)">中間期 (4–5・10–11月)</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_35">
+      <path d="M 563.001534 288.994583 
+L 964.509307 288.994583 
+" clip-path="url(#p8ec8714de9)" style="fill: none; stroke: #b0b0b0; stroke-opacity: 0.3; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#m6b8f4eb8ce" x="563.001534" y="288.994583" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_40">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'" transform="translate(555.073409 323.994583) rotate(-90)">冷房期 (6–9月)</text>
+     </g>
+    </g>
+   </g>
+   <g id="text_41">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="596.460515" y="112.878542" transform="rotate(-0 596.460515 112.878542)">20</text>
+   </g>
+   <g id="text_42">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="663.378477" y="112.878542" transform="rotate(-0 663.378477 112.878542)">6</text>
+   </g>
+   <g id="text_43">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="730.296439" y="112.878542" transform="rotate(-0 730.296439 112.878542)">2</text>
+   </g>
+   <g id="text_44">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="797.214402" y="112.878542" transform="rotate(-0 797.214402 112.878542)">6</text>
+   </g>
+   <g id="text_45">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="864.132364" y="112.878542" transform="rotate(-0 864.132364 112.878542)">0</text>
+   </g>
+   <g id="text_46">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="931.050326" y="112.878542" transform="rotate(-0 931.050326 112.878542)">43</text>
+   </g>
+   <g id="text_47">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="596.460515" y="202.581875" transform="rotate(-0 596.460515 202.581875)">73</text>
+   </g>
+   <g id="text_48">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="663.378477" y="202.581875" transform="rotate(-0 663.378477 202.581875)">0</text>
+   </g>
+   <g id="text_49">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="730.296439" y="202.581875" transform="rotate(-0 730.296439 202.581875)">0</text>
+   </g>
+   <g id="text_50">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="797.214402" y="202.581875" transform="rotate(-0 797.214402 202.581875)">29</text>
+   </g>
+   <g id="text_51">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="864.132364" y="202.581875" transform="rotate(-0 864.132364 202.581875)">9</text>
+   </g>
+   <g id="text_52">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="931.050326" y="202.581875" transform="rotate(-0 931.050326 202.581875)">0</text>
+   </g>
+   <g id="text_53">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="596.460515" y="292.285208" transform="rotate(-0 596.460515 292.285208)">46</text>
+   </g>
+   <g id="text_54">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="663.378477" y="292.285208" transform="rotate(-0 663.378477 292.285208)">0</text>
+   </g>
+   <g id="text_55">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="730.296439" y="292.285208" transform="rotate(-0 730.296439 292.285208)">7</text>
+   </g>
+   <g id="text_56">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="797.214402" y="292.285208" transform="rotate(-0 797.214402 292.285208)">18</text>
+   </g>
+   <g id="text_57">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #262626" x="864.132364" y="292.285208" transform="rotate(-0 864.132364 292.285208)">1</text>
+   </g>
+   <g id="text_58">
+    <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #ffffff" x="931.050326" y="292.285208" transform="rotate(-0 931.050326 292.285208)">48</text>
+   </g>
+   <g id="text_59">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #003b71" x="763.75542" y="58.73625" transform="rotate(-0 763.75542 58.73625)">(b) 季節×日種別 有効日数 [日]</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_4">
+    <path d="M 462.977009 333.84625 
+L 476.432509 333.84625 
+L 476.432509 64.73625 
+L 462.977009 64.73625 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABMAAAF2CAYAAACMHqORAAABvElEQVR4nO2b0a3DMAwD9Yrsv+77KJB0BhoH5ACRAxA50bbktPn7/z7PQPpQRjMzF/dcM9cznBuLCT7YXKAXGwC8NMCioQHQmKSZGBNMU4vpPRybZi52b8I9wNrq4I7OSd3Rm2YoMeY0zVRqzI6hsZkYs2nGZmLMphmbWQ9H9XzGaUmra5q5muaBWdPMzdrqYnVwydU0D8yWpHmDcYoxtT2Ardm9A7Np5mZeTDZN7bF9b/mtToqJBmDeAZwXjgkujRuzUmM2zVhizCUbnbxUiDHX7ADQTHzf3IHJXiq0Y6h22kYDMB/bYkzQjOwBYkzvokXvm2LMdqfYbEnN4JcknNqdcrU7vWzWK2Iu8UuSJce2d6NvSRM102Iu6U7avbml1Xlf+i4ZQ7UdvWnmWnMEaV/6eltdO3puJh5Dm+aBWTFDibvTmpqhZsUMVcxcxTwyK+abZktqJsa8wSuKGHNJmsV818z8CbkWc0maKKb4A9qmGZs1zXfNxDXr0oglxmyasYqZyzs5imu2BFO7NMRpjhZzHu5/q8XMpcZszXKzYoYqZq5inpiBv1SgT2au2ZKlUcxUxcxVzCOzDcf2D9niG6jSekH3AAAAAElFTkSuQmCC" id="image426bcd6359" transform="scale(1 -1) translate(0 -269.28)" x="462.96" y="-64.08" width="13.68" height="269.28"/>
+   <g id="matplotlib.axis_5"/>
+   <g id="matplotlib.axis_6">
+    <g id="ytick_7">
+     <g id="line2d_37">
+      <defs>
+       <path id="mcd93163f1b" d="M 0 0 
+L 3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_60">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="337.600937" transform="rotate(-0 483.432509 337.600937)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="303.055632" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_61">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="306.81032" transform="rotate(-0 483.432509 306.81032)">200</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="272.265014" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_62">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="276.019702" transform="rotate(-0 483.432509 276.019702)">400</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_40">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="241.474396" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_63">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="245.229084" transform="rotate(-0 483.432509 245.229084)">600</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_41">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="210.683779" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_64">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="214.438466" transform="rotate(-0 483.432509 214.438466)">800</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_42">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="179.893161" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_65">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="183.647848" transform="rotate(-0 483.432509 183.647848)">1000</text>
+     </g>
+    </g>
+    <g id="ytick_13">
+     <g id="line2d_43">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="149.102543" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_66">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="152.85723" transform="rotate(-0 483.432509 152.85723)">1200</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_44">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="118.311925" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_67">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="122.066613" transform="rotate(-0 483.432509 122.066613)">1400</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_45">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="476.432509" y="87.521307" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_68">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="483.432509" y="91.275995" transform="rotate(-0 483.432509 91.275995)">1600</text>
+     </g>
+    </g>
+    <g id="text_69">
+     <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="515.587196" y="199.29125" transform="rotate(-90 515.587196 199.29125)">有効時間数</text>
+    </g>
+   </g>
+   <g id="LineCollection_1"/>
+   <g id="patch_5">
+    <path d="M 462.977009 333.84625 
+L 469.704759 333.84625 
+L 476.432509 333.84625 
+L 476.432509 64.73625 
+L 469.704759 64.73625 
+L 462.977009 64.73625 
+L 462.977009 333.84625 
+z
+" style="fill: none"/>
+   </g>
+  </g>
+  <g id="axes_4">
+   <g id="patch_6">
+    <path d="M 989.603543 333.84625 
+L 1003.059043 333.84625 
+L 1003.059043 64.73625 
+L 989.603543 64.73625 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <image xlink:href="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAABMAAAF2CAYAAACMHqORAAAB0ElEQVR4nO2b62nEQBgDN8H9dxvyJ9ipQWbgBiQVIHa+59rn+/r9+3kOpG/K6JxzrudgB2NPBmM+HOZ1wJhdnBUdMxYTTADdAaAZGbM1ei5vo69oc7HZbImZ9WTe0jBjsneNjphZS2M3xxdm2h1gjpm10elsDjOUeTtpx7Z2CYtjpt0BJaWxeZarpTeH+WmzxSzV5lmu63RgrjdfmGkx73NzZiWNXoJ5s5hcnS2buVjMuwNzRZubkVNjGz0XWrRiTHIEiTFrihbFBDugZtVVYJqzubGdmokxW3qTnLQdMSvBZMc2WGfii4v42allCXdsJ+sjorkDdnGJzbzvz1hMbTa3nXKzku2EdkBNaXAyY2qzCW8nTmbMjmyuNHKzlUYs8T9LxZgd2SSvBy29udLIzVYasWhM0MyLyX7QrMUED+bGlGYTTUBJzIaZa43+YbNlM5d3CW9s51JjYl5uzGUzlBpTarZVl2sfNL8yw7z2LuiFWrKpnbQrjVxqTGs24XmGeamz2bKEvZioWUnMKn6S1JaGOJvgODO/JjzgD5w0JmqmxQS/F4BLo6UDMC81pjeb4AgyYy6budlilpt5MZfN3MyLuSX8wgzzUmNa77RozP4BQz9SXMzc8SwAAAAASUVORK5CYII=" id="image0d60e862da" transform="scale(1 -1) translate(0 -269.28)" x="989.28" y="-64.08" width="13.68" height="269.28"/>
+   <g id="matplotlib.axis_7"/>
+   <g id="matplotlib.axis_8">
+    <g id="ytick_16">
+     <g id="line2d_46">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="333.84625" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_70">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="337.600937" transform="rotate(-0 1010.059043 337.600937)">0</text>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_47">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="296.981866" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_71">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="300.736554" transform="rotate(-0 1010.059043 300.736554)">10</text>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_48">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="260.117483" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_72">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="263.87217" transform="rotate(-0 1010.059043 263.87217)">20</text>
+     </g>
+    </g>
+    <g id="ytick_19">
+     <g id="line2d_49">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="223.253099" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_73">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="227.007787" transform="rotate(-0 1010.059043 227.007787)">30</text>
+     </g>
+    </g>
+    <g id="ytick_20">
+     <g id="line2d_50">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="186.388716" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_74">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="190.143403" transform="rotate(-0 1010.059043 190.143403)">40</text>
+     </g>
+    </g>
+    <g id="ytick_21">
+     <g id="line2d_51">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="149.524332" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_75">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="153.27902" transform="rotate(-0 1010.059043 153.27902)">50</text>
+     </g>
+    </g>
+    <g id="ytick_22">
+     <g id="line2d_52">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="112.659949" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_76">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="116.414636" transform="rotate(-0 1010.059043 116.414636)">60</text>
+     </g>
+    </g>
+    <g id="ytick_23">
+     <g id="line2d_53">
+      <g>
+       <use xlink:href="#mcd93163f1b" x="1003.059043" y="75.795565" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_77">
+      <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: start" x="1010.059043" y="79.550253" transform="rotate(-0 1010.059043 79.550253)">70</text>
+     </g>
+    </g>
+    <g id="text_78">
+     <text style="font-size: 10px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle" x="1032.21373" y="199.29125" transform="rotate(-90 1032.21373 199.29125)">有効日数</text>
+    </g>
+   </g>
+   <g id="LineCollection_2"/>
+   <g id="patch_7">
+    <path d="M 989.603543 333.84625 
+L 996.331293 333.84625 
+L 1003.059043 333.84625 
+L 1003.059043 64.73625 
+L 996.331293 64.73625 
+L 989.603543 64.73625 
+L 989.603543 333.84625 
+z
+" style="fill: none"/>
+   </g>
+  </g>
+  <g id="text_79">
+   <text style="font-weight: 700; font-size: 13px; font-family: 'IPAGothic', 'DejaVu Sans'; text-anchor: middle; fill: #003b71" x="535.68625" y="18.156562" transform="rotate(-0 535.68625 18.156562)">データ可用性マトリクス — 総 7,358 時間 / 308 日 (年間 8,760 時間中)</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pfa0729589c">
+   <rect x="36.375" y="64.73625" width="401.507773" height="269.11"/>
+  </clipPath>
+  <clipPath id="p8ec8714de9">
+   <rect x="563.001534" y="64.73625" width="401.507773" height="269.11"/>
+  </clipPath>
+ </defs>
+</svg>

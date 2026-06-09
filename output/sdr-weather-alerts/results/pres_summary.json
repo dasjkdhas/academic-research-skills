@@ -1,0 +1,86 @@
+{
+  "data_range": "2025-07-20 → 2025-10-26",
+  "n_hours_valid": 2145,
+  "n_hours_invalid_dropped": 0,
+  "train_range": "2025-07-20 → 2025-09-20",
+  "test_range": "2025-09-20 → 2025-10-26",
+  "n_train": 1501,
+  "n_test": 644,
+  "thresholds_kW": {
+    "P50": 754.5,
+    "P80": 1090.4,
+    "P95": 1446.6
+  },
+  "results": {
+    "A_Obs": {
+      "MAE": 50.7,
+      "RMSE": 66.3,
+      "R2": 0.915,
+      "MAPE": 6.96
+    },
+    "B_Forecast": {
+      "MAE": 59.7,
+      "RMSE": 78.0,
+      "R2": 0.883,
+      "MAPE": 7.93
+    },
+    "C_Hybrid": {
+      "MAE": 54.0,
+      "RMSE": 70.2,
+      "R2": 0.905,
+      "MAPE": 7.28
+    }
+  },
+  "top_features": [
+    {
+      "feature": "b00_lag168",
+      "label_jp": "前週同時刻負荷 (lag168h)",
+      "mean_abs_shap": 72.05199686223335
+    },
+    {
+      "feature": "day_type_id_B",
+      "label_jp": "営業日フラグ",
+      "mean_abs_shap": 70.12498899925527
+    },
+    {
+      "feature": "temp_lag24",
+      "label_jp": "前日同時刻気温",
+      "mean_abs_shap": 45.46878864175636
+    },
+    {
+      "feature": "b00_lag24",
+      "label_jp": "前日同時刻負荷 (lag24h)",
+      "mean_abs_shap": 44.058984882813824
+    },
+    {
+      "feature": "day_of_year",
+      "label_jp": "年内日付",
+      "mean_abs_shap": 28.997877411426224
+    },
+    {
+      "feature": "shortwave_radiation",
+      "label_jp": "日射量 (予報)",
+      "mean_abs_shap": 26.366333349061215
+    },
+    {
+      "feature": "hour",
+      "label_jp": "時刻",
+      "mean_abs_shap": 11.342284850508722
+    },
+    {
+      "feature": "wbgt_lag1",
+      "label_jp": "前時刻WBGT",
+      "mean_abs_shap": 10.790790552262022
+    },
+    {
+      "feature": "dow_hour",
+      "label_jp": "曜日×時刻",
+      "mean_abs_shap": 8.494300424735886
+    },
+    {
+      "feature": "b00_lag48",
+      "label_jp": "2日前同時刻負荷",
+      "mean_abs_shap": 8.034637429835497
+    }
+  ]
+}

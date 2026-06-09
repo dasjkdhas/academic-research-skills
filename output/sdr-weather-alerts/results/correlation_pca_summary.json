@@ -1,0 +1,128 @@
+{
+  "n_hours_analyzed": 2635,
+  "data_range": "2025-07-06 → 2025-10-26",
+  "hourly_correlation": {
+    "気温 (°C)": {
+      "pearson": 0.5669,
+      "spearman": 0.6518
+    },
+    "湿度 (%)": {
+      "pearson": -0.5157,
+      "spearman": -0.507
+    },
+    "露点温度 (°C)": {
+      "pearson": 0.1231,
+      "spearman": 0.114
+    },
+    "体感気温 (°C)": {
+      "pearson": 0.4409,
+      "spearman": 0.5361
+    },
+    "日射量 (W/m²)": {
+      "pearson": 0.672,
+      "spearman": 0.6417
+    },
+    "雲量 (%)": {
+      "pearson": -0.08,
+      "spearman": -0.0859
+    },
+    "気圧 (hPa)": {
+      "pearson": -0.2657,
+      "spearman": -0.3072
+    },
+    "風速 (m/s)": {
+      "pearson": 0.2192,
+      "spearman": 0.2109
+    },
+    "降水量 (mm)": {
+      "pearson": -0.015,
+      "spearman": 0.0052
+    },
+    "WBGT (°C)": {
+      "pearson": 0.3705,
+      "spearman": 0.4903
+    }
+  },
+  "daily_correlation": {
+    "気温 (°C)": {
+      "mean_load": 0.4746,
+      "peak_load": 0.3541
+    },
+    "湿度 (%)": {
+      "mean_load": -0.1586,
+      "peak_load": -0.2112
+    },
+    "露点温度 (°C)": {
+      "mean_load": 0.3063,
+      "peak_load": 0.1845
+    },
+    "体感気温 (°C)": {
+      "mean_load": 0.4101,
+      "peak_load": 0.2917
+    },
+    "日射量 (W/m²)": {
+      "mean_load": 0.4782,
+      "peak_load": 0.3885
+    },
+    "雲量 (%)": {
+      "mean_load": -0.2391,
+      "peak_load": -0.2511
+    },
+    "気圧 (hPa)": {
+      "mean_load": -0.4145,
+      "peak_load": -0.3319
+    },
+    "風速 (m/s)": {
+      "mean_load": 0.1404,
+      "peak_load": 0.0722
+    },
+    "降水量 (mm)": {
+      "mean_load": -0.146,
+      "peak_load": -0.169
+    },
+    "WBGT (°C)": {
+      "mean_load": 0.3964,
+      "peak_load": 0.2678
+    }
+  },
+  "pca": {
+    "explained_variance_ratio_pct": [
+      41.72,
+      21.09,
+      13.12,
+      9.24,
+      7.44,
+      5.12
+    ],
+    "cumulative_pct": [
+      41.72,
+      62.82,
+      75.94,
+      85.18,
+      92.62,
+      97.74
+    ],
+    "PC1_top3_loadings": {
+      "WBGT (°C)": 0.479,
+      "体感気温 (°C)": 0.478,
+      "気温 (°C)": 0.469
+    },
+    "PC2_top3_loadings": {
+      "湿度 (%)": 0.648,
+      "日射量 (W/m²)": 0.503,
+      "露点温度 (°C)": 0.343
+    },
+    "PC_b00_correlation": {
+      "PC1": 0.4706,
+      "PC2": -0.5039,
+      "PC3": 0.1624
+    }
+  },
+  "standardized_beta_top3": {
+    "日射量 (W/m²)": 0.4065,
+    "気温 (°C)": 0.2198,
+    "湿度 (%)": -0.1851
+  },
+  "multivariate_R2": 0.5267,
+  "gas_data_status": "not_yet_available — placeholder framework figure generated"
+}

@@ -1,0 +1,17 @@
+{
+  "source": "JMA 過去の気象データ (hourly_a1.php)",
+  "station": "宇部 (Ube) AMeDAS",
+  "prec_no": 81,
+  "block_no": "0778",
+  "station_type": "AMeDAS 4-element (precip, temp, wind speed, wind dir)",
+  "period": "2025-04-01 → 2026-03-31",
+  "n_hours": 8760,
+  "timezone": "Asia/Tokyo (JST)",
+  "columns": [
+    "precipitation (mm)",
+    "temperature_2m (degC)",
+    "wind_speed_10m (m/s)",
+    "wind_direction_10m (deg, 16-pt)"
+  ],
+  "note": "Humidity / sunshine / pressure NOT measured at Ube (confirmed '///')."
+}

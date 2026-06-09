@@ -1,0 +1,36 @@
+{
+  "source": "Yamaguchi University Engineering Faculty - Central Electric Room",
+  "site_location": "Tokiwa campus, Ube city, Yamaguchi prefecture, Japan",
+  "files_used": [
+    "ba9615e5-_________202507060804.xlsm",
+    "9285aea1-_________202508030901.xlsm",
+    "e852e4f8-_________202508310921am8.xlsm",
+    "115b3552-_________202509241026.xlsm"
+  ],
+  "period_start": "2025-07-06 00:00:00",
+  "period_end": "2025-10-31 23:00:00",
+  "total_hours": 2771,
+  "missing_hours": 61,
+  "columns": {
+    "b00": "HV_main_total",
+    "b01": "engineering_main",
+    "b02": "research_2",
+    "b04": "env_coexist_dept",
+    "b05": "civil_practice",
+    "b06": "lecture_hall_D",
+    "b07": "elec_electronics",
+    "b08": "substation_internal",
+    "b09": "library",
+    "b10": "info_sci",
+    "b11": "advanced_research",
+    "b12": "media_center",
+    "b13": "welfare",
+    "b14": "civil_practice_T148_1",
+    "b15": "civil_practice_T148_2"
+  },
+  "target_column": "b00",
+  "target_name": "HV_main_total_kW",
+  "contract_capacity_kW": 2000,
+  "submetered_fraction": 0.9398340008896598,
+  "residual_unsubmetered_fraction": 0.05948717354090011
+}

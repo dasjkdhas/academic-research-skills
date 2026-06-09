@@ -1,0 +1,89 @@
+{
+  "thermal_comfort_indices": {
+    "T_apparent": "Steadman 1984: T + 0.33*e - 0.70*v - 4.0",
+    "WBGT": "Stull/Bernard: 0.567*T + 0.393*e + 3.94 (JMA heatstroke proxy)",
+    "HI": "Rothfusz 1990 (NOAA, valid T>=27 degC, RH>=40%)"
+  },
+  "cooling_season_signature_by_index": {
+    "T": {
+      "slope": 25.42,
+      "r2": 0.221,
+      "n": 120
+    },
+    "T_app": {
+      "slope": 16.41,
+      "r2": 0.182,
+      "n": 120
+    },
+    "WBGT": {
+      "slope": 19.96,
+      "r2": 0.155,
+      "n": 120
+    },
+    "HI": {
+      "slope": 14.2,
+      "r2": 0.19,
+      "n": 120
+    }
+  },
+  "cooling_season_wbgt_by_daytype": {
+    "授業日": {
+      "slope": 36.65,
+      "r2": 0.909,
+      "n_days": 46
+    },
+    "週末": {
+      "slope": 24.1,
+      "r2": 0.808,
+      "n_days": 18
+    },
+    "休業期間": {
+      "slope": 25.99,
+      "r2": 0.143,
+      "n_days": 48
+    }
+  },
+  "balance_point_per_daytype": {
+    "授業日": {
+      "T_balance": 18.4,
+      "cooling_slope": null,
+      "base_load": 683,
+      "n": 119
+    },
+    "週末": {
+      "T_balance": 19.3,
+      "cooling_slope": null,
+      "base_load": 526,
+      "n": 47
+    },
+    "休業期間": {
+      "T_balance": 22.4,
+      "cooling_slope": null,
+      "base_load": 560,
+      "n": 48
+    }
+  },
+  "internal_heat_gain_at_same_wbgt": {
+    "23.5C": {
+      "授業日": 761,
+      "週末": 580,
+      "差": 181
+    },
+    "28.5C": {
+      "授業日": 931,
+      "週末": 624,
+      "差": 307
+    },
+    "29.5C": {
+      "授業日": 967,
+      "週末": 696,
+      "差": 271
+    }
+  },
+  "key_findings": [
+    "Dry-bulb T fits cooling-season campus load BETTER than WBGT/HI/T_app (R²: T=0.22 > HI=0.19 > T_app=0.18 > WBGT=0.16). Interpretation: in low-humidity-variation summer with metered total load, dry-bulb T already captures most signal.",
+    "Calendar modulation PERSISTS under WBGT: class-day cooling slope 36.7, weekend 24.1 (×1.52), R² 0.91 vs 0.81. Confirms the calendar effect is occupant-driven, not a humidity confound.",
+    "Balance-point temperature gap of 4.0°C across day_types (授業日 18.4 / 週末 19.3 / 休業 22.4). Building-physics interpretation: ΔT_balance = ΔQ_internal/UA. The 4°C gap quantifies occupant internal heat gain difference.",
+    "Same-WBGT load excess on class days: at WBGT 28-29°C, class days draw 307 kWh/h more than weekends. This is direct evidence of occupant + equipment + lighting internal gains, independent of weather."
+  ]
+}
